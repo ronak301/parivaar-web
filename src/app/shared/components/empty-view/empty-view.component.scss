@@ -1,0 +1,12 @@
+.empty-view-container {
+    position: absolute;
+    left: 52%;
+    top: 50%;
+    transform: translate(-52%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100%;
+    width: 100%;
+}
