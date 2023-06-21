@@ -5,6 +5,7 @@ import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
     declarations: [
@@ -15,14 +16,16 @@ import { ButtonModule } from 'primeng/button';
         ToastModule,
         MenubarModule,
         SidebarModule,
-        ButtonModule
+        ButtonModule,
+        DropdownModule
     ],
     exports: [
         InputTextModule,
         ToastModule,
         MenubarModule,
         SidebarModule,
-        ButtonModule
+        ButtonModule,
+        DropdownModule
     ],
     providers: [
         ConfirmationService

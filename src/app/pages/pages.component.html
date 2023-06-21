@@ -1,0 +1,43 @@
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+        <button pButton pRipple type="button" (click)="toggleSidebar()" icon="pi pi-bars"
+            class="p-button-rounded p-button-secondary p-button-text"></button>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <p-dropdown [options]="communities" [(ngModel)]="selectedCommunity" optionLabel="name" [showClear]="true"
+            (onChange)="onChangeCommunity()" placeholder="Select a Community"></p-dropdown>
+        &nbsp;<i class="pi pi-fw pi-power-off"></i> <span> Quit</span> &nbsp;
+    </ng-template>
+</p-menubar>
+
+<p-sidebar [(visible)]="visibleSidebar" [showCloseIcon]="false"
+           class="sidebar" [modal]="true" [position]="'left'">
+  <div class="sidebar-header">
+    <img src="https://www.primefaces.org/primeng-v13-lts/assets/showcase/images/primeng.svg" alt="Logo">
+    <h2>Parivaar</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li>
+      <a (click)="toggleSidebar()">
+        <i class="pi pi-home"></i>
+        <span>Home</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="toggleSidebar()">
+        <i class="pi pi-users"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="toggleSidebar()">
+        <i class="pi pi-cog"></i>
+        <span>Settings</span>
+      </a>
+    </li>
+  </ul>
+</p-sidebar>
+
+<div class="container-fluid p-3">
+    <router-outlet></router-outlet>
+</div>
