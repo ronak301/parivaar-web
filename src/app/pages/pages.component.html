@@ -18,15 +18,9 @@
   </div>
   <ul class="sidebar-menu">
     <li>
-      <a (click)="toggleSidebar()">
-        <i class="pi pi-home"></i>
-        <span>Home</span>
-      </a>
-    </li>
-    <li>
-      <a (click)="toggleSidebar()">
+      <a (click)="onRoute('/pages/manage-communities')">
         <i class="pi pi-users"></i>
-        <span>Users</span>
+        <span>All Communities</span>
       </a>
     </li>
     <li>
@@ -38,6 +32,5 @@
   </ul>
 </p-sidebar>
 
-<div class="container-fluid p-3">
-    <router-outlet></router-outlet>
-</div>
+
+<router-outlet></router-outlet>

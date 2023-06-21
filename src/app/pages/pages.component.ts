@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -15,7 +16,7 @@ export class PagesComponent implements OnInit {
   communities: any;
   selectedCommunity: any;
 
-  constructor() {
+  constructor(public router:Router) {
   }
 
   ngOnInit(): void {
@@ -163,5 +164,10 @@ export class PagesComponent implements OnInit {
 
   toggleSidebar() {
     this.visibleSidebar = !this.visibleSidebar
+  }
+
+  onRoute(url:string) {
+    this.router.navigateByUrl(url);
+    this.toggleSidebar()
   }
 }

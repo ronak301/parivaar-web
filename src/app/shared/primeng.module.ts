@@ -6,6 +6,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { DropdownModule } from 'primeng/dropdown';
         MenubarModule,
         SidebarModule,
         ButtonModule,
-        DropdownModule
+        DropdownModule,
+        CardModule
     ],
     exports: [
         InputTextModule,
@@ -25,7 +27,8 @@ import { DropdownModule } from 'primeng/dropdown';
         MenubarModule,
         SidebarModule,
         ButtonModule,
-        DropdownModule
+        DropdownModule,
+        CardModule
     ],
     providers: [
         ConfirmationService
