@@ -1,1 +1,62 @@
-<p>listing of all communities!</p>
+<div class="container-fluid">
+    <p-card>
+        <div class="row mb-4">
+            <div class="col-6 my-auto">
+                <h2>Communities(8)</h2>
+            </div>
+            <div class="col-6 text-right">
+                <button pButton pRipple type="button" icon="pi pi-plus" label="Add Community"
+                    class="p-button-outlined p-button-rounded"></button>
+            </div>
+        </div>
+
+        <div class="filter-container">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <h3>Filter Communities</h3>
+                </div>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="d-block">Name</label>
+                        <input class="custom-form-control" placeholder="Enter Name" />
+                    </div>
+                    <div class="col-4">
+                        <label class="d-block">Status</label>
+                        <p-dropdown class="custom-dropdown-control" [options]="status" placeholder="Status"></p-dropdown>
+                    </div>
+                    <div class="col-4">
+                        <label class="d-block">City</label>
+                        <p-dropdown class="custom-dropdown-control" [options]="cities" placeholder="City"></p-dropdown>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <p-table [value]="data" [resizableColumns]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pResizableColumn pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pResizableColumn pSortableColumn="link">Link <p-sortIcon field="link"></p-sortIcon></th>
+                            <th pResizableColumn pSortableColumn="active_members">Activated Members <p-sortIcon field="active_members"></p-sortIcon></th>
+                            <th pResizableColumn pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-data>
+                        <tr>
+                            <td>{{data.name}}</td>
+                            <td>{{data.link}}</td>
+                            <td>{{data.active_members}}</td>
+                            <td>
+                                <span [class]="'customer-badge status-' + data.status">{{data.status}}</span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </p-card>
+</div>

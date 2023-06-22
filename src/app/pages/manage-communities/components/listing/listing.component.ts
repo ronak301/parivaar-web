@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListingComponent implements OnInit {
 
+  status: any = [];
+  cities: any = [];
+  data: any = [];
+
   constructor() { }
 
   ngOnInit(): void {
+    this.data = [
+      { name: 'Chetan Kudnekar', link: 'Https://Google.com', active_members: '24', status: 'Active' },
+      { name: 'Chetan Jain', link: 'Https://Google.com', active_members: '24', status: 'Pending' },
+      { name: 'Chetan Banshali', link: 'Https://Google.com', active_members: '24', status: 'Active' },
+      { name: 'Chetan Jaswa', link: 'Https://Google.com', active_members: '24', status: 'Pending' },
+    ]
   }
 
 }

@@ -1,0 +1,23 @@
+.filter-container {
+    border-radius: 10px;
+    border: 1px solid #eaeaea;
+    background-color: #ffffff;
+    padding: 20px;
+}
+.customer-badge {
+    border-radius: 12px;
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+    font-weight: 500;
+}
+.customer-badge.status-Active {
+    background-color: #DAFFDD;
+    color: #2DCD6F;
+}
+.customer-badge.status-Pending {
+    background-color: #FFF9E2;
+    color: rgba(248, 184, 62, 1);
+}

@@ -1,4 +1,4 @@
-<p-menubar [model]="items">
+<!-- <p-menubar [model]="items">
     <ng-template pTemplate="start">
         <button pButton pRipple type="button" (click)="toggleSidebar()" icon="pi pi-bars"
             class="p-button-rounded p-button-secondary p-button-text"></button>
@@ -30,7 +30,22 @@
       </a>
     </li>
   </ul>
-</p-sidebar>
+</p-sidebar> -->
 
-
-<router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 px-0">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-12 px-0">
+          <app-header></app-header>
+        </div>
+        <div class="col-md-12 main-content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

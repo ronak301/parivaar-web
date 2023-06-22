@@ -5,11 +5,15 @@ import { PrimengModule } from './primeng.module';
 import { FormsModule } from '@angular/forms';
 import { EmptyViewComponent } from './components/empty-view/empty-view.component';
 import { FieldErrorComponent } from './components/field-error/field-error.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     EmptyViewComponent,
-    FieldErrorComponent
+    FieldErrorComponent,
+    SidebarComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +25,8 @@ import { FieldErrorComponent } from './components/field-error/field-error.compon
     CommonModule,
     PrimengModule,
     FormsModule,
+    SidebarComponent,
+    HeaderComponent
   ],
   providers:[
     DatePipe

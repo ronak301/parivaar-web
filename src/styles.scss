@@ -1,1 +1,94 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+    --primary-color: #1aacff;
+    --primary-contrast-color: blue;
+    --secondary-color: blue;
+    --secondary-contrast-color: blue;
+    --tertiary-color: blue;
+    --tertiary-contrast-color: blue;
+    --primary-font-family: "sans-sarif";
+    --secondary-font-family: "sans-sarif";
+    --tertiary-font-family: "sans-sarif";
+    --primary-font-size: 20px;
+    --secondary-font-size: 16px;
+    --tertiary-font-size: 14px;
+}
+
+.p-card {
+    border-radius: 16px !important;
+    box-shadow: 0px 4px 37px 0px rgba(111, 100, 100, 0.04) !important;
+    border: 1px solid #eaeaea;
+}
+
+h2 {
+    font-size: var(--primary-font-size);
+    font-weight: 500;
+    margin: 0;
+}
+
+h3 {
+    font-size: var(--secondary-font-size);
+    font-weight: 500;
+    margin: 0;
+}
+
+.p-dropdown {
+    border-radius: 25px !important;
+}
+
+.custom-form-control {
+    width: 100%;
+    border-radius: 4px;
+    border: 0.6px solid #f0f0f0;
+    background: #f5f7f9;
+    font-size: var(--tertiary-font-size);
+    color: #8897ae;
+    letter-spacing: 0.14px;
+    height: 34px;
+    padding: 10px;
+    font-weight: 500;
+    &:focus-visible {
+        outline: none !important;
+    }
+    &::placeholder {
+        font-size: var(--tertiary-font-size);
+        color: #8897ae;
+    }
+}
+.custom-dropdown-control {
+    background: #f5f7f9;
+    border: 0.6px solid #f0f0f0;
+    border-radius: 4px;
+    padding: 5px 0 5px 0;
+    .p-dropdown {
+        height: 30px;
+        background-color: transparent;
+        width: 100%;
+        border: none;
+        .p-dropdown-label {
+            color: #8897ae;
+            font-weight: 500;
+            font-size: var(--tertiary-font-size);
+        }
+    }
+}
+
+label {
+    font-size: 12px;
+    color: #000000;
+    font-weight: 500;
+    margin: 0;
+}
+
+.p-dropdown .p-dropdown-label.p-placeholder {
+    color: #5d6368;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+    background-color: #E9E9E9!important;
+    cursor: pointer;
+}
