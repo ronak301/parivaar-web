@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ManageCommunitiesComponent } from './manage-communities.component';
 import { ListingComponent } from './components/listing/listing.component';
 import { AddEditComponent } from './components/add-edit/add-edit.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 const routes: Routes = [
   {
@@ -15,12 +16,8 @@ const routes: Routes = [
         component: ListingComponent 
       },
       {
-        path:'add',
-        component: AddEditComponent 
-      },
-      {
-        path:'edit/:id',
-        component: AddEditComponent 
+        path:'detail/:id',
+        component: DetailComponent 
       },
     ]
   },

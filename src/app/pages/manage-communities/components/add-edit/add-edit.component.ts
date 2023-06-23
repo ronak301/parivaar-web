@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-add-edit',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-edit.component.scss']
 })
 export class AddEditComponent implements OnInit {
+
+  @Input() id:string = '';
+  
+  imagePreviewUrl:string = './assets/images/user.png';
 
   constructor() { }
 

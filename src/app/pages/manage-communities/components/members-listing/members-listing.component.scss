@@ -1,0 +1,17 @@
+.member-list-container {
+}
+
+.confirmationDialog {
+    box-shadow: none !important;
+    .p-dialog-header,
+    .p-dialog-content {
+        justify-content: center;
+        text-align: center;
+    }
+    .p-dialog-footer {
+        text-align: center !important;
+    }
+    .p-button {
+        min-width: 150px;
+    }
+}

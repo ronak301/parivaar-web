@@ -7,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListingComponent implements OnInit {
 
-  status: any = [];
-  cities: any = [];
   data: any = [];
+  addEditModalDisplay:boolean = false;
 
   constructor() { }
 
@@ -20,6 +19,10 @@ export class ListingComponent implements OnInit {
       { name: 'Chetan Banshali', link: 'Https://Google.com', active_members: '24', status: 'Active' },
       { name: 'Chetan Jaswa', link: 'Https://Google.com', active_members: '24', status: 'Pending' },
     ]
+  }
+
+  openAddEditCommunityModal() {
+    this.addEditModalDisplay = true
   }
 
 }

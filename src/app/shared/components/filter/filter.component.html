@@ -1,0 +1,50 @@
+<div class="filter-container">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3>Filter {{title}}</h3>
+        </div>
+    </div>
+    
+    <!-- Community Filter Start -->
+    <ng-container *ngIf="type == 'community'">
+        <form>
+            <div class="row">
+                <div class="col-4">
+                    <label class="d-block">Name</label>
+                    <input class="custom-form-control" placeholder="Enter Name" />
+                </div>
+                <div class="col-4">
+                    <label class="d-block">Status</label>
+                    <p-dropdown class="custom-dropdown-control" [options]="status" placeholder="Status"></p-dropdown>
+                </div>
+                <div class="col-4">
+                    <label class="d-block">City</label>
+                    <p-dropdown class="custom-dropdown-control" [options]="cities" placeholder="City"></p-dropdown>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+    <!-- Community Filter Start -->
+
+    <!-- Members Filter Start -->
+    <ng-container *ngIf="type == 'members'">
+        <form>
+            <div class="row">
+                <div class="col-4">
+                    <label class="d-block">First Name</label>
+                    <input class="custom-form-control" placeholder="First Name" />
+                </div>
+                <div class="col-4">
+                    <label class="d-block">Last Name</label>
+                    <input class="custom-form-control" placeholder="Last Name" />
+                </div>
+                <div class="col-4">
+                    <label class="d-block">Phone</label>
+                    <input class="custom-form-control" placeholder="Phone" />
+                </div>
+            </div>
+        </form>
+    </ng-container>
+    <!-- Members Filter End -->
+
+</div>

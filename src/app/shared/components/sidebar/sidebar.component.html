@@ -4,7 +4,7 @@
     </div>
     <ul class="sidebar-menu">
         <li>
-            <a (click)="onRoute('/pages/manage-communities')" class="active">
+            <a routerLink="/pages/manage-communities" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
                 <i class="pi pi-th-large"></i>
                 <span>All Communities</span>
             </a>

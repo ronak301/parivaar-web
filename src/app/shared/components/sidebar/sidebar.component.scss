@@ -36,10 +36,14 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #333;
+    color: #475467;
     padding: 10px 20px;
     transition: background-color 0.2s;
+    background-color: #F9F9F9;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: var(--secondary-font-size);
+    margin-bottom: 10px;
 }
 
 .sidebar-menu a:hover {
@@ -51,7 +55,6 @@
 .sidebar-menu a.active {
     background-color: #F9F9F9;
     color: var(--primary-color);
-    border-radius: 10px;
 }
 
 .sidebar-menu i {

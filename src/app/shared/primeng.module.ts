@@ -7,6 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,9 @@ import { TableModule } from 'primeng/table';
         ButtonModule,
         DropdownModule,
         CardModule,
-        TableModule
+        TableModule,
+        DialogModule,
+        ConfirmDialogModule
     ],
     exports: [
         ToastModule,
@@ -28,7 +32,9 @@ import { TableModule } from 'primeng/table';
         ButtonModule,
         DropdownModule,
         CardModule,
-        TableModule
+        TableModule,
+        DialogModule,
+        ConfirmDialogModule
     ],
     providers: [
         ConfirmationService

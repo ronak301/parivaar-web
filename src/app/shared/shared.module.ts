@@ -7,13 +7,15 @@ import { EmptyViewComponent } from './components/empty-view/empty-view.component
 import { FieldErrorComponent } from './components/field-error/field-error.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
     EmptyViewComponent,
     FieldErrorComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    FilterComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { HeaderComponent } from './components/header/header.component';
     PrimengModule,
     FormsModule,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    FilterComponent
   ],
   providers:[
     DatePipe

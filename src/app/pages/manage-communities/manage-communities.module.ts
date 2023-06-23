@@ -5,6 +5,7 @@ import { ManageCommunitiesRoutingModule } from './manage-communities-routing.mod
 import { ListingComponent } from './components/listing/listing.component';
 import { AddEditComponent } from './components/add-edit/add-edit.component';
 import { MembersListingComponent } from './components/members-listing/members-listing.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { MembersListingComponent } from './components/members-listing/members-li
     ListingComponent,
     AddEditComponent,
     MembersListingComponent,
+    DetailComponent,
   ],
   imports: [
     SharedModule,

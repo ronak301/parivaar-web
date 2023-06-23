@@ -1,1 +1,85 @@
-<p>members-listing works!</p>
+<div class="container-fluid">
+    <div class="member-list-container">
+        <p-card>
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h2>Members(102)</h2>
+                </div>
+                <div class="col-6 text-right">
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member"
+                        class="p-button-outlined p-button-rounded"></button>
+                </div>
+            </div>
+
+            <app-filter [title]="'Members'" [type]="'members'"></app-filter>
+
+            <div class="row my-4">
+                <div class="col-6 my-auto">
+                    <h2>1 Member Selected</h2>
+                </div>
+                <div class="col-6 text-right">
+                    <button pButton pRipple type="button" label="Delete Member" (click)="deleteMemberConfirmation()"
+                        class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
+                    <button pButton pRipple type="button" label="Make Admin" (click)="makeAdminConfirmation()"
+                        class="p-button-outlined p-button-rounded"></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <p-table [value]="data" [resizableColumns]="true"
+                        styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 3rem">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th pResizableColumn pSortableColumn="fullName">Full Name <p-sortIcon
+                                        field="fullName"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="phoneNumber">Phone Number <p-sortIcon
+                                        field="phoneNumber"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="roles">Roles <p-sortIcon
+                                        field="roles"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="status">Status <p-sortIcon
+                                        field="status"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data>
+                            <tr routerLink="/pages/manage-communities/detail/123">
+                                <td>
+                                    <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                                </td>
+                                <td>{{data.fullName}}</td>
+                                <td>{{data.phoneNumber}}</td>
+                                <td>{{data.roles}}</td>
+                                <td>
+                                    <span [class]="'customer-badge ' + data.status | lowercase">{{data.status}}</span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>
+
+<p-confirmDialog #makeAdmin key="makeAdminDialog" styleClass="confirmationDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+        <h2 class="text-primary">Make Admin</h2>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary" (click)="makeAdmin.reject()"></button>
+        <button type="button" pButton label="Confirm" class="p-button-rounded" (click)="makeAdmin.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+
+<p-confirmDialog #deleteMember key="deleteMemberDialog" styleClass="confirmationDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+        <h2 class="text-primary">Delete Members</h2>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary" (click)="deleteMember.reject()"></button>
+        <button type="button" pButton label="Confirm" class="p-button-rounded" (click)="deleteMember.accept()"></button>
+    </ng-template>
+</p-confirmDialog>

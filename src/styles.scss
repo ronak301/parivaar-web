@@ -7,12 +7,22 @@
     --secondary-contrast-color: blue;
     --tertiary-color: blue;
     --tertiary-contrast-color: blue;
+    --muted-color: #8897ae;
     --primary-font-family: "sans-sarif";
     --secondary-font-family: "sans-sarif";
     --tertiary-font-family: "sans-sarif";
     --primary-font-size: 20px;
     --secondary-font-size: 16px;
     --tertiary-font-size: 14px;
+}
+
+@font-face {
+    font-family: "Clash Display";
+    src: url("./assets/fonts/clash-display/ClashDisplay-Medium.otf");
+}
+
+* {
+    font-family: "Clash Display";
 }
 
 .p-card {
@@ -89,6 +99,51 @@ label {
 }
 
 .p-datatable .p-datatable-tbody > tr:hover {
-    background-color: #E9E9E9!important;
+    background-color: #e9e9e9 !important;
     cursor: pointer;
+}
+.add-edit-community-modal {
+    .p-dialog {
+        margin: 0 !important;
+        box-shadow: 20px -9px 0px 0px rgba(0, 0, 0, 0.2), 20px -4px 38px 3px rgba(0, 0, 0, 0.14),
+            20px -15px 0px 8px rgba(0, 0, 0, 0.12);
+    }
+    .p-dialog-header {
+        padding: 0.5rem 1.5rem !important;
+    }
+    .add-community {
+        width: 100%;
+        justify-content: center;
+        .p-button-label {
+            flex: none !important;
+        }
+    }
+}
+.text-muted {
+    color: var(--muted-color) !important;
+}
+.customer-badge {
+    border-radius: 12px;
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    font-weight: 500;
+    &.active {
+        background-color: #daffdd;
+        color: #2dcd6f;
+    }
+    &.pending {
+        background-color: #fff9e2;
+        color: rgba(248, 184, 62, 1);
+    }
+}
+
+.p-card .p-card-content {
+    padding: 0 1rem 0!important;
+}
+
+.text-primary {
+    color: var(--primary-color)!important;
 }
