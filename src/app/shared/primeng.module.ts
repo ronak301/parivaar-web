@@ -9,7 +9,7 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { InputMaskModule } from 'primeng/inputmask';
 @NgModule({
     declarations: [
 
@@ -23,7 +23,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         CardModule,
         TableModule,
         DialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        InputMaskModule
     ],
     exports: [
         ToastModule,
@@ -34,7 +35,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         CardModule,
         TableModule,
         DialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        InputMaskModule
     ],
     providers: [
         ConfirmationService

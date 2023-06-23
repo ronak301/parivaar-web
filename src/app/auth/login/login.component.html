@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="login-container">
+    <p-card>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>Welcome Back !</h1>
+                <p>Please enter your mobile number</p>
+                <form>
+
+                    <div class="otp-container">
+                        <span>+91</span>
+                        <span class="mx-4">|</span>
+                        <p-inputMask [(ngModel)]="phoneNumber" mask="9 9 9 9  - 9 9  - 9 9 9 9" placeholder="O O O O  -  O O  - O O O O"></p-inputMask>
+                    </div>
+                    <button pButton routerLink="/pages/manage-communities" pRipple type="button" label="Get OTP"
+                        class="w-100 my-3 bg-primary"></button>
+                    <div class="text-center">
+                        <span>Didn’t receive code?</span> <a class="text-primary">&nbsp;&nbsp;Resend</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </p-card>
+</div>

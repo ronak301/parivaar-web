@@ -6,6 +6,7 @@ import { ListingComponent } from './components/listing/listing.component';
 import { AddEditComponent } from './components/add-edit/add-edit.component';
 import { MembersListingComponent } from './components/members-listing/members-listing.component';
 import { DetailComponent } from './components/detail/detail.component';
+import { AddEditMemberComponent } from './components/add-edit-member/add-edit-member.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { DetailComponent } from './components/detail/detail.component';
     AddEditComponent,
     MembersListingComponent,
     DetailComponent,
+    AddEditMemberComponent
   ],
   imports: [
     SharedModule,

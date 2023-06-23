@@ -6,7 +6,7 @@
                     <h2>Members(102)</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member"
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member" (click)="openAddEditMemberModal()"
                         class="p-button-outlined p-button-rounded"></button>
                 </div>
             </div>
@@ -76,10 +76,19 @@
 
 <p-confirmDialog #deleteMember key="deleteMemberDialog" styleClass="confirmationDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
     <ng-template pTemplate="header">
-        <h2 class="text-primary">Delete Members</h2>
+        <h2 class="text-danger">Delete Members</h2>
     </ng-template>
     <ng-template pTemplate="footer">
         <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary" (click)="deleteMember.reject()"></button>
-        <button type="button" pButton label="Confirm" class="p-button-rounded" (click)="deleteMember.accept()"></button>
+        <button type="button" pButton label="Confirm" class="p-button-rounded p-button-danger" (click)="deleteMember.accept()"></button>
     </ng-template>
 </p-confirmDialog>
+
+<!-- Add Member Modal Start -->
+<p-dialog position="top-right" class="add-edit-community-modal" [modal]="true" [draggable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [(visible)]="addEditMemberModalDisplay">
+    <ng-template pTemplate="header">
+        <h2>Add Member</h2>
+    </ng-template>
+    <app-add-edit-member></app-add-edit-member>
+</p-dialog>
+<!-- Add Member Modal End -->

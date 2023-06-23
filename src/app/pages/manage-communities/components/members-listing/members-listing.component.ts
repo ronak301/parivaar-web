@@ -10,6 +10,7 @@ import { ConfirmationService } from 'primeng/api';
 export class MembersListingComponent implements OnInit {
 
   data: any = [];
+  addEditMemberModalDisplay:boolean = false;
 
   constructor(
     private confirmationService: ConfirmationService
@@ -30,7 +31,7 @@ export class MembersListingComponent implements OnInit {
 
   makeAdminConfirmation() {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to give administrative right to 1 users?',
+      message: 'Are you sure you want to give administrative right to 2 members?',
       accept: () => {
         console.log('accept')
         //Actual logic to perform a confirmation
@@ -48,5 +49,9 @@ export class MembersListingComponent implements OnInit {
       },
       key: "deleteMemberDialog"
     });
+  }
+
+  openAddEditMemberModal() {
+    this.addEditMemberModalDisplay = true
   }
 }
