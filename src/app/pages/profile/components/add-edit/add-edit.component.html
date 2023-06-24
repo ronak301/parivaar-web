@@ -1,0 +1,114 @@
+<div class="container-fluid mb-4">
+    <div class="info-container">
+        <div class="row mb-4">
+            <div class="col-6 my-auto">
+                <h2>Edit User</h2>
+            </div>
+            <div class="col-6 text-right">
+                <button pButton pRipple type="button" routerLink="/pages/manage-profile" 
+                    label="Cancel" class="p-button-outlined p-button-rounded mr-2"></button>
+                <button pButton pRipple type="button"
+                    label="Save Changes" class="p-button-outlined p-button-rounded btn-primary"></button>
+            </div>
+        </div>
+        <p-card>
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h3>Personal Information</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="text-muted mb-1">Upload Image</label>
+                    <div class="preview-image" style="background-image: url({{imagePreviewUrl}});" (click)="logo.click()">
+                    </div>
+                    <input type="file" #logo class="d-none">
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        First Name
+                    </label>
+                    <input type="text" class="custom-form-control" placeholder="First Name">
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Last Name
+                    </label>
+                    <input type="text" class="custom-form-control" placeholder="Last Name">
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Date of Birth
+                    </label>
+                    <input type="date" class="custom-form-control">
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Phone Number
+                    </label>
+                    <input type="text" maxlength="10" class="custom-form-control" placeholder="Phone Number">
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Blood Group
+                    </label>
+                    <input type="text" class="custom-form-control" placeholder="Blood Group">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <p-divider></p-divider>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h3>Business Information</h3>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Name
+                    </label>
+                    <input type="text" class="custom-form-control" placeholder="Name">
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Description
+                    </label>
+                    <input type="text" class="custom-form-control" placeholder="Description">
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Address
+                    </label>
+                    <input type="text" class="custom-form-control" placeholder="Address">
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Phone Number
+                    </label>
+                    <input type="text" maxlength="10" class="custom-form-control" placeholder="Phone Number">
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Website
+                    </label>
+                    <input type="url" class="custom-form-control" placeholder="Website">
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>

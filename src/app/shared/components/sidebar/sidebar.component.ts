@@ -9,14 +9,19 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
 
   constructor(
-    public router:Router
+    public router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
-  onRoute(url:string) {
+  onRoute(url: string) {
     this.router.navigateByUrl(url);
+    if(url == '/auth') {
+      setTimeout(() => {
+        location.reload();
+      }, 100);
+    }
   }
 
 }

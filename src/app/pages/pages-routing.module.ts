@@ -17,6 +17,18 @@ const routes: Routes = [
         path:'manage-communities',
         loadChildren: () => import('./manage-communities/manage-communities.module').then( m => m.ManageCommunitiesModule)
       },
+      {
+        path:'manage-profile',
+        loadChildren: () => import('./profile/profile.module').then( m => m.ProfileModule)
+      },
+      {
+        path:'help-center',
+        loadChildren: () => import('./help-center/help-center.module').then( m => m.HelpCenterModule)
+      },
+      {
+        path:'about-us',
+        loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsModule)
+      },
     ]
   },
 ];

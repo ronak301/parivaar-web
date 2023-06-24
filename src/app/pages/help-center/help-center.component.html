@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="help-center-container">
+        <div class="inner-container">
+            <h2 class="mb-2">Help Center</h2>
+            <p-card>
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Please tell us how we can help you?</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="d-block">Select Issue Type</label>
+                        <p-dropdown class="custom-dropdown-control" [options]="issues"
+                            placeholder="Status"></p-dropdown>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="d-block">Description</label>
+                        <textarea class="custom-form-control" placeholder="Description" cols="30" rows="6"></textarea>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="d-block">Upload Attachment</label>
+                        <button class="attachment" (click)="attachment.click()">
+                            <i class="pi pi-plus"></i>
+                        </button>
+                        <input type="file" #attachment class="d-none">
+                    </div>
+                    <div class="col-12 my-2">
+                        <button pButton pRipple type="button" label="Submit"
+                            class="p-button-rounded btn-primary w-100"></button>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+</div>

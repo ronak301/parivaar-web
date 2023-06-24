@@ -5,7 +5,6 @@
             <div class="logo">
                 <i class="pi pi-plus"></i>
                 <div class="preview-image" style="background-image: url({{imagePreviewUrl}});" (click)="logo.click()">
-
                 </div>
                 <!-- <img src="./assets/images/user.png" alt=""> -->
                 <input type="file" #logo class="d-none">
@@ -27,8 +26,8 @@
             <label>Sub-Type</label>
             <input type="text" class="custom-form-control">
         </div>
-        <div class="col-12 mt-3">
-            <button pButton pRipple type="button" label="{{id ? 'Update' : 'Add'}} Community" icon="pi pi-plus" class="p-button-rounded add-community"></button>
+        <div class="col-12 modal-footer-fixed">
+            <button pButton pRipple type="button" label="{{id ? 'Update' : 'Add'}} Community" icon="pi pi-plus" class="p-button-rounded button-with-icon btn-primary"></button>
         </div>
     </div>
 </form>

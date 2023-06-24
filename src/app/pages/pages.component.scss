@@ -16,7 +16,7 @@
 }
 
 .sidebar-header h2 {
-    font-size: 18px;
+    font-size: var(--primary-sm-font-size);
     margin-top: 10px;
     color: #333;
 }
@@ -52,6 +52,8 @@
 .main-content {
     background-color: #fafafa;
     min-height: calc(100vh - 60px);
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
     padding: 28px 10px;
 }
 

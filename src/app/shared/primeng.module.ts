@@ -10,6 +10,8 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputMaskModule } from 'primeng/inputmask';
+import { DividerModule } from 'primeng/divider';
+import {FileUploadModule} from 'primeng/fileupload';
 @NgModule({
     declarations: [
 
@@ -24,7 +26,9 @@ import { InputMaskModule } from 'primeng/inputmask';
         TableModule,
         DialogModule,
         ConfirmDialogModule,
-        InputMaskModule
+        InputMaskModule,
+        DividerModule,
+        FileUploadModule
     ],
     exports: [
         ToastModule,
@@ -36,7 +40,9 @@ import { InputMaskModule } from 'primeng/inputmask';
         TableModule,
         DialogModule,
         ConfirmDialogModule,
-        InputMaskModule
+        InputMaskModule,
+        DividerModule,
+        FileUploadModule
     ],
     providers: [
         ConfirmationService

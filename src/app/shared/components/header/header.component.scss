@@ -1,11 +1,15 @@
 .header-container {
     width: 100%;
     height: 60px;
-    background-color: #FDFDFD;
+    background-color: #000;
     box-shadow: 15px -9px 0px 0px rgba(0, 0, 0, 0.2), 0px -1px 0px 0 rgba(0, 0, 0, 0.14), 20px -4px 10px 0 rgba(0, 0, 0, 0.12);
     display: flex;
     align-items: center;
     justify-content: end;
     border-bottom: 1px solid#EEEEEF;
     padding: 0 42px;
+    color: #fff;
+    h2 {
+        font-size: var(--secondary-font-size);
+    }
 }

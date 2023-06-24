@@ -1,0 +1,26 @@
+.preview-image {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+}
+.info-container {
+    p {
+        padding: 0;
+        margin: 0;
+        font-weight: 500;
+        font-size: var(--secondary-font-size);
+    }
+    label {
+        color: #8897ae!important;
+        font-size: var(--tertiary-font-size);
+    }
+} 
+label {
+    display: block;
+}
+input {
+    width: 60%;
+}
