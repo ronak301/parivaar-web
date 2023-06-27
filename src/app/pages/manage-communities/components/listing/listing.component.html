@@ -6,7 +6,7 @@
             </div>
             <div class="col-6 text-right">
                 <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" icon="pi pi-plus" label="Add Community"
-                    class="p-button-outlined p-button-rounded"></button>
+                    class="p-button-outlined primary-button-outlined p-button-rounded"></button>
             </div>
         </div>
 
@@ -18,15 +18,15 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th pResizableColumn pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pResizableColumn pSortableColumn="link">Link <p-sortIcon field="link"></p-sortIcon></th>
-                            <th pResizableColumn pSortableColumn="active_members">Activated Members <p-sortIcon field="active_members"></p-sortIcon></th>
+                            <!-- <th pResizableColumn pSortableColumn="link">Link <p-sortIcon field="link"></p-sortIcon></th> -->
+                            <th pResizableColumn pSortableColumn="active_members">Total Members <p-sortIcon field="active_members"></p-sortIcon></th>
                             <th pResizableColumn pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-data>
                         <tr routerLink="/pages/manage-communities/detail/123">
                             <td>{{data.name}}</td>
-                            <td>{{data.link}}</td>
+                            <!-- <td>{{data.link}}</td> -->
                             <td>{{data.active_members}}</td>
                             <td>
                                 <span [class]="'customer-badge ' + data.status | lowercase">{{data.status}}</span>

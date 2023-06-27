@@ -5,8 +5,8 @@
                 <h2>Chetan Kudnekar</h2>
             </div>
             <div class="col-6 text-right">
-                <button pButton pRipple type="button" icon="pi pi-plus" routerLink="/pages/manage-profile/edit/123"
-                    label="Edit Information" class="p-button-outlined p-button-rounded mr-2"></button>
+                <button pButton pRipple type="button" routerLink="/pages/manage-profile/edit/123"
+                    label="Update Information" class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
                 <button pButton pRipple type="button"
                     label="Remove Admin Access" class="p-button-outlined p-button-rounded p-button-danger"></button>
             </div>
@@ -20,9 +20,8 @@
             <div class="row">
                 <div class="col-12">
                     <label class="text-muted mb-1">Profile Picture</label>
-                    <div class="preview-image" style="background-image: url({{imagePreviewUrl}});" (click)="logo.click()">
+                    <div class="preview-image" style="background-image: url({{imagePreviewUrl}});">
                     </div>
-                    <input type="file" #logo class="d-none">
                 </div>
             </div>
             <div class="row my-4">

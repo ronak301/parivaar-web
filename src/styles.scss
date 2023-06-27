@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-    --primary-color: #1aacff;
+    --primary-color: #0052cc !important;
     --primary-contrast-color: #ffffff;
     --secondary-color: blue;
     --secondary-contrast-color: blue;
     --tertiary-color: blue;
     --tertiary-contrast-color: blue;
+    --warning-color: #ffab00;
     --muted-color: #8897ae;
     --primary-font-family: "sans-sarif";
     --secondary-font-family: "sans-sarif";
@@ -18,14 +19,14 @@
     --tertiary-sm-font-size: 12px;
 }
 
-@font-face {
-    font-family: "Clash Display";
-    src: url("./assets/fonts/clash-display/ClashDisplay-Medium.otf");
-}
+// @font-face {
+//     font-family: "Clash Display";
+//     src: url("./assets/fonts/clash-display/ClashDisplay-Medium.otf");
+// }
 
-* {
-    font-family: "Clash Display";
-}
+// * {
+//     font-family: "Clash Display";
+// }
 
 .p-card {
     border-radius: 10px !important;
@@ -59,7 +60,7 @@ h3 {
     font-size: var(--tertiary-font-size);
     color: #000;
     letter-spacing: 0.14px;
-    height: 34px;
+    height: 48px;
     padding: 10px;
     font-weight: 500;
     &:focus-visible {
@@ -68,22 +69,27 @@ h3 {
     &::placeholder {
         font-size: var(--tertiary-font-size);
         color: #8897ae;
+        font-weight: 400 !important;
     }
 }
 .custom-dropdown-control {
-    background: #f5f7f9;
-    border: 0.6px solid #f0f0f0;
-    border-radius: 4px;
     padding: 5px 0 5px 0;
     .p-dropdown {
-        height: 30px;
-        background-color: transparent;
+        //     height: 48px;
+        background-color: #f5f7f9;
         width: 100%;
         border: none;
+        align-items: center;
+        height: 48px;
+        border-radius: 4px !important;
         .p-dropdown-label {
             color: #8897ae !important;
-            font-weight: 500;
+            font-weight: 400;
             font-size: var(--tertiary-font-size) !important;
+            &.p-placeholder {
+                font-weight: 400 !important;
+                font-size: var(--tertiary-font-size) !important;
+            }
         }
     }
 }
@@ -92,7 +98,7 @@ label {
     font-size: var(--tertiary-font-size);
     color: #000000;
     font-weight: 500;
-    margin: 0;
+    margin: 0 0 8px 0;
 }
 
 .p-dropdown .p-dropdown-label.p-placeholder {
@@ -128,7 +134,7 @@ label {
 .customer-badge {
     border-radius: 12px;
     padding: 0.25em 0.5rem;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-weight: 700;
     font-size: var(--tertiary-sm-font-size);
     letter-spacing: 0.3px;
@@ -138,8 +144,8 @@ label {
         color: #2dcd6f;
     }
     &.pending {
-        background-color: #fff9e2;
-        color: rgba(248, 184, 62, 1);
+        background-color: #fff3c3;
+        color: var(--warning-color);
     }
 }
 
@@ -209,6 +215,7 @@ label {
         text-align: left;
         border-radius: 10px;
         padding: 0 10px;
+        height: 48px;
         span {
             font-size: var(--secondary-font-size);
         }
@@ -222,7 +229,10 @@ label {
 }
 
 button {
-    height: 32px !important;
+    height: 48px !important;
+    font-weight: 500 !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
 }
 
 .btn-primary {
@@ -237,8 +247,8 @@ button {
     position: fixed;
     bottom: 0;
     background: #fff;
-    height: 50px;
-    padding-top: 10px;
+    height: 82px;
+    padding-top: 12px;
     left: 0;
     z-index: 0;
     border-top: 1px solid #fafafa;
@@ -251,6 +261,25 @@ button {
 }
 
 textarea {
-    height: auto!important;
+    height: auto !important;
     resize: none;
+}
+
+.p-button.p-button-outlined {
+    border: 3px solid !important;
+}
+
+.p-dialog-header {
+    padding: 20px 1.5rem !important;
+}
+
+.p-dialog-header-icon {
+    width: 25px !important;
+    height: 25px !important;
+    padding: 20px !important;
+}
+
+.primary-button-outlined {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
 }
