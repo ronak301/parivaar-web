@@ -283,3 +283,15 @@ textarea {
     border-color: var(--primary-color) !important;
     color: var(--primary-color) !important;
 }
+
+.p-dialog .p-dialog-header {
+    border-top-left-radius: 10px!important;
+    border-top-right-radius: 10px!important;
+    padding: 32px 32px 16px 32px!important;
+}
+
+.p-dialog .p-dialog-footer {
+    border-bottom-left-radius: 10px!important;
+    border-bottom-right-radius: 10px!important;
+    padding: 0 32px 32px 32px!important;
+}

@@ -10,7 +10,8 @@ export class AddEditComponent implements OnInit {
   @Input() id:string = '';
   
   imagePreviewUrl:string = './assets/images/user.png';
-
+  type:any = [];
+  subType:any = [];
   constructor() { }
 
   ngOnInit(): void {

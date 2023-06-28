@@ -20,14 +20,15 @@
         </div>
         <div class="col-12 my-2">
             <label>Type</label>
-            <input type="text" class="custom-form-control">
+            <p-dropdown class="custom-dropdown-control" [options]="type" placeholder="Type"></p-dropdown>
         </div>
         <div class="col-12 my-2">
             <label>Sub-Type</label>
-            <input type="text" class="custom-form-control">
+            <p-dropdown class="custom-dropdown-control" [options]="subType" placeholder="Sub Type"></p-dropdown>
         </div>
         <div class="col-12 modal-footer-fixed">
-            <button pButton pRipple type="button" label="{{id ? 'Update' : 'Add'}} Community" icon="{{!id ? 'pi pi-plus' : ''}}" class="p-button-rounded button-with-icon btn-primary"></button>
+            <button pButton pRipple type="button" label="{{id ? 'Update' : 'Add'}} Community"
+                icon="{{!id ? 'pi pi-plus' : ''}}" class="p-button-rounded button-with-icon btn-primary"></button>
         </div>
     </div>
 </form>
