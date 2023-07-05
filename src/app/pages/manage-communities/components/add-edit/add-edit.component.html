@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="formData" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-12">
             <label class="d-block">Logo</label>
@@ -12,22 +12,26 @@
         </div>
         <div class="col-12 my-2">
             <label>Name</label>
-            <input type="text" class="custom-form-control">
+            <input type="text" formControlName="name" class="custom-form-control">
+            <field-error [control]="name"></field-error>
         </div>
         <div class="col-12 my-2">
             <label>Description</label>
-            <input type="text" class="custom-form-control">
+            <input type="text" formControlName="description" class="custom-form-control">
+            <field-error [control]="description"></field-error>
         </div>
         <div class="col-12 my-2">
             <label>Type</label>
-            <p-dropdown class="custom-dropdown-control" [options]="type" placeholder="Type"></p-dropdown>
+            <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="types" optionLabel="label" optionValue="id" placeholder="Type"></p-dropdown>
+            <field-error [control]="type"></field-error>
         </div>
         <div class="col-12 my-2">
             <label>Sub-Type</label>
-            <p-dropdown class="custom-dropdown-control" [options]="subType" placeholder="Sub Type"></p-dropdown>
+            <p-dropdown class="custom-dropdown-control" formControlName="subType" [options]="subTypes" optionLabel="label" optionValue="id" placeholder="Sub Type"></p-dropdown>
+            <field-error [control]="subType"></field-error>
         </div>
         <div class="col-12 modal-footer-fixed">
-            <button pButton pRipple type="button" label="{{id ? 'Update' : 'Add'}} Community"
+            <button pButton pRipple [disabled]="formData.invalid" type="submit" label="{{id ? 'Update' : 'Add'}} Community"
                 icon="{{!id ? 'pi pi-plus' : ''}}" class="p-button-rounded button-with-icon btn-primary"></button>
         </div>
     </div>

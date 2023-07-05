@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit {
   onLogout() {
     this.auth.logout().then(res => {
       console.log('logout res', res)
+      this.auth.removeUserAuthStateLocal()
       this.onRoute('/auth')
     }).catch(err => {
       console.log(err)

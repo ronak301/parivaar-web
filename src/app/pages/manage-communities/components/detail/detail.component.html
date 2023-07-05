@@ -6,8 +6,8 @@
                     <h2>Community Info</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button pButton pRipple (click)="openAddEditCommunityModal()" type="button"
-                        label="Update" class="p-button-outlined p-button-rounded primary-button-outlined"></button>
+                    <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" label="Update"
+                        class="p-button-outlined p-button-rounded primary-button-outlined"></button>
                 </div>
             </div>
             <div class="row mb-4">
@@ -15,7 +15,8 @@
                     <label class="text-muted">
                         Logo
                     </label>
-                    <div class="preview-image" style="background-image: url(../../../../../assets/images/user.png);"></div>
+                    <div class="preview-image" style="background-image: url(../../../../../assets/images/user.png);">
+                    </div>
                 </div>
             </div>
             <div class="row my-4">
@@ -23,13 +24,13 @@
                     <label class="text-muted">
                         Name
                     </label>
-                    <p>Terapan Sabha</p>
+                    <p>{{data?.name}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
                         Description
                     </label>
-                    <p>Terapan Sabha <br>Terapan Sabha</p>
+                    <p>{{data?.description}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -37,13 +38,13 @@
                     <label class="text-muted">
                         City
                     </label>
-                    <p>Bangalore</p>
+                    <p>{{data?.city || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
                         Type
                     </label>
-                    <p>Jain</p>
+                    <p>{{data?.type}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -51,7 +52,7 @@
                     <label class="text-muted">
                         Sub-Type
                     </label>
-                    <p>Terapanth</p>
+                    <p>{{data?.subType || '-'}}</p>
                 </div>
                 <!-- <div class="col-6">
                     <label class="text-muted">
@@ -64,7 +65,7 @@
     </div>
 </div>
 
-<app-members-listing></app-members-listing>
+<app-members-listing [allCommunityMembers]="allCommunityMembers" [totalMembers]="totalMembers"></app-members-listing>
 
 <!-- Edit Community Modal Start -->
 <p-dialog position="top-right" class="full-height-modal" [modal]="true" [draggable]="false"
@@ -72,6 +73,8 @@
     <ng-template pTemplate="header">
         <h2>Edit Community</h2>
     </ng-template>
-    <app-add-edit [id]="id"></app-add-edit>
+    <ng-container *ngIf="data">
+        <app-add-edit [id]="id" [data]="data" (onSuccess)="onUpdateSuccessful()"></app-add-edit>
+    </ng-container>
 </p-dialog>
 <!-- Edit Community Modal End -->

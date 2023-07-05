@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ManageCommunitiesService } from '../../services/manage-communities.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'app-listing',
@@ -8,21 +10,41 @@ import { Component, OnInit } from '@angular/core';
 export class ListingComponent implements OnInit {
 
   data: any = [];
-  addEditModalDisplay:boolean = false;
+  addEditModalDisplay: boolean = false;
 
-  constructor() { }
+  constructor(
+    private communitiesService: ManageCommunitiesService,
+    private commonService: CommonService
+  ) { }
 
   ngOnInit(): void {
-    this.data = [
-      { name: 'Chetan Kudnekar', link: 'Https://Google.com', active_members: '24', status: 'Active' },
-      { name: 'Chetan Jain', link: 'Https://Google.com', active_members: '24', status: 'Pending' },
-      { name: 'Chetan Banshali', link: 'Https://Google.com', active_members: '24', status: 'Active' },
-      { name: 'Chetan Jaswa', link: 'Https://Google.com', active_members: '24', status: 'Pending' },
-    ]
+    this.getAllData()
   }
 
   openAddEditCommunityModal() {
     this.addEditModalDisplay = true
+  }
+
+  closeAddEditCommunityModal() {
+    this.addEditModalDisplay = false
+  }
+
+  getAllData() {
+    this.commonService.startLoader()
+    this.communitiesService.getAllCommunities().then((res: any) => {
+      console.log(res)
+      this.data = res.communities
+      this.commonService.stopLoader()
+    }).catch(err => {
+      console.log(err)
+      this.commonService.showToast('error', 'Error', err)
+      this.commonService.stopLoader()
+    })
+  }
+
+  onUpdateSuccessful() {
+    this.closeAddEditCommunityModal()
+    this.getAllData()
   }
 
 }

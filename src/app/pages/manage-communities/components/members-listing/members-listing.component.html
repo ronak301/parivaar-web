@@ -3,7 +3,7 @@
         <p-card>
             <div class="row mb-4">
                 <div class="col-6 my-auto">
-                    <h2>Members(102)</h2>
+                    <h2>{{allCommunityMembers.length <= 1 ? 'Member' : 'Members'}}({{allCommunityMembers.length}})</h2>
                 </div>
                 <div class="col-6 text-right">
                     <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member" (click)="openAddEditMemberModal()"
@@ -27,21 +27,23 @@
 
             <div class="row">
                 <div class="col-12">
-                    <p-table [value]="data" [resizableColumns]="true"
+                    <p-table [value]="allCommunityMembers" [resizableColumns]="true"
                         styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 3rem">
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
-                                <th pResizableColumn pSortableColumn="fullName">Full Name <p-sortIcon
-                                        field="fullName"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="phoneNumber">Phone Number <p-sortIcon
-                                        field="phoneNumber"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="roles">Roles <p-sortIcon
-                                        field="roles"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="status">Status <p-sortIcon
-                                        field="status"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
+                                        field="firstName"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
+                                        field="phone"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="bloodGroup">Blood Group <p-sortIcon
+                                        field="bloodGroup"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="education">Education <p-sortIcon
+                                        field="education"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="business">Business <p-sortIcon
+                                        field="business"></p-sortIcon></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
@@ -49,11 +51,14 @@
                                 <td>
                                     <p-tableCheckbox [value]="data"></p-tableCheckbox>
                                 </td>
-                                <td>{{data.fullName}}</td>
-                                <td>{{data.phoneNumber}}</td>
-                                <td>{{data.roles}}</td>
+                                <td>{{data.firstName}} {{data.lastName}}</td>
+                                <td>{{data.phone}}</td>
+                                <td>{{data.bloodGroup}}</td>
                                 <td>
-                                    <span [class]="'customer-badge ' + data.status | lowercase">{{data.status}}</span>
+                                    {{data.education}}
+                                </td>
+                                <td>
+                                    {{data.business}}
                                 </td>
                             </tr>
                         </ng-template>

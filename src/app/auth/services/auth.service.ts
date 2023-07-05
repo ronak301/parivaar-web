@@ -61,7 +61,7 @@ export class AuthService {
   }
 
   getUserAuthStateLocalData() {
-    localStorage.getItem(this.userAuthStateKey)
+    return localStorage.getItem(this.userAuthStateKey)
   }
 
   removeUserAuthStateLocal() {
