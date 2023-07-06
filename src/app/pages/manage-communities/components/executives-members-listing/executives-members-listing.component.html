@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <div class="member-list-container">
+        <p-card>
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h2>Executive Members</h2>
+                </div>
+                <div class="col-6 text-right">
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member" (click)="openAddEditMemberModal()"
+                        class="p-button-outlined primary-button-outlined p-button-rounded"></button>
+                </div>
+            </div>
+
+            <app-filter [title]="'Executive Members'" [type]="'members'"></app-filter>
+
+            <div class="row my-4">
+                <div class="col-6 my-auto">
+                    <h2>1 Member Selected</h2>
+                </div>
+                <div class="col-6 text-right">
+                    <button pButton pRipple type="button" label="Remove Executive" (click)="deleteMemberConfirmation()"
+                        class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
+                    <button pButton pRipple type="button" label="Make Admin" (click)="makeAdminConfirmation()"
+                        class="p-button-outlined primary-button-outlined p-button-rounded"></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <p-table [value]="data" [resizableColumns]="true"
+                        styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 3rem">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th pResizableColumn pSortableColumn="fullName">Full Name <p-sortIcon
+                                        field="fullName"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="phoneNumber">Phone Number <p-sortIcon
+                                        field="phoneNumber"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="relation_type">Relation Type<p-sortIcon
+                                        field="status"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data>
+                            <tr>
+                                <td>
+                                    <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                                </td>
+                                <td>{{data.fullName}}</td>
+                                <td>{{data.phoneNumber}}</td>
+                                <td>{{data.relation_type}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>
+
+<p-confirmDialog #makeAdmin key="makeExecutiveAdminDialog" styleClass="confirmationDialog"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+        <h2 class="text-primary">Make Member Admin</h2>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary"
+            (click)="makeAdmin.reject()"></button>
+        <button type="button" pButton label="Confirm" class="p-button-rounded btn-primary"
+            (click)="makeAdmin.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+
+<p-confirmDialog #deleteMember key="deleteExecutiveMemberDialog" styleClass="confirmationDialog"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+        <h2 class="text-danger">Remove Executive Members</h2>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary"
+            (click)="deleteMember.reject()"></button>
+        <button type="button" pButton label="Confirm" class="p-button-rounded p-button-danger"
+            (click)="deleteMember.accept()"></button>
+    </ng-template>
+</p-confirmDialog>
+
+<!-- Add Member Modal Start -->
+<p-dialog position="top-right" [modal]="true" [draggable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [(visible)]="addEditMemberModalDisplay">
+    <ng-template pTemplate="header">
+        <h2>Add Executive Member</h2>
+    </ng-template>
+    <app-add-edit-executive-member></app-add-edit-executive-member>
+</p-dialog>
+<!-- Add Member Modal End -->

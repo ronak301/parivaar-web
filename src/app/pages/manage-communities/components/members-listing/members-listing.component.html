@@ -49,7 +49,7 @@
                         <ng-template pTemplate="body" let-data>
                             <tr routerLink="/pages/manage-communities/detail/123">
                                 <td>
-                                    <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td>
                                 <td>{{data.firstName}} {{data.lastName}}</td>
                                 <td>{{data.phone}}</td>
@@ -94,6 +94,6 @@
     <ng-template pTemplate="header">
         <h2>Add Member</h2>
     </ng-template>
-    <app-add-edit-member></app-add-edit-member>
+    <app-add-edit-member  [communityId]="communityId"></app-add-edit-member>
 </p-dialog>
 <!-- Add Member Modal End -->

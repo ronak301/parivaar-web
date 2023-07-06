@@ -65,7 +65,11 @@
     </div>
 </div>
 
-<app-members-listing [allCommunityMembers]="allCommunityMembers" [totalMembers]="totalMembers"></app-members-listing>
+<app-executives-members-listing [allExecutivesMembers]="allExecutivesMembers"></app-executives-members-listing>
+
+<br>
+
+<app-members-listing [communityId]="id" [allCommunityMembers]="allCommunityMembers" [totalMembers]="totalMembers"></app-members-listing>
 
 <!-- Edit Community Modal Start -->
 <p-dialog position="top-right" class="full-height-modal" [modal]="true" [draggable]="false"

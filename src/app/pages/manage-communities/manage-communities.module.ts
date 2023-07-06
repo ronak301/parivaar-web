@@ -7,6 +7,8 @@ import { AddEditComponent } from './components/add-edit/add-edit.component';
 import { MembersListingComponent } from './components/members-listing/members-listing.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { AddEditMemberComponent } from './components/add-edit-member/add-edit-member.component';
+import { ExecutivesMembersListingComponent } from './components/executives-members-listing/executives-members-listing.component';
+import { AddEditExecutiveMemberComponent } from './components/add-edit-executive-member/add-edit-executive-member.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { AddEditMemberComponent } from './components/add-edit-member/add-edit-me
     AddEditComponent,
     MembersListingComponent,
     DetailComponent,
-    AddEditMemberComponent
+    AddEditMemberComponent,
+    ExecutivesMembersListingComponent,
+    AddEditExecutiveMemberComponent
   ],
   imports: [
     SharedModule,

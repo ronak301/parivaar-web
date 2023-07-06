@@ -5,14 +5,13 @@ import { ManageCommunitiesService } from '../../services/manage-communities.serv
 import { BloodGroups, Gender } from 'src/app/shared/constants/constants';
 
 @Component({
-  selector: 'app-add-edit-member',
-  templateUrl: './add-edit-member.component.html',
-  styleUrls: ['./add-edit-member.component.scss']
+  selector: 'app-add-edit-executive-member',
+  templateUrl: './add-edit-executive-member.component.html',
+  styleUrls: ['./add-edit-executive-member.component.scss']
 })
-export class AddEditMemberComponent implements OnInit {
+export class AddEditExecutiveMemberComponent implements OnInit {
 
   @Input() id: string = '';
-  @Input() communityId: any;
   @Input() data: any;
   @Output() onSuccess = new EventEmitter<string>();
 
@@ -40,29 +39,32 @@ export class AddEditMemberComponent implements OnInit {
 
   initializeForms() {
     this.formData = this.fb.group({
-      'firstname': ['', Validators.required],
-      'lastname': ['', Validators.required],
+      'first_name': ['', Validators.required],
+      'last_name': ['', Validators.required],
       'dob': [''],
       'gender': ['', Validators.required],
       'phone': ['', Validators.required],
       'email': ['', Validators.required],
       'blood_group': ['', Validators.required],
-      'wedding_date': [''],
+      'wedding_date': ['', Validators.required],
       'guardian_name': [''],
       'native_place': [''],
       'education': [''],
+      
+      // these fields are not in db
       'full_address': [''],
       'pincode': [''],
       'city': [''],
       'state': [''],
+
     })
   }
 
-  get firstname() {
-    return this.formData.get('firstname')
+  get first_name() {
+    return this.formData.get('first_name')
   }
   get last_name() {
-    return this.formData.get('lastname')
+    return this.formData.get('last_name')
   }
   get gender() {
     return this.formData.get('gender')
@@ -79,17 +81,10 @@ export class AddEditMemberComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formData.value)
-    this.commonService.startLoader()
     if (this.id) {
 
     } else {
-      this.communitiesService.addMember(this.formData.value, this.communityId).then(res => {
-        console.log(res)
-        this.commonService.stopLoader()
-      }).catch(err => {
-        this.commonService.showToast('error', "Error", err)
-        this.commonService.stopLoader()
-      })
+
     }
   }
 

@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
   data: any;
   allCommunityMembers: any = [];
   totalMembers = 0;
+  allExecutivesMembers: any = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -39,9 +40,10 @@ export class DetailComponent implements OnInit {
 
   getData() {
     this.commonService.startLoader()
-    this.communitiesService.getCommunityById(this.id).then(res => {
+    this.communitiesService.getCommunityById(this.id).then((res: any) => {
       this.data = res
       console.log(this.data)
+      this.allExecutivesMembers = res?.executives || []
       this.commonService.stopLoader()
     }).catch(err => {
       this.commonService.showToast('error', "Error", err)
