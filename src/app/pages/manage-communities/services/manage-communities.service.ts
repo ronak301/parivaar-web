@@ -45,8 +45,16 @@ export class ManageCommunitiesService {
     return res2
   }
 
+  updateUser(userId:string,data:any) {
+    return this.http.put(this.apiUrl + `user/${userId}`, data).toPromise()
+  }
+
+  getUserById(id: string) {
+    return this.http.get(this.apiUrl + 'user/' + id).toPromise()
+  }
+
   async joinCommunity(data: any, communityId: any) {
-    return await this.http.post(this.apiUrl + `/community/join/${communityId}`, data).toPromise()
+    return await this.http.post(this.apiUrl + `community/join/${communityId}`, data).toPromise()
   }
 
 }

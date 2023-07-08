@@ -2,17 +2,30 @@
     <div class="row">
         <div class="col-6 my-2">
             <label>First Name</label>
-            <input type="text" formControlName="firstname" class="custom-form-control" placeholder="First Name">
+            <input type="text" formControlName="firstName" class="custom-form-control" placeholder="First Name">
         </div>
         <div class="col-6 my-2">
             <label>Last Name</label>
-            <input type="text" formControlName="lastname" class="custom-form-control" placeholder="Last Name">
+            <input type="text" formControlName="lastName" class="custom-form-control" placeholder="Last Name">
         </div>
         <div class="col-6 my-2">
             <label>Date of Birth</label>
             <input type="date" formControlName="dob" class="custom-form-control">
         </div>
         <div class="col-6 my-2">
+            <label>Age</label>
+            <input type="number" formControlName="age" class="custom-form-control">
+        </div>
+        <div class="col-6 my-2">
+            <label>Gender</label>
+            <p-dropdown class="custom-dropdown-control" formControlName="gender" [options]="genderOptions"
+                optionLabel="label" optionValue="id" placeholder="Gender"></p-dropdown>
+        </div>
+        <div class="col-12 my-2">
+            <label>Email</label>
+            <input type="email" formControlName="email" class="custom-form-control">
+        </div>
+        <!-- <div class="col-6 my-2">
             <label>Phone Number</label>
             <input type="text" maxlength="10" formControlName="phone" class="custom-form-control"
                 placeholder="Phone Number">
@@ -20,12 +33,7 @@
         <div class="col-6 my-2">
             <label>Blood Group</label>
             <p-dropdown class="custom-dropdown-control" formControlName="blood_group" [options]="bloodGroupOptions"
-                optionLabel="label" optionValue="id" placeholder="Blood Group"></p-dropdown>
-        </div>
-        <div class="col-6 my-2">
-            <label>Gender</label>
-            <p-dropdown class="custom-dropdown-control" formControlName="gender" [options]="genderOptions"
-                optionLabel="label" optionValue="id" placeholder="Gender"></p-dropdown>
+            optionLabel="label" optionValue="id" placeholder="Blood Group"></p-dropdown>
         </div>
         <div class="col-12 my-2">
             <label>Guardian Name</label>
@@ -38,10 +46,6 @@
         <div class="col-12 my-2">
             <label>Wedding Date</label>
             <input type="date" formControlName="wedding_date" class="custom-form-control">
-        </div>
-        <div class="col-12 my-2">
-            <label>Email</label>
-            <input type="email" formControlName="email" class="custom-form-control">
         </div>
         <div class="col-12 my-2">
             <label>Education</label>
@@ -62,7 +66,7 @@
         <div class="col-12 my-2">
             <label>State</label>
             <input type="text" formControlName="state" class="custom-form-control">
-        </div>
+        </div> -->
         <br><br><br>
         <br><br><br>
         <div class="col-12 modal-footer-fixed">

@@ -5,8 +5,8 @@
                 <h2>Communities(8)</h2>
             </div>
             <div class="col-6 text-right">
-                <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" icon="pi pi-plus" label="Add Community"
-                    class="p-button-outlined primary-button-outlined p-button-rounded"></button>
+                <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" icon="pi pi-plus"
+                    label="Add Community" class="p-button-outlined primary-button-outlined p-button-rounded"></button>
             </div>
         </div>
 
@@ -14,13 +14,16 @@
 
         <div class="row mt-5">
             <div class="col-12">
-                <p-table [value]="data" [resizableColumns]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
+                <p-table [value]="data" [resizableColumns]="true"
+                    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
                     <ng-template pTemplate="header">
                         <tr>
                             <th pResizableColumn pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
                             <!-- <th pResizableColumn pSortableColumn="link">Link <p-sortIcon field="link"></p-sortIcon></th> -->
-                            <th pResizableColumn pSortableColumn="active_members">Total Members <p-sortIcon field="active_members"></p-sortIcon></th>
-                            <th pResizableColumn pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                            <th pResizableColumn pSortableColumn="active_members">Total Members <p-sortIcon
+                                    field="active_members"></p-sortIcon></th>
+                            <th pResizableColumn pSortableColumn="status">Status <p-sortIcon
+                                    field="status"></p-sortIcon></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-data>
@@ -40,7 +43,8 @@
 </div>
 
 <!-- Add Community Modal Start -->
-<p-dialog position="top-right" class="full-height-modal" [modal]="true" [draggable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [(visible)]="addEditModalDisplay">
+<p-dialog position="top-right" class="full-height-modal" [modal]="true" [draggable]="false"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [(visible)]="addEditModalDisplay">
     <ng-template pTemplate="header">
         <h2>Add Community</h2>
     </ng-template>

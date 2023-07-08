@@ -1,0 +1,125 @@
+<div class="container-fluid mb-4">
+    <div class="info-container">
+        <div class="row mb-4">
+            <div class="col-6 my-auto">
+                <h2>Chetan Kudnekar</h2>
+            </div>
+            <div class="col-6 text-right">
+                <button pButton pRipple type="button"(click)="openAddEditMemberModal()"
+                    label="Update Information" class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
+                <!-- <button pButton pRipple type="button"
+                    label="Remove Admin Access" class="p-button-outlined p-button-rounded p-button-danger"></button> -->
+            </div>
+        </div>
+        <p-card>
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h3>Personal Information</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="text-muted mb-1">Profile Picture</label>
+                    <div class="preview-image" style="background-image: url({{imagePreviewUrl}});">
+                    </div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        First Name
+                    </label>
+                    <p>Terapan</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Last Name
+                    </label>
+                    <p>Sabha</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Date of Birth
+                    </label>
+                    <p>20/03/2002</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Phone Number
+                    </label>
+                    <p>9637189264</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Blood Group
+                    </label>
+                    <p>B+</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <p-divider></p-divider>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h3>Business Information</h3>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Name
+                    </label>
+                    <p>Terapan Sabha</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Description
+                    </label>
+                    <p>Terapan Sabha</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Address
+                    </label>
+                    <p>Udaipur Rajasthan</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Phone Number
+                    </label>
+                    <p>9637189264</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Website
+                    </label>
+                    <p>Exponential.com</p>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>
+
+
+<!-- Add Member Modal Start -->
+<p-dialog position="top-right" class="add-edit-community-modal full-height-modal" [modal]="true" [draggable]="false"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
+    [(visible)]="addEditMemberModalDisplay">
+    <ng-template pTemplate="header">
+        <h2>Edit Member</h2>
+    </ng-template>
+    <app-add-edit-member [id]="id" [data]="data" (onSuccess)="getData()"></app-add-edit-member>
+</p-dialog>
+<!-- Add Member Modal End -->

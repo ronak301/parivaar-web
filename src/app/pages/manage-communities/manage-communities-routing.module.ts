@@ -5,6 +5,7 @@ import { ManageCommunitiesComponent } from './manage-communities.component';
 import { ListingComponent } from './components/listing/listing.component';
 import { AddEditComponent } from './components/add-edit/add-edit.component';
 import { DetailComponent } from './components/detail/detail.component';
+import { MemberDetailComponent } from './components/member-detail/member-detail.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path:'detail/:id',
         component: DetailComponent 
+      },
+      {
+        path:'member-detail/:id',
+        component: MemberDetailComponent 
       },
     ]
   },

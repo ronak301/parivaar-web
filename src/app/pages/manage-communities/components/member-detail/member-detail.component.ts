@@ -1,20 +1,19 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-member-detail',
+  templateUrl: './member-detail.component.html',
+  styleUrls: ['./member-detail.component.scss']
 })
-export class DetailComponent implements OnInit {
+export class MemberDetailComponent implements OnInit {
 
-  addEditModalDisplay: boolean = false;
+  imagePreviewUrl:string = './assets/images/user.png';
+  addEditMemberModalDisplay: boolean = false;
   id: any = '';
   data: any;
-  allExecutivesMembers: any = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -24,23 +23,22 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')
-    this.getData()
+    // this.getData()
   }
 
-  openAddEditCommunityModal() {
-    this.addEditModalDisplay = true
+  openAddEditMemberModal() {
+    this.addEditMemberModalDisplay = true
   }
 
-  closeAddEditCommunityModal() {
-    this.addEditModalDisplay = false
+  closeAddEditMemberModal() {
+    this.addEditMemberModalDisplay = false
   }
 
   getData() {
     this.commonService.startLoader()
-    this.communitiesService.getCommunityById(this.id).then((res: any) => {
+    this.communitiesService.getUserById(this.id).then((res: any) => {
       this.data = res
       console.log(this.data)
-      this.allExecutivesMembers = res?.executives || []
       this.commonService.stopLoader()
     }).catch(err => {
       this.commonService.showToast('error', "Error", err)
@@ -48,8 +46,4 @@ export class DetailComponent implements OnInit {
     })
   }
 
-  onUpdateSuccessful() {
-    this.closeAddEditCommunityModal()
-    this.getData()
-  }
 }

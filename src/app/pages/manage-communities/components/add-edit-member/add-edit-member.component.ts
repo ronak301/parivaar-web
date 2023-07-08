@@ -40,52 +40,55 @@ export class AddEditMemberComponent implements OnInit {
 
   initializeForms() {
     this.formData = this.fb.group({
-      'firstname': ['', Validators.required],
-      'lastname': ['', Validators.required],
+      'firstName': ['', Validators.required],
+      'lastName': ['', Validators.required],
+      'email': ['', Validators.required],
+      'age': ['', Validators.required],
       'dob': [''],
       'gender': ['', Validators.required],
-      'phone': ['', Validators.required],
-      'email': ['', Validators.required],
-      'blood_group': ['', Validators.required],
-      'wedding_date': [''],
-      'guardian_name': [''],
-      'native_place': [''],
-      'education': [''],
-      'full_address': [''],
-      'pincode': [''],
-      'city': [''],
-      'state': [''],
+      // 'phone': ['', Validators.required],
+      // 'blood_group': ['', Validators.required],
+      // 'wedding_date': [''],
+      // 'guardian_name': [''],
+      // 'native_place': [''],
+      // 'education': [''],
+      // 'full_address': [''],
+      // 'pincode': [''],
+      // 'city': [''],
+      // 'state': [''],
     })
   }
 
   get firstname() {
-    return this.formData.get('firstname')
+    return this.formData.get('firstName')
   }
-  get last_name() {
-    return this.formData.get('lastname')
-  }
-  get gender() {
-    return this.formData.get('gender')
-  }
-  get phone() {
-    return this.formData.get('phone')
+  get lastname() {
+    return this.formData.get('lastName')
   }
   get email() {
     return this.formData.get('email')
   }
-  get blood_group() {
-    return this.formData.get('blood_group')
+  get gender() {
+    return this.formData.get('gender')
   }
+  // get phone() {
+  //   return this.formData.get('phone')
+  // }
+  // get blood_group() {
+  //   return this.formData.get('blood_group')
+  // }
 
   onSubmit() {
     console.log(this.formData.value)
     this.commonService.startLoader()
     if (this.id) {
 
+      this.onSuccess.emit()
     } else {
       this.communitiesService.addMember(this.formData.value, this.communityId).then(res => {
         console.log(res)
         this.commonService.stopLoader()
+        this.onSuccess.emit()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err)
         this.commonService.stopLoader()

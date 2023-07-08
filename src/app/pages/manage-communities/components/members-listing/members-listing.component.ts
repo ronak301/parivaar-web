@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
+import { EventEmitter } from 'stream';
+import { ManageCommunitiesService } from '../../services/manage-communities.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'app-members-listing',
@@ -9,17 +12,32 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class MembersListingComponent implements OnInit {
 
-  @Input() allCommunityMembers: any;
-  @Input() totalMembers: number = 0;
   @Input() communityId: any;
+  allCommunityMembers: any = [];
+  totalMembers: number = 0;
+
   addEditMemberModalDisplay: boolean = false;
   selectedMembersListing: any = [];
 
   constructor(
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private communitiesService: ManageCommunitiesService,
+    private commonService: CommonService,
   ) { }
 
   ngOnInit(): void {
+    this.getAllCommunityMembers()
+  }
+
+  getAllCommunityMembers() {
+    this.communitiesService.getCommunityMembers(this.communityId).then((res: any) => {
+      this.allCommunityMembers = res.members
+      this.totalMembers = res.totalMembers
+      console.log(this.allCommunityMembers)
+      this.closeAddEditMemberModal()
+    }).catch(err => {
+      this.commonService.showToast('error', "Error", err)
+    })
   }
 
   makeAdminConfirmation() {
@@ -48,6 +66,10 @@ export class MembersListingComponent implements OnInit {
     this.addEditMemberModalDisplay = true
   }
 
+  closeAddEditMemberModal() {
+    this.addEditMemberModalDisplay = false
+  }
+
   onSelectMembers(data: any) {
     console.log(data)
     if (this.selectedMembersListing.length > 0) {
@@ -57,8 +79,10 @@ export class MembersListingComponent implements OnInit {
       if (index == -1) {
         this.selectedMembersListing.push(data)
       } else {
-        this.selectedMembersListing.splice(index,1)
+        this.selectedMembersListing.splice(index, 1)
       }
     }
   }
+
+
 }
