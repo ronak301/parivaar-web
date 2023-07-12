@@ -46,16 +46,22 @@ export class AddEditMemberComponent implements OnInit {
       'age': ['', Validators.required],
       'dob': [''],
       'gender': ['', Validators.required],
-      // 'phone': ['', Validators.required],
-      // 'blood_group': ['', Validators.required],
+      'phone': ['', Validators.required],
+      'blood_group': ['', Validators.required],
       // 'wedding_date': [''],
       // 'guardian_name': [''],
       // 'native_place': [''],
       // 'education': [''],
-      // 'full_address': [''],
       // 'pincode': [''],
-      // 'city': [''],
-      // 'state': [''],
+      'business': this.fb.group({
+        'name': [''],
+        'type': [''],
+      }),
+      'address':  this.fb.group({
+        'fullAddress': [''],
+        'state': [''],
+        'city': [''],
+      }),
     })
   }
 
@@ -71,12 +77,12 @@ export class AddEditMemberComponent implements OnInit {
   get gender() {
     return this.formData.get('gender')
   }
-  // get phone() {
-  //   return this.formData.get('phone')
-  // }
-  // get blood_group() {
-  //   return this.formData.get('blood_group')
-  // }
+  get phone() {
+    return this.formData.get('phone')
+  }
+  get blood_group() {
+    return this.formData.get('blood_group')
+  }
 
   onSubmit() {
     console.log(this.formData.value)

@@ -2,7 +2,7 @@
     <div class="info-container">
         <div class="row mb-4">
             <div class="col-6 my-auto">
-                <h2>Chetan Kudnekar</h2>
+                <h2>{{data?.firstName}} {{data?.lastName}}</h2>
             </div>
             <div class="col-6 text-right">
                 <button pButton pRipple type="button"(click)="openAddEditMemberModal()"
@@ -29,13 +29,13 @@
                     <label class="text-muted">
                         First Name
                     </label>
-                    <p>Terapan</p>
+                    <p>{{data?.firstName || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
                         Last Name
                     </label>
-                    <p>Sabha</p>
+                    <p>{{data?.lastName || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -43,13 +43,13 @@
                     <label class="text-muted">
                         Date of Birth
                     </label>
-                    <p>20/03/2002</p>
+                    <p>{{data?.dob || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
                         Phone Number
                     </label>
-                    <p>9637189264</p>
+                    <p>{{data?.phone || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -57,7 +57,7 @@
                     <label class="text-muted">
                         Blood Group
                     </label>
-                    <p>B+</p>
+                    <p>{{data?.bloodGroup || '-'}}</p>
                 </div>
             </div>
 
@@ -77,13 +77,13 @@
                     <label class="text-muted">
                         Name
                     </label>
-                    <p>Terapan Sabha</p>
+                    <p>{{data?.business?.name || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
                         Description
                     </label>
-                    <p>Terapan Sabha</p>
+                    <p>{{data?.business?.description || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -91,13 +91,13 @@
                     <label class="text-muted">
                         Address
                     </label>
-                    <p>Udaipur Rajasthan</p>
+                    <p>{{data?.business?.address || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
                         Phone Number
                     </label>
-                    <p>9637189264</p>
+                    <p>{{data?.business?.phone || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -105,7 +105,7 @@
                     <label class="text-muted">
                         Website
                     </label>
-                    <p>Exponential.com</p>
+                    <p>{{data?.business?.website || '-'}}</p>
                 </div>
             </div>
         </p-card>

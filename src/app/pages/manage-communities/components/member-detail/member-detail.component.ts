@@ -23,7 +23,7 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')
-    // this.getData()
+    this.getData()
   }
 
   openAddEditMemberModal() {
@@ -37,7 +37,10 @@ export class MemberDetailComponent implements OnInit {
   getData() {
     this.commonService.startLoader()
     this.communitiesService.getUserById(this.id).then((res: any) => {
-      this.data = res
+      this.data = res.data
+      if(this.data?.profilePicture != null) {
+        this.imagePreviewUrl = this.data.profilePicture
+      }
       console.log(this.data)
       this.commonService.stopLoader()
     }).catch(err => {

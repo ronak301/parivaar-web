@@ -48,8 +48,7 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
-                            <tr routerLink="/pages/manage-communities/member-detail/123">
-                            <!-- <tr routerLink="/pages/manage-communities/member-detail/{{data.id}}"> -->
+                            <tr routerLink="/pages/manage-communities/member-detail/{{data.id}}">
                                 <td>
                                     <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td>
