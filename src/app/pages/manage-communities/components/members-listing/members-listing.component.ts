@@ -17,7 +17,7 @@ export class MembersListingComponent implements OnInit {
   totalMembers: number = 0;
 
   addEditMemberModalDisplay: boolean = false;
-  selectedMembersListing: any = [];
+  selectedList:any = [];
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -72,14 +72,14 @@ export class MembersListingComponent implements OnInit {
 
   onSelectMembers(data: any) {
     console.log(data)
-    if (this.selectedMembersListing.length > 0) {
-      this.selectedMembersListing.push(data)
+    if (this.selectedList.length == 0) {
+      this.selectedList.push(data)
     } else {
-      let index = this.selectedMembersListing.findIndex((el: any) => el.phone === data.phone);
+      let index = this.selectedList.findIndex((el: any) => el.phone === data.phone);
       if (index == -1) {
-        this.selectedMembersListing.push(data)
+        this.selectedList.push(data)
       } else {
-        this.selectedMembersListing.splice(index, 1)
+        this.selectedList.splice(index, 1)
       }
     }
   }

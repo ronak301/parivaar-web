@@ -16,10 +16,14 @@ export class AddEditMemberComponent implements OnInit {
   @Input() data: any;
   @Output() onSuccess = new EventEmitter<string>();
 
-  imagePreviewUrl: string = './assets/images/user.png';
+  imagePreviewUrl: string = './assets/images/user.jpeg';
   bloodGroupOptions: any = BloodGroups;
   genderOptions: any = Gender;
   formData!: FormGroup
+  businessTypeOptions:any = [];
+  businessSubTypeOptions:any = [];
+  stateOptions:any = [];
+  cityOptions:any = [];
 
   constructor(
     public fb: FormBuilder,
@@ -42,48 +46,48 @@ export class AddEditMemberComponent implements OnInit {
     this.formData = this.fb.group({
       'firstName': ['', Validators.required],
       'lastName': ['', Validators.required],
-      'email': ['', Validators.required],
-      'age': ['', Validators.required],
-      'dob': [''],
-      'gender': ['', Validators.required],
       'phone': ['', Validators.required],
-      'blood_group': ['', Validators.required],
-      // 'wedding_date': [''],
-      // 'guardian_name': [''],
-      // 'native_place': [''],
-      // 'education': [''],
-      // 'pincode': [''],
+      'dob': ['', Validators.required],
+      'guardianName':[''],
+      'weddingDate':[''],
+      'email': [''],
+      'gender': [''],
+      'bloodGroup': [''],
+      'education': [''],
+      'landline': [''],
+      'nativePlace': [''],
       'business': this.fb.group({
         'name': [''],
         'type': [''],
+        'subType': [''],
+        'website': [''],
+        'phone': [''],
+        'address': [''],
+        'description': [''],
       }),
-      'address':  this.fb.group({
+      'address': this.fb.group({
         'fullAddress': [''],
         'state': [''],
         'city': [''],
+        'pincode': [''],
+        'locality': [''],
       }),
     })
   }
 
-  get firstname() {
+  get firstName() {
     return this.formData.get('firstName')
   }
-  get lastname() {
+  get lastName() {
     return this.formData.get('lastName')
-  }
-  get email() {
-    return this.formData.get('email')
-  }
-  get gender() {
-    return this.formData.get('gender')
   }
   get phone() {
     return this.formData.get('phone')
   }
-  get blood_group() {
-    return this.formData.get('blood_group')
+  get dob() {
+    return this.formData.get('dob')
   }
-
+ 
   onSubmit() {
     console.log(this.formData.value)
     this.commonService.startLoader()

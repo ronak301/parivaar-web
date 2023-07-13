@@ -6,7 +6,7 @@
                     <h2>Community Info</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" label="Update"
+                    <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" label="Edit"
                         class="p-button-outlined p-button-rounded primary-button-outlined"></button>
                 </div>
             </div>
@@ -15,7 +15,7 @@
                     <label class="text-muted">
                         Logo
                     </label>
-                    <div class="preview-image" style="background-image: url(../../../../../assets/images/user.png);">
+                    <div class="preview-image" style="background-image: url(../../../../../assets/images/user.jpeg);">
                     </div>
                 </div>
             </div>
@@ -36,30 +36,16 @@
             <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
-                        City
-                    </label>
-                    <p>{{data?.city || '-'}}</p>
-                </div>
-                <div class="col-6">
-                    <label class="text-muted">
                         Type
                     </label>
                     <p>{{data?.type}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
                         Sub-Type
                     </label>
                     <p>{{data?.subType || '-'}}</p>
                 </div>
-                <!-- <div class="col-6">
-                    <label class="text-muted">
-                        Status
-                    </label>
-                    <span [class]="'customer-badge ' + 'pending'">Pending Activation</span>
-                </div> -->
             </div>
         </p-card>
     </div>

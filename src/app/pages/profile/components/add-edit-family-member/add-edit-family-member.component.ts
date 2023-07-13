@@ -9,7 +9,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
 
   @Input() id:string = '';
   
-  imagePreviewUrl:string = './assets/images/user.png';
+  imagePreviewUrl:string = './assets/images/user.jpeg';
   bloodGroup:any = [];
   gender:any = ['Male','Female'];
 

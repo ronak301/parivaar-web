@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-  imagePreviewUrl:string = './assets/images/user.png';
+  imagePreviewUrl:string = './assets/images/user.jpeg';
 
   constructor() { }
 

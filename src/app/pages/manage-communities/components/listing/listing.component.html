@@ -2,7 +2,7 @@
     <p-card>
         <div class="row mb-4">
             <div class="col-6 my-auto">
-                <h2>Communities(8)</h2>
+                <h2>Communities({{data.length}})</h2>
             </div>
             <div class="col-6 text-right">
                 <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" icon="pi pi-plus"
@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <app-filter></app-filter>
+        <!-- <app-filter></app-filter> -->
 
         <div class="row mt-5">
             <div class="col-12">

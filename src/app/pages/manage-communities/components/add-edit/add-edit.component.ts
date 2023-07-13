@@ -15,7 +15,7 @@ export class AddEditComponent implements OnInit {
   @Input() data: any;
   @Output() onSuccess = new EventEmitter<string>();
 
-  imagePreviewUrl: string = './assets/images/user.png';
+  imagePreviewUrl: string = './assets/images/user.jpeg';
   types: any = CommunityTypes;
   subTypes: any = CommunitySubTypes;
   formData!: FormGroup

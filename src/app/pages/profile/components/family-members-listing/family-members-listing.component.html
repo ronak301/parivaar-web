@@ -13,17 +13,19 @@
 
             <p-divider></p-divider>
 
-            <div class="row my-4">
-                <div class="col-6 my-auto">
-                    <h2>1 Member Selected</h2>
+            <ng-container *ngIf="selectedList.length>0">
+                <div class="row my-4">
+                    <div class="col-6 my-auto">
+                        <h2>{{selectedList.length}} Member Selected</h2>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button pButton pRipple type="button" label="Delete Family Member" (click)="deleteMemberConfirmation()"
+                            class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
+                        <button pButton pRipple type="button" label="Make Family Admin" (click)="makeAdminConfirmation()"
+                            class="p-button-outlined primary-button-outlined p-button-rounded"></button>
+                    </div>
                 </div>
-                <div class="col-6 text-right">
-                    <button pButton pRipple type="button" label="Delete Family Member" (click)="deleteMemberConfirmation()"
-                        class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
-                    <button pButton pRipple type="button" label="Make Family Admin" (click)="makeAdminConfirmation()"
-                        class="p-button-outlined primary-button-outlined p-button-rounded"></button>
-                </div>
-            </div>
+            </ng-container>
 
             <div class="row">
                 <div class="col-12">
@@ -45,7 +47,7 @@
                         <ng-template pTemplate="body" let-data>
                             <tr>
                                 <td>
-                                    <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td>
                                 <td>{{data.fullName}}</td>
                                 <td>{{data.phoneNumber}}</td>

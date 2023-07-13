@@ -114,7 +114,9 @@ label {
 }
 .p-dialog {
     margin: 0 !important;
-    box-shadow: 20px -9px 0px 0px rgba(0, 0, 0, 0.2), 20px -4px 38px 3px rgba(0, 0, 0, 0.14),
+    box-shadow:
+        20px -9px 0px 0px rgba(0, 0, 0, 0.2),
+        20px -4px 38px 3px rgba(0, 0, 0, 0.14),
         20px -15px 0px 8px rgba(0, 0, 0, 0.12);
     max-height: 100% !important;
 }
@@ -184,7 +186,9 @@ label {
     .p-card {
         width: 500px;
         border-radius: 10px !important;
-        box-shadow: 0px 4px 30px 0px rgba(111, 100, 100, 0.04), 0px 4px 4px 0px rgba(85, 76, 76, 0.06) !important;
+        box-shadow:
+            0px 4px 30px 0px rgba(111, 100, 100, 0.04),
+            0px 4px 4px 0px rgba(85, 76, 76, 0.06) !important;
         border: 1px solid #e9f7ff !important;
         h1 {
             font-size: 24px;
@@ -285,18 +289,69 @@ textarea {
 }
 
 .p-dialog .p-dialog-header {
-    border-top-left-radius: 10px!important;
-    border-top-right-radius: 10px!important;
-    padding: 32px 32px 16px 32px!important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    padding: 32px 32px 16px 32px !important;
 }
 
 .p-dialog .p-dialog-footer {
-    border-bottom-left-radius: 10px!important;
-    border-bottom-right-radius: 10px!important;
-    padding: 0 32px 32px 32px!important;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    padding: 0 32px 32px 32px !important;
 }
 
 .link {
     cursor: pointer;
-    color: var(--primary-color)!important;
+    color: var(--primary-color) !important;
+}
+.p-card {
+    padding: 16px 0 32px 0;
+}
+table {
+    border-radius: 8px;
+    th {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    tr {
+        height: 52px !important;
+    }
+}
+p-sorticon .p-sortable-column-icon {
+    color: #ffffff !important;
+}
+.p-datatable-wrapper {
+    border-radius: 8px;
+}
+.logo {
+    i {
+        color: #ffff;
+        background: #5196fa;
+        border-radius: 24px;
+        padding: 4px;
+        font-size: 10px;
+        position: absolute;
+        bottom: 2px;
+        left: 88px;
+        cursor: pointer;
+        display: none;
+    }
+    .preview-image {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: cover;
+        border-radius: 50px;
+    }
+}
+.preview-image {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    border-radius: 50px;
 }

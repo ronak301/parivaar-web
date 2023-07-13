@@ -11,45 +11,47 @@
                 </div>
             </div>
 
-            <app-filter [title]="'Executive Members'" [type]="'members'"></app-filter>
+            <!-- <app-filter [title]="'Executive Members'" [type]="'members'"></app-filter> -->
 
-            <div class="row my-4">
-                <div class="col-6 my-auto">
-                    <h2>1 Member Selected</h2>
+            <ng-container *ngIf="selectedList?.length > 0">
+                <div class="row my-4">
+                    <div class="col-6 my-auto">
+                        <h2>{{selectedList?.length}} Member Selected</h2>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button pButton pRipple type="button" label="Remove Executive" (click)="deleteMemberConfirmation()"
+                            class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
+                        <button pButton pRipple type="button" label="Make Admin" (click)="makeAdminConfirmation()"
+                            class="p-button-outlined primary-button-outlined p-button-rounded"></button>
+                    </div>
                 </div>
-                <div class="col-6 text-right">
-                    <button pButton pRipple type="button" label="Remove Executive" (click)="deleteMemberConfirmation()"
-                        class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
-                    <button pButton pRipple type="button" label="Make Admin" (click)="makeAdminConfirmation()"
-                        class="p-button-outlined primary-button-outlined p-button-rounded"></button>
-                </div>
-            </div>
+            </ng-container>
 
             <div class="row">
                 <div class="col-12">
-                    <p-table [value]="data" [resizableColumns]="true"
+                    <p-table [value]="allExecutivesMembers" [resizableColumns]="true"
                         styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 3rem">
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
-                                <th pResizableColumn pSortableColumn="fullName">Full Name <p-sortIcon
-                                        field="fullName"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="phoneNumber">Phone Number <p-sortIcon
-                                        field="phoneNumber"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="relation_type">Relation Type<p-sortIcon
-                                        field="status"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
+                                        field="firstName"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
+                                        field="phone"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="bloodGroup">Blood Group<p-sortIcon
+                                        field="bloodGroup"></p-sortIcon></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
                             <tr>
                                 <td>
-                                    <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td>
-                                <td>{{data.fullName}}</td>
-                                <td>{{data.phoneNumber}}</td>
-                                <td>{{data.relation_type}}</td>
+                                <td>{{data?.firstName}} {{data?.lastName}}</td>
+                                <td>{{data?.phone}}</td>
+                                <td>{{data.bloodGroup || '-'}}</td>
                             </tr>
                         </ng-template>
                     </p-table>

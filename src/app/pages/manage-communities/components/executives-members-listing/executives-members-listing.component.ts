@@ -11,8 +11,8 @@ export class ExecutivesMembersListingComponent implements OnInit {
   
   @Input() allExecutivesMembers:any;
 
-  data: any = [];
   addEditMemberModalDisplay: boolean = false;
+  selectedList:any = [];
 
   constructor(
     private confirmationService: ConfirmationService
@@ -52,4 +52,19 @@ export class ExecutivesMembersListingComponent implements OnInit {
   openAddEditMemberModal() {
     this.addEditMemberModalDisplay = true
   }
+
+  onSelectMembers(data: any) {
+    console.log(data)
+    if (this.selectedList.length == 0) {
+      this.selectedList.push(data)
+    } else {
+      let index = this.selectedList.findIndex((el: any) => el.phone === data.phone);
+      if (index == -1) {
+        this.selectedList.push(data)
+      } else {
+        this.selectedList.splice(index, 1)
+      }
+    }
+  }
+
 }

@@ -10,7 +10,7 @@ import { ManageCommunitiesService } from '../../services/manage-communities.serv
 })
 export class MemberDetailComponent implements OnInit {
 
-  imagePreviewUrl:string = './assets/images/user.png';
+  imagePreviewUrl:string = './assets/images/user.jpeg';
   addEditMemberModalDisplay: boolean = false;
   id: any = '';
   data: any;
