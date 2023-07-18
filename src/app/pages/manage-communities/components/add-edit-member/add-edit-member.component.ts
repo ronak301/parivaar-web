@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
-import { BloodGroups, Gender } from 'src/app/shared/constants/constants';
+import { BloodGroups, BusinessSubTypes, BusinessTypes, Cities, Gender, State } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-add-edit-member',
@@ -20,10 +20,10 @@ export class AddEditMemberComponent implements OnInit {
   bloodGroupOptions: any = BloodGroups;
   genderOptions: any = Gender;
   formData!: FormGroup
-  businessTypeOptions:any = [];
-  businessSubTypeOptions:any = [];
-  stateOptions:any = [];
-  cityOptions:any = [];
+  stateOptions: any = State;
+  cityOptions: any = Cities;
+  businessTypeOptions = BusinessTypes
+  businessSubTypeOptions = BusinessSubTypes
 
   constructor(
     public fb: FormBuilder,
@@ -33,6 +33,7 @@ export class AddEditMemberComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForms()
+    console.log(this.id)
     if (this.id) {
       this.patchValue()
     }
@@ -44,33 +45,35 @@ export class AddEditMemberComponent implements OnInit {
 
   initializeForms() {
     this.formData = this.fb.group({
-      'firstName': ['', Validators.required],
-      'lastName': ['', Validators.required],
-      'phone': ['', Validators.required],
-      'dob': ['', Validators.required],
-      'guardianName':[''],
-      'weddingDate':[''],
-      'email': [''],
-      'gender': [''],
-      'bloodGroup': [''],
-      'education': [''],
-      'landline': [''],
-      'nativePlace': [''],
+      'firstName': [null, Validators.required],
+      'lastName': [null, Validators.required],
+      'phone': [null, Validators.required],
+      'dob': [null, Validators.required],
+      'guardianName': [null],
+      'weddingDate': [null],
+      'email': [null],
+      'gender': [null],
+      'bloodGroup': [null],
+      'education': [null],
+      'landline': [null],
+      'nativePlace': [null],
+      "isAccountManager": [true],
+      "isSuperAdmin": [false],
       'business': this.fb.group({
-        'name': [''],
-        'type': [''],
-        'subType': [''],
-        'website': [''],
-        'phone': [''],
-        'address': [''],
-        'description': [''],
+        'name': [null],
+        'type': [null],
+        'subType': [null],
+        'website': [null],
+        'phone': [null],
+        'address': [null],
+        'description': [null],
       }),
       'address': this.fb.group({
-        'fullAddress': [''],
-        'state': [''],
-        'city': [''],
-        'pincode': [''],
-        'locality': [''],
+        'fullAddress': [null],
+        'state': [null],
+        'city': [null],
+        'pincode': [null],
+        'locality': [null],
       }),
     })
   }
@@ -87,20 +90,51 @@ export class AddEditMemberComponent implements OnInit {
   get dob() {
     return this.formData.get('dob')
   }
- 
-  onSubmit() {
-    console.log(this.formData.value)
-    this.commonService.startLoader()
-    if (this.id) {
 
-      this.onSuccess.emit()
-    } else {
-      this.communitiesService.addMember(this.formData.value, this.communityId).then(res => {
+  onSubmit() {
+    const nonNullFields: any = {};
+    Object.entries(this.formData.value).forEach(([key, value]) => {
+      if (value !== null) {
+        if (typeof value === 'object') {
+          nonNullFields[key] = Object.entries(value).reduce((acc: any, [subKey, subValue]) => {
+            if (subValue !== null) {
+              acc[subKey] = subValue;
+            }
+            return acc;
+          }, {});
+        } else if (typeof value === 'string' && value.trim() === '') {
+          delete nonNullFields[key];
+        } else {
+          nonNullFields[key] = value;
+        }
+      }
+    });
+    if (this.id) {
+      console.log(nonNullFields)
+      this.communitiesService.updateMember(this.id, nonNullFields).then((res: any) => {
         console.log(res)
-        this.commonService.stopLoader()
         this.onSuccess.emit()
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err)
+        this.commonService.showToast('error', "Error", err?.message)
+        this.commonService.stopLoader()
+      })
+    } else {
+      console.log(nonNullFields)
+      this.communitiesService.addMember(nonNullFields, this.communityId).then((res: any) => {
+        console.log(res)
+        let joinData = {
+          userId: res.id
+        }
+        this.communitiesService.joinCommunity(joinData, this.communityId).then(res2 => {
+          console.log(res2)
+          this.commonService.stopLoader()
+          this.onSuccess.emit()
+        }).catch(err => {
+          this.commonService.showToast('error', "Error", err?.message)
+          this.commonService.stopLoader()
+        })
+      }).catch(err => {
+        this.commonService.showToast('error', "Error", err?.message)
         this.commonService.stopLoader()
       })
     }

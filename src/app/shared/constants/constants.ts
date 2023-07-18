@@ -12,13 +12,17 @@ export const Gender = [
     id: "Female",
     label: "Female",
   },
-  {
-    id: "Others",
-    label: "Others",
-  },
 ];
 
 export const BusinessTypes = [
+  {
+    id: "HomeMaker",
+    label: "Home Maker",
+  },
+  {
+    id: "SelfEmployed",
+    label: "Self Employed",
+  },
   {
     id: "Automobile",
     label: "Automobile",
@@ -153,23 +157,22 @@ export const BusinessTypes = [
   },
 ];
 
-export const BusinessSubTypes = {};
+export const BusinessSubTypes = [];
 
 export const CommunityTypes = [
   {
     id: "Jain",
     label: "Jain",
-  },
-  {
-    id: "All",
-    label: "All",
-  },
-];
-
-export const CommunitySubTypes = [
-  {
-    id: "Terapanth",
-    label: "Terapanth",
+    subTypes: [
+      {
+        id: "Terapanth",
+        label: "Terapanth",
+      },
+      {
+        id: "All",
+        label: "All",
+      },
+    ],
   },
   {
     id: "All",
@@ -192,6 +195,13 @@ export const Cities = [
   {
     id: "Udaipur",
     label: "Udaipur",
+  },
+];
+
+export const State = [
+  {
+    id: "Rajasthan",
+    label: "Rajasthan",
   },
 ];
 

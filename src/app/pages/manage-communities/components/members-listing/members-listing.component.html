@@ -50,18 +50,18 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
-                            <tr routerLink="/pages/manage-communities/member-detail/{{data.id}}">
+                            <tr>
                                 <td>
                                     <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td>
-                                <td>{{data.firstName}} {{data.lastName}}</td>
-                                <td>{{data.phone}}</td>
-                                <td>{{data.bloodGroup}}</td>
-                                <td>
-                                    {{data.education}}
+                                <td routerLink="/pages/manage-communities/member-detail/{{data.id}}">{{data.firstName}} {{data.lastName}}</td>
+                                <td routerLink="/pages/manage-communities/member-detail/{{data.id}}">{{data.phone}}</td>
+                                <td routerLink="/pages/manage-communities/member-detail/{{data.id}}">{{data.bloodGroup}}</td>
+                                <td routerLink="/pages/manage-communities/member-detail/{{data.id}}">
+                                    {{data?.education}}
                                 </td>
-                                <td>
-                                    {{data.business}}
+                                <td routerLink="/pages/manage-communities/member-detail/{{data.id}}">
+                                    {{data?.business?.name}}
                                 </td>
                             </tr>
                         </ng-template>

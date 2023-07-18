@@ -22,7 +22,7 @@
         </div>
         <div class="col-12 my-2">
             <label>Type</label>
-            <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="types" optionLabel="label" optionValue="id" placeholder="Type"></p-dropdown>
+            <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="types" (onChange)="onSelectType()" optionLabel="label" optionValue="id" placeholder="Type"></p-dropdown>
             <field-error [control]="type"></field-error>
         </div>
         <div class="col-12 my-2">
@@ -30,6 +30,13 @@
             <p-dropdown class="custom-dropdown-control" formControlName="subType" [options]="subTypes" optionLabel="label" optionValue="id" placeholder="Sub Type"></p-dropdown>
             <field-error [control]="subType"></field-error>
         </div>
+        <div class="col-12 my-2">
+            <label>Status</label>
+            <p-dropdown class="custom-dropdown-control" formControlName="status" [options]="statusOptions" optionLabel="label" optionValue="id" placeholder="Status"></p-dropdown>
+            <field-error [control]="subType"></field-error>
+        </div>
+        <br><br><br><br>
+        <br><br><br><br>
         <div class="col-12 modal-footer-fixed">
             <button pButton pRipple [disabled]="formData.invalid" type="submit" label="{{id ? 'Update' : 'Add'}} Community"
                 icon="{{!id ? 'pi pi-plus' : ''}}" class="p-button-rounded button-with-icon btn-primary"></button>

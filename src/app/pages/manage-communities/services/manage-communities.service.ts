@@ -25,27 +25,25 @@ export class ManageCommunitiesService {
     return this.http.post(this.apiUrl + 'community/create', data).toPromise()
   }
 
-  updateCommunity(data: any) {
-    return this.http.post(this.apiUrl + 'community/create', data).toPromise()
+  updateCommunity(id: any, data: any) {
+    return this.http.put(this.apiUrl + `community/${id}`, data).toPromise()
   }
 
   getCommunityMembers(communityId: string) {
-    return this.http.get(this.apiUrl + 'community/members/' + communityId).toPromise()
-  }
-
-  async addMember(data: any, communityId: any) {
-    const res: any = await this.http.post(this.apiUrl + 'user/new', data).toPromise()
-    console.log(res)
-    const userId = res.user.id
-    let joinData = {
-      userId: userId
+    let data = {
+      filter: {},
+      query: '',
+      skip: 0,
+      limit: 1000
     }
-    const res2 = await this.joinCommunity(joinData, communityId)
-    console.log('res2',res2)
-    return res2
+    return this.http.post(this.apiUrl + 'community/members/' + communityId, data).toPromise();
   }
 
-  updateUser(userId:string,data:any) {
+  addMember(data: any, communityId: any) {
+    return this.http.post(this.apiUrl + 'user/new', data).toPromise()
+  }
+
+  updateMember(userId: string, data: any) {
     return this.http.put(this.apiUrl + `user/${userId}`, data).toPromise()
   }
 
@@ -53,8 +51,8 @@ export class ManageCommunitiesService {
     return this.http.get(this.apiUrl + 'user/' + id).toPromise()
   }
 
-  async joinCommunity(data: any, communityId: any) {
-    return await this.http.post(this.apiUrl + `community/join/${communityId}`, data).toPromise()
+  joinCommunity(data: any, communityId: any) {
+    return this.http.post(this.apiUrl + `community/join/${communityId}`, data).toPromise()
   }
 
 }

@@ -35,6 +35,7 @@ export class MemberDetailComponent implements OnInit {
   }
 
   getData() {
+    this.closeAddEditMemberModal()
     this.commonService.startLoader()
     this.communitiesService.getUserById(this.id).then((res: any) => {
       this.data = res.data

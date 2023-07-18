@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommunitySubTypes, CommunityTypes } from 'src/app/shared/constants/constants';
+import { CommunityStatus, CommunityTypes } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 
@@ -17,7 +17,8 @@ export class AddEditComponent implements OnInit {
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
   types: any = CommunityTypes;
-  subTypes: any = CommunitySubTypes;
+  subTypes: any = [];
+  statusOptions: any = CommunityStatus;
   formData!: FormGroup
 
   constructor(
@@ -40,12 +41,14 @@ export class AddEditComponent implements OnInit {
       'description': [''],
       'type': ['', Validators.required],
       'subType': ['', Validators.required],
+      'status': ['Pending', Validators.required],
     })
   }
 
   patchValue() {
     console.log(this.data)
     this.formData.patchValue(this.data)
+    this.onSelectType()
   }
 
   get name() {
@@ -65,9 +68,14 @@ export class AddEditComponent implements OnInit {
     console.log(this.formData.value)
     this.commonService.startLoader()
     if (this.id) {
-      //update
-      this.commonService.stopLoader()
-      this.onSuccess.emit()
+      this.communitiesService.updateCommunity(this.id, this.formData.value).then((res:any) => {
+        this.commonService.stopLoader()
+        this.onSuccess.emit()
+        this.commonService.showToast('success', "Updated", res?.message)
+      }).catch(err => {
+        this.commonService.showToast('error', "Error", err)
+        this.commonService.stopLoader()
+      })
     } else {
       let data = { status: 'Pending', ...this.formData.value }
       this.communitiesService.createCommunity(data).then(res => {
@@ -80,6 +88,11 @@ export class AddEditComponent implements OnInit {
         this.commonService.stopLoader()
       })
     }
+  }
+
+  onSelectType() {
+    let data = this.types.find((el: any) => el.id == this.type?.value)
+    this.subTypes = data.subTypes
   }
 
 }

@@ -128,7 +128,7 @@
     <div class="row">
         <div class="col-12 modal-footer-fixed">
             <button pButton pRipple type="submit" [disabled]="formData.invalid" label="{{id ? 'Update' : 'Add'}} Member"
-                icon="pi pi-plus" class="p-button-rounded button-with-icon btn-primary"></button>
+                [icon]="!id ? 'pi pi-plus' : ''" class="p-button-rounded button-with-icon btn-primary"></button>
         </div>
     </div>
 </form>
