@@ -30,7 +30,7 @@
             <p-dropdown class="custom-dropdown-control" formControlName="subType" [options]="subTypes" optionLabel="label" optionValue="id" placeholder="Sub Type"></p-dropdown>
             <field-error [control]="subType"></field-error>
         </div>
-        <div class="col-12 my-2">
+        <div class="col-12 my-2" *ngIf="id">
             <label>Status</label>
             <p-dropdown class="custom-dropdown-control" formControlName="status" [options]="statusOptions" optionLabel="label" optionValue="id" placeholder="Status"></p-dropdown>
             <field-error [control]="subType"></field-error>

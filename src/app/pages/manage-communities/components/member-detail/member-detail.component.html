@@ -237,3 +237,6 @@
     </ng-container>
 </p-dialog>
 <!-- Add Member Modal End -->
+
+
+<app-family-members-listing [data]="familyMembers" [relationshipId]="id" [communityId]="communityId" (reload)="reload()"></app-family-members-listing>

@@ -1,17 +1,18 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BloodGroups, BusinessSubTypes, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, State } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
-import { BloodGroups, BusinessSubTypes, BusinessTypes, Cities, Gender, State } from 'src/app/shared/constants/constants';
 
 @Component({
-  selector: 'app-add-edit-member',
-  templateUrl: './add-edit-member.component.html',
-  styleUrls: ['./add-edit-member.component.scss']
+  selector: 'app-add-edit-family-member',
+  templateUrl: './add-edit-family-member.component.html',
+  styleUrls: ['./add-edit-family-member.component.scss']
 })
-export class AddEditMemberComponent implements OnInit {
+export class AddEditFamilyMemberComponent implements OnInit {
 
   @Input() id: string = '';
+  @Input() relationshipId: string = '';
   @Input() communityId: any;
   @Input() data: any;
   @Output() onSuccess = new EventEmitter<string>();
@@ -24,6 +25,7 @@ export class AddEditMemberComponent implements OnInit {
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
   businessSubTypeOptions = BusinessSubTypes
+  familyMemberRelationshipTypes = FamilyMemberRelationshipTypes
 
   constructor(
     public fb: FormBuilder,
@@ -58,7 +60,7 @@ export class AddEditMemberComponent implements OnInit {
       'education': [null],
       'landline': [null],
       'nativePlace': [null],
-      "isAccountManager": [true],
+      "isAccountManager": [false],
       "isSuperAdmin": [false],
       'business': this.fb.group({
         'name': [null],
@@ -71,10 +73,14 @@ export class AddEditMemberComponent implements OnInit {
       }),
       'address': this.fb.group({
         'fullAddress': [null],
-        'state': [null],
-        'city': [null],
+        'state': ['Rajasthan'],
+        'city': ['Udaipur'],
         'pincode': [null],
         'locality': [null],
+      }),
+      'relative': this.fb.group({
+        'id': [this.relationshipId],
+        'type': [null, Validators.required],
       }),
     })
   }
@@ -119,7 +125,7 @@ export class AddEditMemberComponent implements OnInit {
       this.communitiesService.updateMember(this.id, nonNullFields).then((res: any) => {
         console.log(res)
         if (nonNullFields.hasBusiness) {
-          this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business).then(res=>{
+          this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business).then(res => {
             console.log(res)
             this.onSuccess.emit()
           })
@@ -137,7 +143,8 @@ export class AddEditMemberComponent implements OnInit {
       })
     } else {
       console.log(nonNullFields)
-      this.communitiesService.addMember(nonNullFields).then((res: any) => {
+      console.log(this.communityId)
+      this.communitiesService.addRelative(nonNullFields).then((res: any) => {
         console.log(res)
         let joinData = {
           userId: res.id

@@ -35,7 +35,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     HeaderComponent,
     FilterComponent,
     LoaderComponent,
-    FieldErrorComponent
+    FieldErrorComponent,
   ],
   providers:[
     DatePipe

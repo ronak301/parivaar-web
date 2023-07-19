@@ -39,12 +39,24 @@ export class ManageCommunitiesService {
     return this.http.post(this.apiUrl + 'community/members/' + communityId, data).toPromise();
   }
 
-  addMember(data: any, communityId: any) {
+  addMember(data: any) {
     return this.http.post(this.apiUrl + 'user/new', data).toPromise()
+  }
+
+  addRelative(data: any) {
+    return this.http.post(this.apiUrl + 'relationship/relative/new', data).toPromise()
   }
 
   updateMember(userId: string, data: any) {
     return this.http.put(this.apiUrl + `user/${userId}`, data).toPromise()
+  }
+
+  updateAddress(id: string, data: any) {
+    return this.http.put(this.apiUrl + `address/${id}`, data).toPromise()
+  }
+
+  updateBusiness(id: string, data: any) {
+    return this.http.put(this.apiUrl + `business/${id}`, data).toPromise()
   }
 
   getUserById(id: string) {

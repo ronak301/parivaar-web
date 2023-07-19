@@ -29,6 +29,7 @@ export class AddEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForms()
+    console.log('data',this.data)
     if (this.id) {
       this.patchValue()
     }

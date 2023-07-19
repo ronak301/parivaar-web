@@ -3,16 +3,16 @@
         <p-card>
             <div class="row mb-4">
                 <div class="col-6 my-auto">
-                    <h2>{{allCommunityMembers.length <= 1 ? 'Member' : 'Members' }}({{allCommunityMembers.length}})</h2>
+                    <h2>Family Members ({{data.length}})</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member"
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Family Member"
                         (click)="openAddEditMemberModal()"
                         class="p-button-outlined primary-button-outlined p-button-rounded"></button>
                 </div>
             </div>
 
-            <app-filter [title]="'Members'" [type]="'members'"></app-filter>
+            <p-divider></p-divider>
 
             <ng-container *ngIf="selectedList.length>0">
                 <div class="row my-4">
@@ -20,33 +20,31 @@
                         <h2>{{selectedList.length}} Member Selected</h2>
                     </div>
                     <div class="col-6 text-right">
-                        <button pButton pRipple type="button" label="Delete Member" (click)="deleteMemberConfirmation()"
+                        <button pButton pRipple type="button" label="Delete Family Member"
+                            (click)="deleteMemberConfirmation()"
                             class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
-                        <button pButton pRipple type="button" label="Make Admin" (click)="makeAdminConfirmation()"
+                        <button pButton pRipple type="button" label="Make Family Admin"
+                            (click)="makeAdminConfirmation()"
                             class="p-button-outlined primary-button-outlined p-button-rounded"></button>
                     </div>
                 </div>
             </ng-container>
 
-            <div class="row" [ngClass]="{'my-4':selectedList.length == 0}">
+            <div class="row">
                 <div class="col-12">
-                    <p-table [value]="allCommunityMembers" [resizableColumns]="true"
+                    <p-table [value]="data" [resizableColumns]="true"
                         styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 3rem">
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
-                                <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
-                                        field="firstName"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
-                                        field="phone"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="bloodGroup">Blood Group <p-sortIcon
-                                        field="bloodGroup"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="education">Education <p-sortIcon
-                                        field="education"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="business">Business <p-sortIcon
-                                        field="business"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="fullName">Full Name <p-sortIcon
+                                        field="fullName"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="phoneNumber">Phone Number <p-sortIcon
+                                        field="phoneNumber"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="relation_type">Relation Type<p-sortIcon
+                                        field="status"></p-sortIcon></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
@@ -54,15 +52,9 @@
                                 <td>
                                     <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td>
-                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.firstName}} {{data.lastName}}</td>
-                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.phone}}</td>
-                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.bloodGroup}}</td>
-                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">
-                                    {{data?.education}}
-                                </td>
-                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">
-                                    {{data?.business?.name}}
-                                </td>
+                                <td>{{data.firstName}} {{data.lastName}}</td>
+                                <td>{{data?.phone || '-'}}</td>
+                                <td>{{data?.relationship?.type || '-'}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -75,7 +67,7 @@
 <p-confirmDialog #makeAdmin key="makeAdminDialog" styleClass="confirmationDialog"
     [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
     <ng-template pTemplate="header">
-        <h2 class="text-primary">Make Admin</h2>
+        <h2 class="text-primary">Make Family Member Admin</h2>
     </ng-template>
     <ng-template pTemplate="footer">
         <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary"
@@ -88,7 +80,7 @@
 <p-confirmDialog #deleteMember key="deleteMemberDialog" styleClass="confirmationDialog"
     [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
     <ng-template pTemplate="header">
-        <h2 class="text-danger">Delete Members</h2>
+        <h2 class="text-danger">Delete Family Members</h2>
     </ng-template>
     <ng-template pTemplate="footer">
         <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary"
@@ -99,12 +91,11 @@
 </p-confirmDialog>
 
 <!-- Add Member Modal Start -->
-<p-dialog position="top-right" class="add-edit-community-modal full-height-modal" [modal]="true" [draggable]="false"
-    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
-    [(visible)]="addEditMemberModalDisplay">
+<p-dialog position="top-right" [modal]="true" [draggable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+    [style]="{width: '30vw'}" [(visible)]="addEditMemberModalDisplay">
     <ng-template pTemplate="header">
-        <h2>Add Member</h2>
+        <h2>Add Family Member</h2>
     </ng-template>
-    <app-add-edit-member [communityId]="communityId" (onSuccess)="getAllCommunityMembers()"></app-add-edit-member>
+    <app-add-edit-family-member [relationshipId]="relationshipId" [communityId]="communityId" (onSuccess)="onUpdateSuccessful()"></app-add-edit-family-member>
 </p-dialog>
 <!-- Add Member Modal End -->

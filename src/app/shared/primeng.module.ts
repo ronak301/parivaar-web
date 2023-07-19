@@ -11,7 +11,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DividerModule } from 'primeng/divider';
-import {FileUploadModule} from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CheckboxModule } from 'primeng/checkbox';
+
 @NgModule({
     declarations: [
 
@@ -28,7 +30,8 @@ import {FileUploadModule} from 'primeng/fileupload';
         ConfirmDialogModule,
         InputMaskModule,
         DividerModule,
-        FileUploadModule
+        FileUploadModule,
+        CheckboxModule
     ],
     exports: [
         ToastModule,
@@ -42,7 +45,8 @@ import {FileUploadModule} from 'primeng/fileupload';
         ConfirmDialogModule,
         InputMaskModule,
         DividerModule,
-        FileUploadModule
+        FileUploadModule,
+        CheckboxModule
     ],
     providers: [
         ConfirmationService

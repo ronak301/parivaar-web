@@ -21,6 +21,11 @@
             <input type="date" formControlName="dob" class="custom-form-control">
             <field-error [control]="dob"></field-error>
         </div>
+        <div class="col-12 my-2" formGroupName="relative">
+            <label>Relationship Type</label>
+            <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="familyMemberRelationshipTypes"
+                optionLabel="label" optionValue="id" placeholder="Relationship Type"></p-dropdown>
+        </div>
         <div class="col-12 my-2">
             <label>Guardian Name</label>
             <input type="text" formControlName="guardianName" class="custom-form-control">

@@ -1,44 +1,27 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
-import { EventEmitter } from 'stream';
-import { ManageCommunitiesService } from '../../services/manage-communities.service';
-import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
-  selector: 'app-members-listing',
-  templateUrl: './members-listing.component.html',
-  styleUrls: ['./members-listing.component.scss'],
+  selector: 'app-family-members-listing',
+  templateUrl: './family-members-listing.component.html',
+  styleUrls: ['./family-members-listing.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MembersListingComponent implements OnInit {
+export class FamilyMembersListingComponent implements OnInit {
 
-  @Input() communityId: any;
-  allCommunityMembers: any = [];
-  totalMembers: number = 0;
+  @Input() data: any = [];
+  @Input() relationshipId: string = '';
+  @Input() communityId: string = '';
+  @Output() reload = new EventEmitter<string>();
 
   addEditMemberModalDisplay: boolean = false;
-  selectedList:any = [];
+  selectedList: any = [];
 
   constructor(
-    private confirmationService: ConfirmationService,
-    private communitiesService: ManageCommunitiesService,
-    private commonService: CommonService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
-    this.getAllCommunityMembers()
-  }
-
-  getAllCommunityMembers() {
-    this.communitiesService.getCommunityMembers(this.communityId).then((res: any) => {
-      console.log(res)
-      this.allCommunityMembers = res?.members?.rows
-      this.totalMembers = res?.totalMembers
-      console.log(this.allCommunityMembers)
-      this.closeAddEditMemberModal()
-    }).catch(err => {
-      this.commonService.showToast('error', "Error", err?.message)
-    })
   }
 
   makeAdminConfirmation() {
@@ -85,5 +68,8 @@ export class MembersListingComponent implements OnInit {
     }
   }
 
-
+  onUpdateSuccessful() {
+    this.closeAddEditMemberModal()
+    this.reload.emit()
+  }
 }
