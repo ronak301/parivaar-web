@@ -3,12 +3,15 @@
         <p-card>
             <div class="row mb-4">
                 <div class="col-6 my-auto">
-                    <h2>Family Members</h2>
+                    <h2>Family Members ({{data.length}})</h2>
                 </div>
-                <div class="col-6 text-right">
-                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Family Member" (click)="openAddEditMemberModal()"
-                        class="p-button-outlined primary-button-outlined p-button-rounded"></button>
-                </div>
+                <ng-container *ngIf="communityId">
+                    <div class="col-6 text-right">
+                        <button pButton pRipple type="button" icon="pi pi-plus" label="Add Family Member"
+                            (click)="openAddEditMemberModal()"
+                            class="p-button-outlined primary-button-outlined p-button-rounded"></button>
+                    </div>
+                </ng-container>
             </div>
 
             <p-divider></p-divider>
@@ -19,9 +22,11 @@
                         <h2>{{selectedList.length}} Member Selected</h2>
                     </div>
                     <div class="col-6 text-right">
-                        <button pButton pRipple type="button" label="Delete Family Member" (click)="deleteMemberConfirmation()"
+                        <button pButton pRipple type="button" label="Delete Family Member"
+                            (click)="deleteMemberConfirmation()"
                             class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
-                        <button pButton pRipple type="button" label="Make Family Admin" (click)="makeAdminConfirmation()"
+                        <button pButton pRipple type="button" label="Make Family Admin"
+                            (click)="makeAdminConfirmation()"
                             class="p-button-outlined primary-button-outlined p-button-rounded"></button>
                     </div>
                 </div>
@@ -49,9 +54,9 @@
                                 <td>
                                     <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td>
-                                <td>{{data.fullName}}</td>
-                                <td>{{data.phoneNumber}}</td>
-                                <td>{{data.relation_type}}</td>
+                                <td>{{data.firstName}} {{data.lastName}}</td>
+                                <td>{{data?.phone || '-'}}</td>
+                                <td>{{data?.relationship?.type || '-'}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -88,10 +93,12 @@
 </p-confirmDialog>
 
 <!-- Add Member Modal Start -->
-<p-dialog position="top-right" [modal]="true" [draggable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [(visible)]="addEditMemberModalDisplay">
+<p-dialog position="top-right" [modal]="true" [draggable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+    [style]="{width: '30vw'}" [(visible)]="addEditMemberModalDisplay">
     <ng-template pTemplate="header">
         <h2>Add Family Member</h2>
     </ng-template>
-    <app-add-edit-family-member></app-add-edit-family-member>
+    <app-add-edit-family-member [relationshipId]="relationshipId" [communityId]="communityId"
+        (onSuccess)="onUpdateSuccessful()"></app-add-edit-family-member>
 </p-dialog>
 <!-- Add Member Modal End -->

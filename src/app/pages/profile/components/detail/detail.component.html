@@ -2,10 +2,10 @@
     <div class="info-container">
         <div class="row mb-4">
             <div class="col-6 my-auto">
-                <h2>Chetan Kudnekar</h2>
+                <h2>{{data?.firstName}} {{data?.lastName}}</h2>
             </div>
             <div class="col-6 text-right">
-                <button pButton pRipple type="button" routerLink="/pages/manage-profile/edit/123"
+                <button pButton pRipple type="button" routerLink="/pages/manage-profile/edit/{{id}}"
                     label="Update Information" class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
                 <button pButton pRipple type="button"
                     label="Remove Admin Access" class="p-button-outlined p-button-rounded p-button-danger"></button>
@@ -29,27 +29,55 @@
                     <label class="text-muted">
                         First Name
                     </label>
-                    <p>Terapan</p>
+                    <p>{{data?.firstName || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
                         Last Name
                     </label>
-                    <p>Sabha</p>
+                    <p>{{data?.lastName || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
-                        Date of Birth
+                        Phone Number
                     </label>
-                    <p>20/03/2002</p>
+                    <p>{{data?.phone || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
-                        Phone Number
+                        Date of Birth
                     </label>
-                    <p>9637189264</p>
+                    <p>{{data?.dob || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Guardian Name
+                    </label>
+                    <p>{{data?.guardianName || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Wedding Date
+                    </label>
+                    <p>{{data?.weddingDate || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Email
+                    </label>
+                    <p>{{data?.email || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Gender
+                    </label>
+                    <p>{{data?.gender || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -57,7 +85,27 @@
                     <label class="text-muted">
                         Blood Group
                     </label>
-                    <p>B+</p>
+                    <p>{{data?.bloodGroup || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Education
+                    </label>
+                    <p>{{data?.education || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Landline
+                    </label>
+                    <p>{{data?.landline || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Native Place
+                    </label>
+                    <p>{{data?.nativePlace || '-'}}</p>
                 </div>
             </div>
 
@@ -77,39 +125,101 @@
                     <label class="text-muted">
                         Name
                     </label>
-                    <p>Terapan Sabha</p>
+                    <p>{{data?.business?.name || '-'}}</p>
                 </div>
                 <div class="col-6">
                     <label class="text-muted">
-                        Description
+                        Type
                     </label>
-                    <p>Terapan Sabha</p>
+                    <p>{{data?.business?.type || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
-                        Address
+                        Sub Type
                     </label>
-                    <p>Udaipur Rajasthan</p>
+                    <p>{{data?.business?.subType || '-'}}</p>
                 </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        Phone Number
-                    </label>
-                    <p>9637189264</p>
-                </div>
-            </div>
-            <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
                         Website
                     </label>
-                    <p>Exponential.com</p>
+                    <p>{{data?.business?.website || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Phone
+                    </label>
+                    <p>{{data?.business?.phone || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Address
+                    </label>
+                    <p>{{data?.business?.address || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Description
+                    </label>
+                    <p>{{data?.business?.description || '-'}}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <p-divider></p-divider>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h3>Address</h3>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Full Address
+                    </label>
+                    <p>{{data?.address?.fullAddress || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        State
+                    </label>
+                    <p>{{data?.address?.state || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        City
+                    </label>
+                    <p>{{data?.address?.city || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Pincode
+                    </label>
+                    <p>{{data?.address?.pincode || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Locality
+                    </label>
+                    <p>{{data?.address?.locality || '-'}}</p>
                 </div>
             </div>
         </p-card>
     </div>
 </div>
 
-<app-family-members-listing></app-family-members-listing>
+<app-family-members-listing [data]="familyMembers" [relationshipId]="id" (reload)="reload()"></app-family-members-listing>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -8,22 +8,20 @@ import { ConfirmationService } from 'primeng/api';
   encapsulation: ViewEncapsulation.None
 })
 export class FamilyMembersListingComponent implements OnInit {
-  
-  data: any = [];
+
+  @Input() data: any = [];
+  @Input() relationshipId: string = '';
+  @Input() communityId: string = '';
+  @Output() reload = new EventEmitter<string>();
+
   addEditMemberModalDisplay: boolean = false;
-  selectedList:any = [];
+  selectedList: any = [];
 
   constructor(
     private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
-    this.data = [
-      { fullName: 'Chetan Kudnekar', phoneNumber: 9999999999, relation_type: 'Wife', status: 'Active' },
-      { fullName: 'Chetan Kudnekar', phoneNumber: 8888888888, relation_type: 'Daughter in LAW', status: 'Pending' },
-      { fullName: 'Chetan Kudnekar', phoneNumber: 7777777777, relation_type: 'Son in LAW', status: 'Active' },
-      { fullName: 'Chetan Kudnekar', phoneNumber: 6666666666, relation_type: 'Spauce', status: 'Active' },
-    ]
   }
 
   makeAdminConfirmation() {
@@ -52,6 +50,10 @@ export class FamilyMembersListingComponent implements OnInit {
     this.addEditMemberModalDisplay = true
   }
 
+  closeAddEditMemberModal() {
+    this.addEditMemberModalDisplay = false
+  }
+
   onSelectMembers(data: any) {
     console.log(data)
     if (this.selectedList.length == 0) {
@@ -65,4 +67,10 @@ export class FamilyMembersListingComponent implements OnInit {
       }
     }
   }
+
+  onUpdateSuccessful() {
+    this.closeAddEditMemberModal()
+    this.reload.emit()
+  }
+
 }

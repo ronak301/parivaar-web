@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   AuthChangeEvent,
@@ -16,8 +17,12 @@ export class AuthService {
   private supabase: SupabaseClient
   _session: AuthSession | null = null
   userAuthStateKey: string = 'userAuthState';
+  userKey: string = 'userDetails';
+  apiUrl: string = environment.apiUrl;
 
-  constructor() {
+  constructor(
+    public http: HttpClient
+  ) {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
   }
 
@@ -51,6 +56,16 @@ export class AuthService {
     })
   }
 
+  getUserByPhoneNumber(phoneNumber: any) {
+    let data = {
+      "query": phoneNumber.toString(),
+      "filter": {},
+      "limit": 10,
+      "skip": 0
+    }
+    return this.http.post(this.apiUrl + 'user/search', data).toPromise()
+  }
+
   logout() {
     return this.supabase.auth.signOut()
   }
@@ -60,12 +75,27 @@ export class AuthService {
     localStorage.setItem(this.userAuthStateKey, stringValue)
   }
 
+  setUserinLocal(userData: any) {
+    let stringValue = JSON.stringify(userData)
+    localStorage.setItem(this.userKey, stringValue)
+  }
+
   getUserAuthStateLocalData() {
-    return localStorage.getItem(this.userAuthStateKey)
+    let data:any = localStorage.getItem(this.userAuthStateKey)
+    return JSON.parse(data)
+  }
+  
+  getUserLocalData() {
+    let data:any = localStorage.getItem(this.userKey)
+    return JSON.parse(data)
   }
 
   removeUserAuthStateLocal() {
     localStorage.removeItem(this.userAuthStateKey)
+  }
+
+  removeUserLocal() {
+    localStorage.removeItem(this.userKey)
   }
 
 }

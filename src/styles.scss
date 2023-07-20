@@ -355,3 +355,9 @@ p-sorticon .p-sortable-column-icon {
     background-size: cover;
     border-radius: 50px;
 }
+.w-60 {
+    width: 60%!important;
+    .p-dropdown {
+        width: 60%!important;
+    }
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +10,11 @@ export class HeaderComponent implements OnInit {
 
   communities: any;
   selectedCommunity: any;
+  user:any;
 
-  constructor() { }
+  constructor(
+    public auth: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.communities = [
@@ -20,6 +24,7 @@ export class HeaderComponent implements OnInit {
       { name: 'Jaswa', id: 126 },
       { name: 'Sandesara', id: 127 }
     ];
+    this.user = this.auth.getUserLocalData()
   }
 
   onChangeCommunity() {

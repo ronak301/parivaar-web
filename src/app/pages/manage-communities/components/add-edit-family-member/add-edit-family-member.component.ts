@@ -125,17 +125,26 @@ export class AddEditFamilyMemberComponent implements OnInit {
       this.communitiesService.updateMember(this.id, nonNullFields).then((res: any) => {
         console.log(res)
         if (nonNullFields.hasBusiness) {
-          this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business).then(res => {
+          if (!this.data.hasBusiness) {
+            let businessData: any = nonNullFields.business;
+            businessData['ownerId'] = this.id
+            this.communitiesService.createBusiness(nonNullFields.business).then(res => {
+              console.log(res)
+              this.onSuccess.emit()
+            })
+          } else {
+            this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business).then(res => {
+              console.log(res)
+              this.onSuccess.emit()
+            })
+          }
+        }
+        if (this.data.address.id) {
+          this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
             console.log(res)
             this.onSuccess.emit()
           })
         }
-        // if (this.data.address.id) {
-        //   this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res=>{
-        //     console.log(res)
-        //     this.onSuccess.emit()
-        //   })
-        // }
         this.onSuccess.emit()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.message)

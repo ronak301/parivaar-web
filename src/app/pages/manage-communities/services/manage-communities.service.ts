@@ -55,6 +55,10 @@ export class ManageCommunitiesService {
     return this.http.put(this.apiUrl + `address/${id}`, data).toPromise()
   }
 
+  createBusiness(data: any) {
+    return this.http.post(this.apiUrl + `business/new`, data).toPromise()
+  }
+
   updateBusiness(id: string, data: any) {
     return this.http.put(this.apiUrl + `business/${id}`, data).toPromise()
   }
