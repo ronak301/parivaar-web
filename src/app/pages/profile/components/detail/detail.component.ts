@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class DetailComponent implements OnInit {
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
-  addEditMemberModalDisplay: boolean = false;
   id: any = '';
   data: any;
   familyMembers: any[] = [];
@@ -29,16 +28,7 @@ export class DetailComponent implements OnInit {
     this.getData()
   }
 
-  openAddEditMemberModal() {
-    this.addEditMemberModalDisplay = true
-  }
-
-  closeAddEditMemberModal() {
-    this.addEditMemberModalDisplay = false
-  }
-
   getData() {
-    this.closeAddEditMemberModal()
     this.commonService.startLoader()
     this.profileService.getUserById(this.id).then((res: any) => {
       this.data = res.data

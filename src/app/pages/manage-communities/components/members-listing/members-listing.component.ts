@@ -30,14 +30,17 @@ export class MembersListingComponent implements OnInit {
   }
 
   getAllCommunityMembers() {
+    this.commonService.startLoader()
     this.communitiesService.getCommunityMembers(this.communityId).then((res: any) => {
       console.log(res)
       this.allCommunityMembers = res?.members?.rows
       this.totalMembers = res?.totalMembers
       console.log(this.allCommunityMembers)
+      this.commonService.stopLoader()
       this.closeAddEditMemberModal()
     }).catch(err => {
       this.commonService.showToast('error', "Error", err?.message)
+      this.commonService.stopLoader()
     })
   }
 

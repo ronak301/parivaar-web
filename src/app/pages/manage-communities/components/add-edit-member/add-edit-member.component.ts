@@ -141,6 +141,7 @@ export class AddEditMemberComponent implements OnInit {
           })
         }
         this.commonService.stopLoader()
+        this.commonService.showToast('success','Updated','Updated Successful!')
         this.onSuccess.emit()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.message)
@@ -156,6 +157,7 @@ export class AddEditMemberComponent implements OnInit {
         this.communitiesService.joinCommunity(joinData, this.communityId).then(res2 => {
           console.log(res2)
           this.commonService.stopLoader()
+          this.commonService.showToast('success', 'Created', 'Created Successful!')
           this.onSuccess.emit()
         }).catch(err => {
           this.commonService.showToast('error', "Error", err?.message)

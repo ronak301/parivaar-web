@@ -13,7 +13,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class AddEditComponent implements OnInit {
 
   id: string = '';
-  @Output() onSuccess = new EventEmitter<string>();
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
   bloodGroupOptions: any = BloodGroups;
@@ -158,11 +157,9 @@ export class AddEditComponent implements OnInit {
         if (this.data.address.id) {
           this.profileService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
             console.log(res)
-            this.onSuccess.emit()
           })
         }
         this.commonService.stopLoader()
-        this.onSuccess.emit()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.message)
         this.commonService.stopLoader()

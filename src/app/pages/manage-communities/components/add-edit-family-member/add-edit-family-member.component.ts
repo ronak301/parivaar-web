@@ -104,6 +104,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
 
   onSubmit() {
     const nonNullFields: any = {};
+    this.commonService.startLoader();
     Object.entries(this.formData.value).forEach(([key, value]) => {
       if (value !== null) {
         if (typeof value === 'object') {
@@ -145,6 +146,8 @@ export class AddEditFamilyMemberComponent implements OnInit {
             this.onSuccess.emit()
           })
         }
+        this.commonService.showToast('success', 'Updated', 'Updated Successful!')
+        this.commonService.stopLoader();
         this.onSuccess.emit()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.message)
@@ -161,6 +164,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
         this.communitiesService.joinCommunity(joinData, this.communityId).then(res2 => {
           console.log(res2)
           this.commonService.stopLoader()
+          this.commonService.showToast('success', 'Created', 'Created Successful!')
           this.onSuccess.emit()
         }).catch(err => {
           this.commonService.showToast('error', "Error", err?.message)
