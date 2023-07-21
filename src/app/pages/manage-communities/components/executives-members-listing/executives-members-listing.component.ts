@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -8,19 +8,21 @@ import { ConfirmationService } from 'primeng/api';
   encapsulation: ViewEncapsulation.None
 })
 export class ExecutivesMembersListingComponent implements OnInit {
-  
-  @Input() allExecutivesMembers:any;
-  @Input() allMembers:any;
+
+  @Input() allExecutivesMembers: any;
+  @Input() allMembers: any;
+  @Input() communityId: any;
+  @Output() requestReload = new EventEmitter<string>();
 
   addEditMemberModalDisplay: boolean = false;
-  selectedList:any = [];
+  selectedList: any = [];
 
   constructor(
     private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
-    console.log('allMembers in executive member listing',this.allMembers)
+    console.log('allMembers in executive member listing', this.allMembers)
   }
 
   makeAdminConfirmation() {
@@ -49,6 +51,10 @@ export class ExecutivesMembersListingComponent implements OnInit {
     this.addEditMemberModalDisplay = true
   }
 
+  closeAddEditMemberModal() {
+    this.addEditMemberModalDisplay = false
+  }
+
   onSelectMembers(data: any) {
     console.log(data)
     if (this.selectedList.length == 0) {
@@ -61,6 +67,11 @@ export class ExecutivesMembersListingComponent implements OnInit {
         this.selectedList.splice(index, 1)
       }
     }
+  }
+
+  reload() {
+    this.closeAddEditMemberModal()
+    this.requestReload.emit()
   }
 
 }

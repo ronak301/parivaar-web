@@ -6,7 +6,8 @@
                     <h2>Executive Members</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Executive" (click)="openAddEditMemberModal()"
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Add Executive"
+                        (click)="openAddEditMemberModal()"
                         class="p-button-outlined primary-button-outlined p-button-rounded"></button>
                 </div>
             </div>
@@ -19,7 +20,8 @@
                         <h2>{{selectedList?.length}} Member Selected</h2>
                     </div>
                     <div class="col-6 text-right">
-                        <button pButton pRipple type="button" label="Remove Executive" (click)="deleteMemberConfirmation()"
+                        <button pButton pRipple type="button" label="Remove Executive"
+                            (click)="deleteMemberConfirmation()"
                             class="p-button-outlined p-button-rounded p-button-danger mr-2"></button>
                         <button pButton pRipple type="button" label="Make Admin" (click)="makeAdminConfirmation()"
                             class="p-button-outlined primary-button-outlined p-button-rounded"></button>
@@ -40,8 +42,8 @@
                                         field="firstName"></p-sortIcon></th>
                                 <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
                                         field="phone"></p-sortIcon></th>
-                                <th pResizableColumn pSortableColumn="bloodGroup">Blood Group<p-sortIcon
-                                        field="bloodGroup"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="executive">Roles<p-sortIcon
+                                        field="executive"></p-sortIcon></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
@@ -51,7 +53,11 @@
                                 </td>
                                 <td>{{data?.firstName}} {{data?.lastName}}</td>
                                 <td>{{data?.phone}}</td>
-                                <td>{{data.bloodGroup || '-'}}</td>
+                                <td>
+                                    <span *ngFor="let role of data?.executive?.roles;let i = index">
+                                        {{role}}{{data?.executive?.roles?.length != i+1 ? ', ': ''}}
+                                    </span>
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -88,10 +94,13 @@
 </p-confirmDialog>
 
 <!-- Add Member Modal Start -->
-<p-dialog position="top-right" [modal]="true" [draggable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}" [(visible)]="addEditMemberModalDisplay">
+<p-dialog position="top-right" class="full-height-modal" [modal]="true" [draggable]="false"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
+    [(visible)]="addEditMemberModalDisplay">
     <ng-template pTemplate="header">
         <h2>Add Executive Member</h2>
     </ng-template>
-    <app-add-edit-executive-member [allExecutivesMembers]="allExecutivesMembers" [allMembers]="allMembers"></app-add-edit-executive-member>
+    <app-add-edit-executive-member [allExecutivesMembers]="allExecutivesMembers" [allMembers]="allMembers"
+        [communityId]="communityId" (onSuccess)="reload()"></app-add-edit-executive-member>
 </p-dialog>
 <!-- Add Member Modal End -->

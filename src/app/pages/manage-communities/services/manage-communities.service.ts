@@ -70,5 +70,17 @@ export class ManageCommunitiesService {
   joinCommunity(data: any, communityId: any) {
     return this.http.post(this.apiUrl + `community/join/${communityId}`, data).toPromise()
   }
+  
+  createExecutive(data:any) {
+    return this.http.post(this.apiUrl + `executive/create`, data).toPromise()
+  }
+
+  addRole(data:any) {
+    return this.http.post(this.apiUrl + `executive/role/add`, data).toPromise()
+  }
+
+  updateExecutive(id:string,data:any) {
+    return this.http.put(this.apiUrl + `executive/${id}`, data).toPromise()
+  }
 
 }

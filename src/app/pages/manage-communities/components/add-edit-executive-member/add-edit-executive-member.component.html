@@ -1,28 +1,90 @@
-<div class="row">
-    <div class="col-12">
-        <p-table [value]="allMembers" selectionMode="single" [(selection)]="selectedMember" [resizableColumns]="true"
-            styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
-                            field="firstName"></p-sortIcon></th>
-                    <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon field="phone"></p-sortIcon>
-                    </th>
-                    <th pResizableColumn pSortableColumn="bloodGroup">Roles<p-sortIcon
-                            field="bloodGroup"></p-sortIcon></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-data>
-                <tr [pSelectableRow]="data">
-                    <td>{{data?.firstName}} {{data?.lastName}}</td>
-                    <td>{{data?.phone}}</td>
-                    <td>{{data.bloodGroup || '-'}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+<ng-container *ngIf="step == '1'">
+    <div class="row mb-3 mt-1">
+        <div class="col-8 my-auto">
+            <input class="form-control" [(ngModel)]="searchQuery" (keyup)="onSearchKeyUp()" placeholder="Search" />
+        </div>
+        <div class="col-4">
+            <button pButton pRipple [disabled]="!searchQuery" (click)="applyFilter()" type="button" label="Search"
+                icon="pi pi-search" class="p-button-rounded button-with-icon btn-primary"></button>
+        </div>
     </div>
-    <div class="col-12 modal-footer-fixed">
-        <button pButton pRipple [disabled]="!selectedMember" type="submit" label="Add Executive"
-            icon="pi pi-plus" class="p-button-rounded button-with-icon btn-primary"></button>
+    <div class="row">
+        <div class="col-12" *ngIf="filteredData.length>0">
+            <p-table [value]="filteredData" selectionMode="single" [(selection)]="selectedMember"
+                [resizableColumns]="true" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
+                                field="firstName"></p-sortIcon></th>
+                        <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
+                                field="phone"></p-sortIcon>
+                        </th>
+                        <th pResizableColumn pSortableColumn="bloodGroup">Roles<p-sortIcon
+                                field="bloodGroup"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr [pSelectableRow]="data">
+                        <td>{{data?.firstName}} {{data?.lastName}}</td>
+                        <td>{{data?.phone}}</td>
+                        <td>{{data.bloodGroup || '-'}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="col-12 modal-footer-fixed">
+            <button pButton pRipple [disabled]="!selectedMember" type="button" (click)="onNextstep('2')" label="Next"
+                class="p-button-rounded button-with-icon btn-primary"></button>
+        </div>
     </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="step == '2'">
+    <div class="row mb-3 mt-1">
+        <div class="col-12 my-auto">
+            <label>Roles</label>
+            <input class="form-control" [(ngModel)]="roles" placeholder="Role" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p-table [value]="selectedMemberList" [resizableColumns]="true"
+                styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
+                                field="firstName"></p-sortIcon></th>
+                        <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
+                                field="phone"></p-sortIcon>
+                        </th>
+                        <th pResizableColumn pSortableColumn="bloodGroup">Roles<p-sortIcon
+                                field="bloodGroup"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td>{{data?.firstName}} {{data?.lastName}}</td>
+                        <td>{{data?.phone}}</td>
+                        <td>{{data.bloodGroup || '-'}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="col-12 modal-footer-fixed">
+            <div class="row">
+                <div class="col-6">
+                    <button pButton pRipple type="button" (click)="onPreviousStep('1')" label="Previous"
+                        class="p-button-rounded button-with-icon btn-primary"></button>
+                </div>
+                <div class="col-6">
+                    <button pButton pRipple [disabled]="!roles" type="button" (click)="onSubmit()" label="Submit"
+                        class="p-button-rounded button-with-icon btn-primary"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

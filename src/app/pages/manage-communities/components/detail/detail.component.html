@@ -51,7 +51,8 @@
     </div>
 </div>
 
-<app-executives-members-listing [allExecutivesMembers]="allExecutivesMembers" [allMembers]="allMembers"></app-executives-members-listing>
+<app-executives-members-listing [allExecutivesMembers]="allExecutivesMembers" [allMembers]="allMembers"
+    [communityId]="id" (requestReload)="onUpdateSuccessful()"></app-executives-members-listing>
 
 <br>
 
