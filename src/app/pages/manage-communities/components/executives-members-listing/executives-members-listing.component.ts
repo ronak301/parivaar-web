@@ -10,6 +10,7 @@ import { ConfirmationService } from 'primeng/api';
 export class ExecutivesMembersListingComponent implements OnInit {
   
   @Input() allExecutivesMembers:any;
+  @Input() allMembers:any;
 
   addEditMemberModalDisplay: boolean = false;
   selectedList:any = [];
@@ -19,12 +20,7 @@ export class ExecutivesMembersListingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.data = [
-    //   { fullName: 'Chetan Kudnekar', phoneNumber: 9999999999, relation_type: 'Wife', status: 'Active' },
-    //   { fullName: 'Chetan Kudnekar', phoneNumber: 8888888888, relation_type: 'Daughter in LAW', status: 'Pending' },
-    //   { fullName: 'Chetan Kudnekar', phoneNumber: 7777777777, relation_type: 'Son in LAW', status: 'Active' },
-    //   { fullName: 'Chetan Kudnekar', phoneNumber: 6666666666, relation_type: 'Spauce', status: 'Active' },
-    // ]
+    console.log('allMembers in executive member listing',this.allMembers)
   }
 
   makeAdminConfirmation() {

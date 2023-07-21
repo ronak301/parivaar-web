@@ -51,11 +51,11 @@
     </div>
 </div>
 
-<app-executives-members-listing [allExecutivesMembers]="allExecutivesMembers"></app-executives-members-listing>
+<app-executives-members-listing [allExecutivesMembers]="allExecutivesMembers" [allMembers]="allMembers"></app-executives-members-listing>
 
 <br>
 
-<app-members-listing [communityId]="id"></app-members-listing>
+<app-members-listing [communityId]="id" (getAllMembers)="getAllMembers($event)"></app-members-listing>
 
 <!-- Edit Community Modal Start -->
 <p-dialog position="top-right" class="full-height-modal" [modal]="true" [draggable]="false"

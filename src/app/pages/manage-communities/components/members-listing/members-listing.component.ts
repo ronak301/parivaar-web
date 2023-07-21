@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
-import { EventEmitter } from 'stream';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 
@@ -13,11 +12,13 @@ import { CommonService } from 'src/app/shared/services/common.service';
 export class MembersListingComponent implements OnInit {
 
   @Input() communityId: any;
+  @Output() getAllMembers = new EventEmitter<string>();
+
   allCommunityMembers: any = [];
   totalMembers: number = 0;
 
   addEditMemberModalDisplay: boolean = false;
-  selectedList:any = [];
+  selectedList: any = [];
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -35,6 +36,7 @@ export class MembersListingComponent implements OnInit {
       console.log(res)
       this.allCommunityMembers = res?.members?.rows
       this.totalMembers = res?.totalMembers
+      this.getAllMembers.emit(this.allCommunityMembers)
       console.log(this.allCommunityMembers)
       this.commonService.stopLoader()
       this.closeAddEditMemberModal()

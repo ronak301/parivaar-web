@@ -15,6 +15,7 @@ export class DetailComponent implements OnInit {
   id: any = '';
   data: any;
   allExecutivesMembers: any = [];
+  allMembers:any = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -51,5 +52,10 @@ export class DetailComponent implements OnInit {
   onUpdateSuccessful() {
     this.closeAddEditCommunityModal()
     this.getData()
+  }
+
+  getAllMembers(event:any) {
+    console.log('event',event)
+    this.allMembers = event
   }
 }
