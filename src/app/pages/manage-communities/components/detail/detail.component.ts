@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
   data: any;
   allExecutivesMembers: any = [];
   allMembers:any = [];
+  logo:string = '../../../../../assets/images/user.jpeg';
 
   constructor(
     public route: ActivatedRoute,
@@ -40,7 +41,10 @@ export class DetailComponent implements OnInit {
     this.commonService.startLoader()
     this.communitiesService.getCommunityById(this.id).then((res: any) => {
       this.data = res
-      console.log(this.data)
+      if(this.data?.logo) {
+        this.logo = this.data?.logo
+      }
+      console.log('this.data',this.data)
       this.allExecutivesMembers = res?.executives || []
       this.commonService.stopLoader()
     }).catch(err => {

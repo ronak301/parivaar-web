@@ -24,6 +24,7 @@ export class AddEditMemberComponent implements OnInit {
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
   businessSubTypeOptions = BusinessSubTypes
+  imageFile: any = null;
 
   constructor(
     public fb: FormBuilder,
@@ -95,6 +96,20 @@ export class AddEditMemberComponent implements OnInit {
     return this.formData.get('hasBusiness') as FormGroup
   }
 
+  onSelectFile(event: any) {
+    const reader = new FileReader();
+    if (event.target.files[0].size / 1024 < 500) {
+      const [file] = event.target.files;
+      this.imageFile = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreviewUrl = reader.result as string;
+      };
+    }
+    else {
+      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+    }
+  }
 
   onSubmit() {
     this.commonService.startLoader()
@@ -157,7 +172,7 @@ export class AddEditMemberComponent implements OnInit {
         this.communitiesService.joinCommunity(joinData, this.communityId).then(res2 => {
           console.log(res2)
           this.commonService.stopLoader()
-          this.commonService.showToast('success', 'Created', 'Created Successful!')
+          this.commonService.showToast('success', 'Created', res?.message)
           this.onSuccess.emit()
         }).catch(err => {
           this.commonService.showToast('error', "Error", err?.message)

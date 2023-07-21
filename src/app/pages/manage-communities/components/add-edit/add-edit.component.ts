@@ -20,6 +20,7 @@ export class AddEditComponent implements OnInit {
   subTypes: any = [];
   statusOptions: any = CommunityStatus;
   formData!: FormGroup
+  imageFile: any = null;
 
   constructor(
     public fb: FormBuilder,
@@ -29,7 +30,10 @@ export class AddEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForms()
-    console.log('data',this.data)
+    console.log('data', this.data)
+    if (this.data?.logo) {
+      this.imagePreviewUrl = this.data?.logo
+    }
     if (this.id) {
       this.patchValue()
     }
@@ -65,11 +69,31 @@ export class AddEditComponent implements OnInit {
     return this.formData.get('subType')
   }
 
+  onSelectType() {
+    let data = this.types.find((el: any) => el.id == this.type?.value)
+    this.subTypes = data.subTypes
+  }
+
+  onSelectFile(event: any) {
+    const reader = new FileReader();
+    if (event.target.files[0].size / 1024 < 500) {
+      const [file] = event.target.files;
+      this.imageFile = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreviewUrl = reader.result as string;
+      };
+    }
+    else {
+      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+    }
+  }
+
   onSubmit() {
     console.log(this.formData.value)
     this.commonService.startLoader()
     if (this.id) {
-      this.communitiesService.updateCommunity(this.id, this.formData.value).then((res:any) => {
+      this.communitiesService.updateCommunity(this.id, this.formData.value, this.imageFile, this.data?.imagePath).then((res: any) => {
         this.commonService.stopLoader()
         this.onSuccess.emit()
         this.commonService.showToast('success', "Updated", res?.message)
@@ -79,7 +103,7 @@ export class AddEditComponent implements OnInit {
       })
     } else {
       let data = { status: 'Pending', ...this.formData.value }
-      this.communitiesService.createCommunity(data).then(res => {
+      this.communitiesService.createCommunity(data, this.imageFile).then(res => {
         console.log(res)
         this.commonService.stopLoader()
         this.onSuccess.emit()
@@ -89,11 +113,6 @@ export class AddEditComponent implements OnInit {
         this.commonService.stopLoader()
       })
     }
-  }
-
-  onSelectType() {
-    let data = this.types.find((el: any) => el.id == this.type?.value)
-    this.subTypes = data.subTypes
   }
 
 }

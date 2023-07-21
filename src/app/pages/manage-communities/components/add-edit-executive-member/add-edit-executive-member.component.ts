@@ -25,7 +25,6 @@ export class AddEditExecutiveMemberComponent implements OnInit, OnChanges {
   constructor(
     public commonService: CommonService,
     private communitiesService: ManageCommunitiesService,
-    private authService: AuthService
   ) { }
 
   ngOnChanges() {

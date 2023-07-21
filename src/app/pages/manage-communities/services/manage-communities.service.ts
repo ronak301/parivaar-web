@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,7 +11,8 @@ export class ManageCommunitiesService {
   apiUrl: string = environment.apiUrl;
 
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    public storage: StorageService
   ) { }
 
   getAllCommunities() {
@@ -21,11 +23,29 @@ export class ManageCommunitiesService {
     return this.http.get(this.apiUrl + 'community/' + id).toPromise()
   }
 
-  createCommunity(data: any) {
+  async createCommunity(data: any, file?: any) {
+    if (file) {
+      let path = "/community/" + new Date()
+      const url = await this.storage.upload(path, file)
+      data.logo = url
+      data.imagePath = path
+    }
     return this.http.post(this.apiUrl + 'community/create', data).toPromise()
   }
 
-  updateCommunity(id: any, data: any) {
+  async updateCommunity(id: any, data: any, file?: any, filePath?: any) {
+    let path = "";
+    if (filePath) {
+      path = filePath
+    }
+    if (file) {
+      if (!path) {
+        path = "/community/" + new Date()
+      }
+      const url = await this.storage.upload(path, file)
+      data.logo = url
+      data.imagePath = path
+    }
     return this.http.put(this.apiUrl + `community/${id}`, data).toPromise()
   }
 
@@ -39,17 +59,36 @@ export class ManageCommunitiesService {
     return this.http.post(this.apiUrl + 'community/members/' + communityId, data).toPromise();
   }
 
-  addMember(data: any) {
+  async addMember(data: any, file?: any) {
+    if (file) {
+      let path = "/user/" + new Date()
+      const url = await this.storage.upload(path, file)
+      data.profilePicture = url
+      data.imagePath = path
+    }
     return this.http.post(this.apiUrl + 'user/new', data).toPromise()
+  }
+
+  async updateMember(userId: string, data: any, file?: any, filePath?: any) {
+    let path = "";
+    if (filePath) {
+      path = filePath
+    }
+    if (file) {
+      if (!path) {
+        path = "/user/" + new Date()
+      }
+      const url = await this.storage.upload(path, file)
+      data.profilePicture = url
+      data.imagePath = path
+    }
+    return this.http.put(this.apiUrl + `user/${userId}`, data).toPromise()
   }
 
   addRelative(data: any) {
     return this.http.post(this.apiUrl + 'relationship/relative/new', data).toPromise()
   }
 
-  updateMember(userId: string, data: any) {
-    return this.http.put(this.apiUrl + `user/${userId}`, data).toPromise()
-  }
 
   updateAddress(id: string, data: any) {
     return this.http.put(this.apiUrl + `address/${id}`, data).toPromise()
@@ -70,16 +109,16 @@ export class ManageCommunitiesService {
   joinCommunity(data: any, communityId: any) {
     return this.http.post(this.apiUrl + `community/join/${communityId}`, data).toPromise()
   }
-  
-  createExecutive(data:any) {
+
+  createExecutive(data: any) {
     return this.http.post(this.apiUrl + `executive/create`, data).toPromise()
   }
 
-  addRole(data:any) {
+  addRole(data: any) {
     return this.http.post(this.apiUrl + `executive/role/add`, data).toPromise()
   }
 
-  updateExecutive(id:string,data:any) {
+  updateExecutive(id: string, data: any) {
     return this.http.put(this.apiUrl + `executive/${id}`, data).toPromise()
   }
 

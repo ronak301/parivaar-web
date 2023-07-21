@@ -15,8 +15,11 @@
                     <label class="text-muted">
                         Logo
                     </label>
-                    <div class="preview-image" style="background-image: url(../../../../../assets/images/user.jpeg);">
-                    </div>
+                    <img [src]="logo" width="100" alt="">
+                    <!-- <ng-container *ngIf="logo">
+                        <div class="preview-image" [ngStyle]="{'background-image': 'url(' + logo + ')'}">
+                        </div>
+                    </ng-container> -->
                 </div>
             </div>
             <div class="row my-4">
