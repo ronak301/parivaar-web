@@ -26,6 +26,8 @@ export class AddEditFamilyMemberComponent implements OnInit {
   businessTypeOptions = BusinessTypes
   businessSubTypeOptions = BusinessSubTypes
   familyMemberRelationshipTypes = FamilyMemberRelationshipTypes
+  localityOptions = [];
+  imageFile: any = null;
 
   constructor(
     public fb: FormBuilder,
@@ -36,6 +38,9 @@ export class AddEditFamilyMemberComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForms()
     console.log(this.id)
+    if (this.data?.profilePicture) {
+      this.imagePreviewUrl = this.data?.profilePicture
+    }
     if (this.id) {
       this.patchValue()
     }
@@ -101,6 +106,20 @@ export class AddEditFamilyMemberComponent implements OnInit {
     return this.formData.get('hasBusiness') as FormGroup
   }
 
+  onSelectFile(event: any) {
+    const reader = new FileReader();
+    if (event.target.files[0].size / 1024 < 500) {
+      const [file] = event.target.files;
+      this.imageFile = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreviewUrl = reader.result as string;
+      };
+    }
+    else {
+      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+    }
+  }
 
   onSubmit() {
     const nonNullFields: any = {};
@@ -123,7 +142,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
     });
     if (this.id) {
       console.log(nonNullFields)
-      this.communitiesService.updateMember(this.id, nonNullFields).then((res: any) => {
+      this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
         console.log(res)
         if (nonNullFields.hasBusiness) {
           if (!this.data.hasBusiness) {

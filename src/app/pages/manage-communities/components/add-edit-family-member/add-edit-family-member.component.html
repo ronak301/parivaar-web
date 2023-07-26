@@ -1,5 +1,13 @@
 <form [formGroup]="formData" (ngSubmit)="onSubmit()">
     <div class="row">
+        <!-- <div class="col-12">
+            <label class="d-block">Profile Picture</label>
+            <div class="logo">
+                <i class="pi pi-plus"></i>
+                <img [src]="imagePreviewUrl" width="80" (click)="logo.click()" alt="logo">
+                <input type="file" #logo class="d-none" (change)="onSelectFile($event)">
+            </div>
+        </div> -->
         <div class="col-6 my-2">
             <label>First Name</label>
             <input type="text" formControlName="firstName" class="custom-form-control" placeholder="First Name">
@@ -132,7 +140,9 @@
         </div>
         <div class="col-12 my-2">
             <label>Locality</label>
-            <input type="text" formControlName="locality" class="custom-form-control">
+            <p-dropdown class="custom-dropdown-control" formControlName="locality" [options]="localityOptions"
+                optionLabel="label" optionValue="id" placeholder="Locality"></p-dropdown>
+            <!-- <input type="text" formControlName="locality" class="custom-form-control"> -->
         </div>
     </div>
 

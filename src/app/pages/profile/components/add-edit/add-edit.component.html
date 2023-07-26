@@ -7,8 +7,8 @@
             <div class="col-6 text-right">
                 <button pButton pRipple type="button" routerLink="/pages/manage-profile" label="Cancel"
                     class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
-                <button pButton pRipple type="button" label="Save Changes" [disabled]="formData.invalid" (click)="onSubmit()"
-                    class="p-button-outlined p-button-rounded btn-primary"></button>
+                <button pButton pRipple type="button" label="Save Changes" [disabled]="formData.invalid"
+                    (click)="onSubmit()" class="p-button-outlined p-button-rounded btn-primary"></button>
             </div>
         </div>
         <p-card>
@@ -19,13 +19,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
-                        <label class="text-muted mb-1">Upload Image</label>
+                    <div class="col-12 mb-2">
+                        <label class="text-muted mb-2">Upload Image</label>
                         <div class="logo">
                             <i class="pi pi-plus"></i>
-                            <div class="preview-image" style="background-image: url({{imagePreviewUrl}});" (click)="logo.click()">
-                            </div>
-                            <input type="file" #logo class="d-none">
+                            <img [src]="imagePreviewUrl" width="80" (click)="logo.click()" alt="logo">
+                            <input type="file" #logo class="d-none" (change)="onSelectFile($event)">
                         </div>
                     </div>
                 </div>
@@ -67,8 +66,9 @@
                     </div>
                     <div class="col-6 my-2">
                         <label>Gender</label>
-                        <p-dropdown class="custom-dropdown-control w-60" formControlName="gender" [options]="genderOptions"
-                            optionLabel="label" optionValue="id" placeholder="Gender"></p-dropdown>
+                        <p-dropdown class="custom-dropdown-control w-60" formControlName="gender"
+                            [options]="genderOptions" optionLabel="label" optionValue="id"
+                            placeholder="Gender"></p-dropdown>
                     </div>
                     <div class="col-6 my-2">
                         <label>Blood Group</label>
@@ -149,8 +149,9 @@
                     </div>
                     <div class="col-6 my-2">
                         <label>State</label>
-                        <p-dropdown class="custom-dropdown-control w-60" formControlName="state" [options]="stateOptions"
-                            optionLabel="label" optionValue="id" placeholder="State"></p-dropdown>
+                        <p-dropdown class="custom-dropdown-control w-60" formControlName="state"
+                            [options]="stateOptions" optionLabel="label" optionValue="id"
+                            placeholder="State"></p-dropdown>
                     </div>
                     <div class="col-6 my-2">
                         <label>City</label>
@@ -163,7 +164,10 @@
                     </div>
                     <div class="col-6 my-2">
                         <label>Locality</label>
-                        <input type="text" formControlName="locality" class="custom-form-control">
+                        <p-dropdown class="custom-dropdown-control w-60" formControlName="locality"
+                            [options]="localityOptions" optionLabel="label" optionValue="id"
+                            placeholder="Locality"></p-dropdown>
+                        <!-- <input type="text" formControlName="locality" class="custom-form-control"> -->
                     </div>
                 </div>
             </form>

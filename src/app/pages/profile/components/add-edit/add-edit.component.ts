@@ -22,7 +22,10 @@ export class AddEditComponent implements OnInit {
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
   businessSubTypeOptions = BusinessSubTypes
-  data:any;
+  localityOptions = [];
+  data: any;
+  imageFile: any = null;
+
 
   constructor(
     public fb: FormBuilder,
@@ -93,8 +96,8 @@ export class AddEditComponent implements OnInit {
       }),
       'address': this.fb.group({
         'fullAddress': [null],
-        'state': [null],
-        'city': [null],
+        'state': ['Rajasthan'],
+        'city': ['Udaipur'],
         'pincode': [null],
         'locality': [null],
       }),
@@ -115,6 +118,21 @@ export class AddEditComponent implements OnInit {
   }
   get hasBusiness() {
     return this.formData.get('hasBusiness') as FormGroup
+  }
+
+  onSelectFile(event: any) {
+    const reader = new FileReader();
+    if (event.target.files[0].size / 1024 < 500) {
+      const [file] = event.target.files;
+      this.imageFile = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreviewUrl = reader.result as string;
+      };
+    }
+    else {
+      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+    }
   }
 
 
@@ -138,9 +156,9 @@ export class AddEditComponent implements OnInit {
       }
     });
     if (this.id) {
-      this.profileService.updateMember(this.id, nonNullFields).then((res: any) => {
+      this.profileService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
         console.log(res)
-        this.commonService.showToast('success','Success','Updated Successful!')
+        this.commonService.showToast('success', 'Success', 'Updated Successful!')
         if (nonNullFields.hasBusiness) {
           if (!this.data.hasBusiness) {
             let businessData: any = nonNullFields.business;

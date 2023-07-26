@@ -24,6 +24,7 @@ export class AddEditMemberComponent implements OnInit {
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
   businessSubTypeOptions = BusinessSubTypes
+  localityOptions = [];
   imageFile: any = null;
 
   constructor(
@@ -35,6 +36,9 @@ export class AddEditMemberComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForms()
     console.log(this.id)
+    if (this.data?.profilePicture) {
+      this.imagePreviewUrl = this.data?.profilePicture
+    }
     if (this.id) {
       this.patchValue()
     }
@@ -72,8 +76,8 @@ export class AddEditMemberComponent implements OnInit {
       }),
       'address': this.fb.group({
         'fullAddress': [null],
-        'state': [null],
-        'city': [null],
+        'state': ['Rajasthan'],
+        'city': ['Udaipur'],
         'pincode': [null],
         'locality': [null],
       }),
@@ -132,7 +136,7 @@ export class AddEditMemberComponent implements OnInit {
     });
     if (this.id) {
       console.log(nonNullFields)
-      this.communitiesService.updateMember(this.id, nonNullFields).then((res: any) => {
+      this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
         console.log(res)
         if (nonNullFields.hasBusiness) {
           if (!this.data.hasBusiness) {
@@ -156,7 +160,7 @@ export class AddEditMemberComponent implements OnInit {
           })
         }
         this.commonService.stopLoader()
-        this.commonService.showToast('success','Updated','Updated Successful!')
+        this.commonService.showToast('success', 'Updated', 'Updated Successful!')
         this.onSuccess.emit()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.message)
@@ -164,7 +168,7 @@ export class AddEditMemberComponent implements OnInit {
       })
     } else {
       console.log(nonNullFields)
-      this.communitiesService.addMember(nonNullFields).then((res: any) => {
+      this.communitiesService.addMember(nonNullFields, this.imageFile).then((res: any) => {
         console.log(res)
         let joinData = {
           userId: res.id

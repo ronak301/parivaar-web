@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,14 +11,27 @@ export class ProfileService {
   apiUrl: string = environment.apiUrl;
 
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    public storage: StorageService
   ) { }
 
   getUserById(id: string) {
     return this.http.get(this.apiUrl + 'user/' + id).toPromise()
   }
 
-  updateMember(userId: string, data: any) {
+  async updateMember(userId: string, data: any, file?: any, filePath?: any) {
+    let path = "";
+    if (filePath) {
+      path = filePath
+    }
+    if (file) {
+      if (!path) {
+        path = "/user/" + new Date()
+      }
+      const url = await this.storage.upload(path, file)
+      data.profilePicture = url
+      data.imagePath = path
+    }
     return this.http.put(this.apiUrl + `user/${userId}`, data).toPromise()
   }
 
