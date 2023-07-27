@@ -6,6 +6,7 @@ import { ListingComponent } from './components/listing/listing.component';
 import { AddEditComponent } from './components/add-edit/add-edit.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { MemberDetailComponent } from './components/member-detail/member-detail.component';
+// import { CommunityPendingStateGuardService } from './services/community-pending-state-guard.service';
 
 const routes: Routes = [
   {
@@ -14,14 +15,17 @@ const routes: Routes = [
     children:[ 
       {
         path:'',
+        // canActivate: [CommunityPendingStateGuardService],
         component: ListingComponent 
       },
       {
         path:'detail/:id',
+        // canActivate: [CommunityPendingStateGuardService],
         component: DetailComponent 
       },
       {
         path:':communityId/member-detail/:id',
+        // canActivate: [CommunityPendingStateGuardService],
         component: MemberDetailComponent 
       },
     ]

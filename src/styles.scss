@@ -356,8 +356,15 @@ p-sorticon .p-sortable-column-icon {
     border-radius: 50px;
 }
 .w-60 {
-    width: 60%!important;
+    width: 60% !important;
     .p-dropdown {
-        width: 60%!important;
+        width: 60% !important;
+    }
+}
+.switch-container {
+    display: flex;
+    align-items: center;
+    label {
+        margin-left: 10px;
     }
 }

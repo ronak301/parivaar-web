@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommunityStatus, CommunityTypes } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-add-edit',
@@ -21,15 +22,18 @@ export class AddEditComponent implements OnInit {
   statusOptions: any = CommunityStatus;
   formData!: FormGroup
   imageFile: any = null;
+  isSuperAdmin:boolean = false;
 
   constructor(
     public fb: FormBuilder,
     public commonService: CommonService,
     private communitiesService: ManageCommunitiesService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.initializeForms()
+    this.isSuperAdmin = this.authService.isSuperAdmin();
     console.log('data', this.data)
     if (this.data?.logo) {
       this.imagePreviewUrl = this.data?.logo

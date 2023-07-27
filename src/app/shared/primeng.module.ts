@@ -13,6 +13,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { CheckboxModule } from 'primeng/checkbox';
         InputMaskModule,
         DividerModule,
         FileUploadModule,
-        CheckboxModule
+        CheckboxModule,
+        InputSwitchModule
     ],
     exports: [
         ToastModule,
@@ -46,7 +48,8 @@ import { CheckboxModule } from 'primeng/checkbox';
         InputMaskModule,
         DividerModule,
         FileUploadModule,
-        CheckboxModule
+        CheckboxModule,
+        InputSwitchModule
     ],
     providers: [
         ConfirmationService

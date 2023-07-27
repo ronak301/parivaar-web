@@ -55,7 +55,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
       'firstName': [null, Validators.required],
       'lastName': [null, Validators.required],
       'phone': [null],
-      'dob': [null, Validators.required],
+      'dob': [null],
       'hasBusiness': [false],
       'guardianName': [null],
       'weddingDate': [null],

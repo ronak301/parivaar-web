@@ -18,6 +18,7 @@ export class AuthService {
   _session: AuthSession | null = null
   userAuthStateKey: string = 'userAuthState';
   userKey: string = 'userDetails';
+  isSuperAdminKey: string = 'isSuperAdmin';
   apiUrl: string = environment.apiUrl;
 
   constructor(
@@ -81,12 +82,12 @@ export class AuthService {
   }
 
   getUserAuthStateLocalData() {
-    let data:any = localStorage.getItem(this.userAuthStateKey)
+    let data: any = localStorage.getItem(this.userAuthStateKey)
     return JSON.parse(data)
   }
-  
+
   getUserLocalData() {
-    let data:any = localStorage.getItem(this.userKey)
+    let data: any = localStorage.getItem(this.userKey)
     return JSON.parse(data)
   }
 
@@ -96,6 +97,27 @@ export class AuthService {
 
   removeUserLocal() {
     localStorage.removeItem(this.userKey)
+  }
+
+  checkIsSuperAdmin(data: any) {
+    return this.http.post(this.apiUrl + 'user/check/superadmin', data);
+  }
+
+  checkIsAdmin(data: any) {
+    return this.http.post(this.apiUrl + 'executive/check/admin', data);
+  }
+
+  setIsSuperAdmin(data: boolean) {
+    localStorage.setItem(this.isSuperAdminKey, data.toString());
+  }
+
+  isSuperAdmin():boolean {
+    const isSuperAdmin = (localStorage.getItem(this.isSuperAdminKey) === "true") as boolean;
+    return isSuperAdmin
+  }
+
+  removeIsSuperAdmin() {
+    localStorage.removeItem(this.isSuperAdminKey)
   }
 
 }

@@ -46,6 +46,7 @@ export class AddEditComponent implements OnInit {
   getData() {
     this.commonService.startLoader()
     this.profileService.getUserById(this.id).then((res: any) => {
+      this.authService.setUserinLocal(res.data)
       this.data = res.data
       if (this.data?.business == null) {
         this.data['hasBusiness'] = false
@@ -72,8 +73,8 @@ export class AddEditComponent implements OnInit {
     this.formData = this.fb.group({
       'firstName': [null, Validators.required],
       'lastName': [null, Validators.required],
-      'phone': [null],
-      'dob': [null, Validators.required],
+      'phone': [null, Validators.required],
+      'dob': [null],
       'hasBusiness': [false],
       'guardianName': [null],
       'weddingDate': [null],
@@ -134,7 +135,6 @@ export class AddEditComponent implements OnInit {
       this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
     }
   }
-
 
   onSubmit() {
     this.commonService.startLoader()

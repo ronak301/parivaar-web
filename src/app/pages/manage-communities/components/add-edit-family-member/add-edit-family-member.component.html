@@ -9,14 +9,19 @@
             </div>
         </div> -->
         <div class="col-6 my-2">
-            <label>First Name</label>
+            <label>First Name*</label>
             <input type="text" formControlName="firstName" class="custom-form-control" placeholder="First Name">
             <field-error [control]="firstName"></field-error>
         </div>
         <div class="col-6 my-2">
-            <label>Last Name</label>
+            <label>Last Name*</label>
             <input type="text" formControlName="lastName" class="custom-form-control" placeholder="Last Name">
             <field-error [control]="lastName"></field-error>
+        </div>
+        <div class="col-12 my-2" formGroupName="relative">
+            <label>Relationship Type*</label>
+            <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="familyMemberRelationshipTypes"
+                optionLabel="label" optionValue="id" placeholder="Relationship Type"></p-dropdown>
         </div>
         <div class="col-6 my-2">
             <label>Phone Number</label>
@@ -29,23 +34,6 @@
             <input type="date" formControlName="dob" class="custom-form-control">
             <field-error [control]="dob"></field-error>
         </div>
-        <div class="col-12 my-2" formGroupName="relative">
-            <label>Relationship Type</label>
-            <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="familyMemberRelationshipTypes"
-                optionLabel="label" optionValue="id" placeholder="Relationship Type"></p-dropdown>
-        </div>
-        <div class="col-12 my-2">
-            <label>Guardian Name</label>
-            <input type="text" formControlName="guardianName" class="custom-form-control">
-        </div>
-        <div class="col-12 my-2">
-            <label>Wedding Date</label>
-            <input type="date" formControlName="weddingDate" class="custom-form-control">
-        </div>
-        <div class="col-12 my-2">
-            <label>Email</label>
-            <input type="email" formControlName="email" class="custom-form-control">
-        </div>
         <div class="col-6 my-2">
             <label>Gender</label>
             <p-dropdown class="custom-dropdown-control" formControlName="gender" [options]="genderOptions"
@@ -55,6 +43,18 @@
             <label>Blood Group</label>
             <p-dropdown class="custom-dropdown-control" formControlName="bloodGroup" [options]="bloodGroupOptions"
                 optionLabel="label" optionValue="id" placeholder="Blood Group"></p-dropdown>
+        </div>
+        <div class="col-12 my-2">
+            <label>Guardian Name (पति / पिता का नाम)</label>
+            <input type="text" formControlName="guardianName" class="custom-form-control">
+        </div>
+        <div class="col-12 my-2">
+            <label>Wedding Date</label>
+            <input type="date" formControlName="weddingDate" class="custom-form-control">
+        </div>
+        <div class="col-12 my-2">
+            <label>Email</label>
+            <input type="email" formControlName="email" class="custom-form-control">
         </div>
         <div class="col-12 my-2">
             <label>Education</label>
@@ -68,11 +68,43 @@
             <label>Native Place</label>
             <input type="text" formControlName="nativePlace" class="custom-form-control">
         </div>
+    </div>
+
+    <hr>
+    <div class="row" formGroupName="address">
+        <div class="col-12">
+            <h3>Address</h3>
+        </div>
         <div class="col-12 my-2">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" formControlName="hasBusiness" class="custom-control-input" id="hasBusiness">
-                <label class="custom-control-label" for="hasBusiness">Has Business</label>
-            </div>
+            <label>Full Address</label>
+            <input type="text" formControlName="fullAddress" class="custom-form-control">
+        </div>
+        <div class="col-12 my-2">
+            <label>City</label>
+            <p-dropdown class="custom-dropdown-control" formControlName="city" [options]="cityOptions"
+                optionLabel="label" optionValue="id" placeholder="City"></p-dropdown>
+        </div>
+        <div class="col-12 my-2">
+            <label>State</label>
+            <p-dropdown class="custom-dropdown-control" formControlName="state" [options]="stateOptions"
+                optionLabel="label" optionValue="id" placeholder="State"></p-dropdown>
+        </div>
+        <div class="col-12 my-2">
+            <label>Pincode</label>
+            <input type="text" formControlName="pincode" class="custom-form-control">
+        </div>
+        <div class="col-12 my-2">
+            <label>Locality</label>
+            <p-dropdown class="custom-dropdown-control" formControlName="locality" [options]="localityOptions"
+                optionLabel="label" optionValue="id" placeholder="Locality"></p-dropdown>
+        </div>
+    </div>
+
+    <hr>
+    <div class="col-12 my-2">
+        <div class="switch-container">
+            <p-inputSwitch formControlName="hasBusiness" id="hasBusiness"></p-inputSwitch>
+            <label for="hasBusiness">Do you have business?</label>
         </div>
     </div>
 
@@ -115,42 +147,11 @@
         </div>
     </ng-container>
 
-    <hr>
-    <div class="row" formGroupName="address">
-        <div class="col-12">
-            <h3>Address</h3>
-        </div>
-        <div class="col-12 my-2">
-            <label>Full Address</label>
-            <input type="text" formControlName="fullAddress" class="custom-form-control">
-        </div>
-        <div class="col-12 my-2">
-            <label>State</label>
-            <p-dropdown class="custom-dropdown-control" formControlName="state" [options]="stateOptions"
-                optionLabel="label" optionValue="id" placeholder="State"></p-dropdown>
-        </div>
-        <div class="col-12 my-2">
-            <label>City</label>
-            <p-dropdown class="custom-dropdown-control" formControlName="city" [options]="cityOptions"
-                optionLabel="label" optionValue="id" placeholder="City"></p-dropdown>
-        </div>
-        <div class="col-12 my-2">
-            <label>Pincode</label>
-            <input type="text" formControlName="pincode" class="custom-form-control">
-        </div>
-        <div class="col-12 my-2">
-            <label>Locality</label>
-            <p-dropdown class="custom-dropdown-control" formControlName="locality" [options]="localityOptions"
-                optionLabel="label" optionValue="id" placeholder="Locality"></p-dropdown>
-            <!-- <input type="text" formControlName="locality" class="custom-form-control"> -->
-        </div>
-    </div>
-
     <br><br><br>
     <br><br><br>
     <div class="row">
         <div class="col-12 modal-footer-fixed">
-            <button pButton pRipple type="submit" [disabled]="formData.invalid" label="{{id ? 'Update' : 'Add'}} Member"
+            <button pButton pRipple type="submit" [disabled]="formData.invalid" label="{{id ? 'Update' : 'Add'}} Family Member"
                 [icon]="!id ? 'pi pi-plus' : ''" class="p-button-rounded button-with-icon btn-primary"></button>
         </div>
     </div>

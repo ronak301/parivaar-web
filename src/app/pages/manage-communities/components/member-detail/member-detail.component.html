@@ -5,10 +5,8 @@
                 <h2>{{data?.firstName}} {{data?.lastName}}</h2>
             </div>
             <div class="col-6 text-right">
-                <button pButton pRipple type="button" (click)="openAddEditMemberModal()" label="Update Information"
+                <button pButton pRipple type="button" (click)="openAddEditMemberModal()" label="Update Profile"
                     class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
-                <!-- <button pButton pRipple type="button"
-                    label="Remove Admin Access" class="p-button-outlined p-button-rounded p-button-danger"></button> -->
             </div>
         </div>
         <p-card>
@@ -21,8 +19,6 @@
                 <div class="col-12">
                     <label class="text-muted mb-4">Profile Picture</label><br>
                     <img [src]="imagePreviewUrl" width="100" alt="">
-                    <!-- <div class="preview-image" style="background-image: url({{imagePreviewUrl}});">
-                    </div> -->
                 </div>
             </div>
             <div class="row my-4">
@@ -56,7 +52,21 @@
             <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
-                        Guardian Name
+                        Gender
+                    </label>
+                    <p>{{data?.gender || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Blood Group
+                    </label>
+                    <p>{{data?.bloodGroup || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Guardian Name (पति / पिता का नाम)
                     </label>
                     <p>{{data?.guardianName || '-'}}</p>
                 </div>
@@ -74,41 +84,71 @@
                     </label>
                     <p>{{data?.email || '-'}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Gender
-                    </label>
-                    <p>{{data?.gender || '-'}}</p>
-                </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        Blood Group
-                    </label>
-                    <p>{{data?.bloodGroup || '-'}}</p>
-                </div>
-            </div>
-            <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
                         Education
                     </label>
                     <p>{{data?.education || '-'}}</p>
                 </div>
+            </div>
+            <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
                         Landline
                     </label>
                     <p>{{data?.landline || '-'}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
                 <div class="col-6">
                     <label class="text-muted">
                         Native Place
                     </label>
                     <p>{{data?.nativePlace || '-'}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p-divider></p-divider>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-6 my-auto">
+                    <h3>Address</h3>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Full Address
+                    </label>
+                    <p>{{data?.address?.fullAddress || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        City
+                    </label>
+                    <p>{{data?.address?.city || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        State
+                    </label>
+                    <p>{{data?.address?.state || '-'}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="text-muted">
+                        Pincode
+                    </label>
+                    <p>{{data?.address?.pincode || '-'}}</p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-6">
+                    <label class="text-muted">
+                        Locality
+                    </label>
+                    <p>{{data?.address?.locality || '-'}}</p>
                 </div>
             </div>
 
@@ -174,53 +214,6 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <p-divider></p-divider>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-6 my-auto">
-                    <h3>Address</h3>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Full Address
-                    </label>
-                    <p>{{data?.address?.fullAddress || '-'}}</p>
-                </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        State
-                    </label>
-                    <p>{{data?.address?.state || '-'}}</p>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        City
-                    </label>
-                    <p>{{data?.address?.city || '-'}}</p>
-                </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        Pincode
-                    </label>
-                    <p>{{data?.address?.pincode || '-'}}</p>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Locality
-                    </label>
-                    <p>{{data?.address?.locality || '-'}}</p>
-                </div>
-            </div>
         </p-card>
     </div>
 </div>

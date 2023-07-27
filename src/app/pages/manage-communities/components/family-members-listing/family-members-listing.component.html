@@ -36,9 +36,9 @@
                         styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="width: 3rem">
+                                <!-- <th style="width: 3rem">
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                                </th>
+                                </th> -->
                                 <th pResizableColumn pSortableColumn="fullName">Full Name <p-sortIcon
                                         field="fullName"></p-sortIcon></th>
                                 <th pResizableColumn pSortableColumn="phoneNumber">Phone Number <p-sortIcon
@@ -49,9 +49,9 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
-                                </td>
+                                </td> -->
                                 <td>{{data.firstName}} {{data.lastName}}</td>
                                 <td>{{data?.phone || '-'}}</td>
                                 <td>{{data?.relationship?.type || '-'}}</td>

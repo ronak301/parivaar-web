@@ -3,29 +3,33 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1>Welcome Back !</h1>
-                <p>Please enter your mobile number</p>
-                <div class="otp-container">
+                <p>{{!isOtpSent ? 'Please enter your mobile number' : 'Please enter OTP'}}</p>
+                <div class="otp-container" *ngIf="!isOtpSent">
                     <span>+91</span>
                     <span class="mx-4">|</span>
-                    <ng-container *ngIf="!isOtpSent">
-                        <p-inputMask [(ngModel)]="phoneNumber" mask="9 9 9 9  - 9 9  - 9 9 9 9"
-                            placeholder="O O O O  -  O O  - O O O O"></p-inputMask>
-                    </ng-container>
-                    <ng-container *ngIf="isOtpSent">
-                        <p-inputMask [(ngModel)]="otp" mask="9 9 9 9 9 9" placeholder="O O O O O O"></p-inputMask>
-                    </ng-container>
+                    <p-inputMask [(ngModel)]="phoneNumber" mask="9 9 9 9  - 9 9  - 9 9 9 9"
+                        placeholder="O O O O  -  O O  - O O O O"></p-inputMask>
+                </div>
+                <div class="custom-control custom-checkbox text-left mt-3 mb-2" *ngIf="!isOtpSent">
+                    <input type="checkbox" [(ngModel)]="isSuperAdmin" class="custom-control-input" id="isSuperAdmin">
+                    <label class="custom-control-label" for="isSuperAdmin">Are you Super Admin?</label>
+                </div>
+                <div class="otp-container" *ngIf="isOtpSent">
+                    <p-inputMask [(ngModel)]="otp" mask="9 9 9 9 9 9" placeholder="O O O O O O"></p-inputMask>
                 </div>
                 <ng-container *ngIf="!isOtpSent">
-                    <button pButton pRipple (click)="onSignin()" type="button"
-                        label="Get OTP" class="w-100 my-3 bg-primary"></button>
+                    <button pButton pRipple [disabled]="!phoneNumber" (click)="onSignin()" type="button" label="Get OTP"
+                        class="w-100 my-3 bg-primary"></button>
                 </ng-container>
                 <ng-container *ngIf="isOtpSent">
-                    <button pButton pRipple (click)="onOtpVerify()" type="button"
-                        label="Verify OTP" class="w-100 my-3 bg-primary"></button>
+                    <button pButton pRipple (click)="back()" type="button" label="Back"
+                        class="w-48 my-3 bg-primary"></button>&nbsp;&nbsp;
+                    <button pButton pRipple [disabled]="!otp" (click)="onOtpVerify()" type="button" label="Verify OTP"
+                        class="w-48 my-3 bg-primary"></button>
+                    <div class="text-center">
+                        <span>Didn’t receive code?</span> <a class="link" (click)="resendOtp()">&nbsp;&nbsp;Resend</a>
+                    </div>
                 </ng-container>
-                <div class="text-center">
-                    <span>Didn’t receive code?</span> <a class="link" (click)="resendOtp()">&nbsp;&nbsp;Resend</a>
-                </div>
             </div>
         </div>
     </p-card>
