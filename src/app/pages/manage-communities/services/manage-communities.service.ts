@@ -122,4 +122,8 @@ export class ManageCommunitiesService {
     return this.http.put(this.apiUrl + `executive/${id}`, data).toPromise()
   }
 
+  deleteMember(id: string) {
+    return this.http.delete(this.apiUrl + `user/delete/${id}`).toPromise()
+  }
+
 }

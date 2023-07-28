@@ -7,6 +7,8 @@
             <div class="col-6 text-right">
                 <button pButton pRipple type="button" (click)="openAddEditMemberModal()" label="Update Profile"
                     class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
+                <button pButton pRipple type="button" label="Delete Member" (click)="deleteMemberConfirmation()"
+                    class="p-button-outlined p-button-rounded p-button-danger"></button>
             </div>
         </div>
         <p-card>
@@ -18,7 +20,8 @@
             <div class="row">
                 <div class="col-12">
                     <label class="text-muted mb-4">Profile Picture</label><br>
-                    <img [src]="imagePreviewUrl" width="100" alt="">
+                    <div class="preview-image" [ngStyle]="{'background-image': getCover()}">
+                    </div>
                 </div>
             </div>
             <div class="row my-4">
@@ -46,7 +49,7 @@
                     <label class="text-muted">
                         Date of Birth
                     </label>
-                    <p>{{data?.dob || '-'}}</p>
+                    <p>{{(data?.dob | date:'dd MMMM yyyy') || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -60,7 +63,7 @@
                     <label class="text-muted">
                         Blood Group
                     </label>
-                    <p>{{data?.bloodGroup || '-'}}</p>
+                    <p>{{(data?.bloodGroup | bloodGroup) || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -207,7 +210,7 @@
             </div>
             <div class="row my-4">
                 <div class="col-6">
-                    <label class="text-muted">
+                    <label class="text-muted" (click)="scrollToTop()">
                         Description
                     </label>
                     <p>{{data?.business?.description || '-'}}</p>
@@ -233,4 +236,19 @@
 <!-- Add Member Modal End -->
 
 
-<app-family-members-listing [data]="familyMembers" [relationshipId]="id" [communityId]="communityId" (reload)="reload()"></app-family-members-listing>
+<app-family-members-listing [data]="familyMembers" [relationshipId]="id" [communityId]="communityId"
+    (reload)="reload($event)"></app-family-members-listing>
+
+
+<p-confirmDialog #deleteMember key="deleteMemberDialog" styleClass="confirmationDialog"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+        <h2 class="text-danger">Delete Members</h2>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary"
+            (click)="deleteMember.reject()"></button>
+        <button type="button" pButton label="Confirm" class="p-button-rounded p-button-danger"
+            (click)="deleteMember.accept()"></button>
+    </ng-template>
+</p-confirmDialog>

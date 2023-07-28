@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -18,7 +19,8 @@ export class FamilyMembersListingComponent implements OnInit {
   selectedList: any = [];
 
   constructor(
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class FamilyMembersListingComponent implements OnInit {
         console.log('accept')
         //Actual logic to perform a confirmation
       },
-      key: "deleteMemberDialog"
+      key: "deleteFamilyMemberDialog"
     });
   }
 
@@ -71,5 +73,10 @@ export class FamilyMembersListingComponent implements OnInit {
   onUpdateSuccessful() {
     this.closeAddEditMemberModal()
     this.reload.emit()
+  }
+
+  onRowClick(id: string) {
+    this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${id}`)
+    this.reload.emit(id)
   }
 }

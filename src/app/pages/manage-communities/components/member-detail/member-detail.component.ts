@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-member-detail',
@@ -21,6 +22,8 @@ export class MemberDetailComponent implements OnInit {
     public route: ActivatedRoute,
     private commonService: CommonService,
     private communitiesService: ManageCommunitiesService,
+    private confirmationService: ConfirmationService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -53,14 +56,53 @@ export class MemberDetailComponent implements OnInit {
       }
       console.log(this.data)
       this.commonService.stopLoader()
+      this.scrollToTop()
     }).catch(err => {
       this.commonService.showToast('error', "Error", err)
       this.commonService.stopLoader()
     })
   }
 
-  reload() {
+  reload(event: any) {
+    if (event) {
+      this.id = event
+    }
     this.getData()
+  }
+
+  getCover() {
+    return "url('" + this.imagePreviewUrl + "')"
+  }
+
+  deleteMemberConfirmation() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete member?',
+      accept: () => {
+        console.log('accept')
+        this.commonService.startLoader();
+        this.communitiesService.deleteMember(this.id).then(res => {
+          this.router.navigateByUrl("/pages/manage-communities/detail/" + this.communityId);
+          this.commonService.showToast("success", "Deleted", "Member Deleted!");
+          this.commonService.stopLoader();
+        }).catch(err => {
+          this.commonService.showToast("error", "Error", err);
+          this.commonService.stopLoader();
+        })
+        //Actual logic to perform a confirmation
+      },
+      key: "deleteMemberDialog"
+    });
+  }
+
+  scrollToTop(): void {
+    const scrollToTop = window.setInterval(() => {
+      const pos: number = window.pageYOffset;
+      if (pos > 0) {
+          window.scrollTo(0, pos - 20); // how far to scroll on each step
+      } else {
+          window.clearInterval(scrollToTop);
+      }
+    }, 16);
   }
 
 }

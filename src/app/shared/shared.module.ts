@@ -9,6 +9,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { BloodGroupPipe } from './pipes/blood-group.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     SidebarComponent,
     HeaderComponent,
     FilterComponent,
-    LoaderComponent
+    LoaderComponent,
+    BloodGroupPipe
   ],
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     FilterComponent,
     LoaderComponent,
     FieldErrorComponent,
+    BloodGroupPipe
   ],
   providers:[
     DatePipe

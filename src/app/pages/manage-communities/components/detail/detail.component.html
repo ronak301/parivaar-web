@@ -15,11 +15,8 @@
                     <label class="text-muted">
                         Logo
                     </label>
-                    <img [src]="logo" width="100" alt="">
-                    <!-- <ng-container *ngIf="logo">
-                        <div class="preview-image" [ngStyle]="{'background-image': 'url(' + logo + ')'}">
-                        </div>
-                    </ng-container> -->
+                    <div class="preview-image" [ngStyle]="{'background-image': getCover()}">
+                    </div>
                 </div>
             </div>
             <div class="row my-4">

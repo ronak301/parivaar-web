@@ -30,4 +30,5 @@ export class CommonService {
       this.messageService.add({ severity: 'error', summary: title, detail: message });
     }
   }
+
 }

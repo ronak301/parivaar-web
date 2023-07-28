@@ -23,7 +23,8 @@
                         <label class="text-muted mb-2">Upload Image</label>
                         <div class="logo">
                             <i class="pi pi-plus"></i>
-                            <img [src]="imagePreviewUrl" width="80" (click)="logo.click()" alt="logo">
+                            <div class="preview-image" (click)="logo.click()" [ngStyle]="{'background-image': getCover()}">
+                            </div>
                             <input type="file" #logo class="d-none" (change)="onSelectFile($event)">
                         </div>
                     </div>

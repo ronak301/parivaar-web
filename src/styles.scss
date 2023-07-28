@@ -326,7 +326,7 @@ p-sorticon .p-sortable-column-icon {
 .logo {
     i {
         color: #ffff;
-        background: #5196fa;
+        background: var(--primary-color);
         border-radius: 24px;
         padding: 4px;
         font-size: 10px;
@@ -334,7 +334,6 @@ p-sorticon .p-sortable-column-icon {
         bottom: 2px;
         left: 88px;
         cursor: pointer;
-        display: none;
     }
     .preview-image {
         width: 100px;

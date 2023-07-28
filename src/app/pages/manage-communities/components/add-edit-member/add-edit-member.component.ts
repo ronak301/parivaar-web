@@ -187,6 +187,11 @@ export class AddEditMemberComponent implements OnInit {
         this.commonService.stopLoader()
       })
     }
+    this.formData.reset()
+  }
+
+  getCover() {
+    return "url('" + this.imagePreviewUrl + "')"
   }
 
 }

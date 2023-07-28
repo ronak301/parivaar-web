@@ -20,9 +20,8 @@
             <div class="row">
                 <div class="col-12">
                     <label class="text-muted mb-4">Profile Picture</label><br>
-                    <img [src]="imagePreviewUrl" width="100" alt="">
-                    <!-- <div class="preview-image" style="background-image: url({{imagePreviewUrl}});">
-                    </div> -->
+                    <div class="preview-image" [ngStyle]="{'background-image': getCover()}">
+                    </div>
                 </div>
             </div>
             <div class="row my-4">
@@ -50,7 +49,7 @@
                     <label class="text-muted">
                         Date of Birth
                     </label>
-                    <p>{{data?.dob || '-'}}</p>
+                    <p>{{(data?.dob | date:'dd MMMM yyyy') || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">
@@ -64,7 +63,7 @@
                     <label class="text-muted">
                         Blood Group
                     </label>
-                    <p>{{data?.bloodGroup || '-'}}</p>
+                    <p>{{(data?.bloodGroup | bloodGroup) || '-'}}</p>
                 </div>
             </div>
             <div class="row my-4">

@@ -62,4 +62,9 @@ export class DetailComponent implements OnInit {
     console.log('event',event)
     this.allMembers = event
   }
+
+  getCover() {
+    return "url('" + this.logo + "')"
+  }
+
 }

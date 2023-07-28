@@ -4,9 +4,8 @@
             <label class="d-block">Logo</label>
             <div class="logo">
                 <i class="pi pi-plus"></i>
-                <!-- <div class="preview-image" style="background-image: url({{imagePreviewUrl}});" (click)="logo.click()">
-                </div> -->
-                <img [src]="imagePreviewUrl" width="80" (click)="logo.click()" alt="logo">
+                <div class="preview-image" (click)="logo.click()" [ngStyle]="{'background-image': getCover()}">
+                </div>
                 <input type="file" #logo class="d-none" (change)="onSelectFile($event)">
             </div>
         </div>

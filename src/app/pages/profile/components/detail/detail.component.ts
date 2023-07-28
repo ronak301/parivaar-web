@@ -53,4 +53,8 @@ export class DetailComponent implements OnInit {
     this.getData()
   }
 
+  getCover() {
+    return "url('" + this.imagePreviewUrl + "')"
+  }
+
 }

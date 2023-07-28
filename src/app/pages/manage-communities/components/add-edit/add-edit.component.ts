@@ -22,7 +22,7 @@ export class AddEditComponent implements OnInit {
   statusOptions: any = CommunityStatus;
   formData!: FormGroup
   imageFile: any = null;
-  isSuperAdmin:boolean = false;
+  isSuperAdmin: boolean = false;
 
   constructor(
     public fb: FormBuilder,
@@ -117,6 +117,11 @@ export class AddEditComponent implements OnInit {
         this.commonService.stopLoader()
       })
     }
+    this.formData.reset()
+  }
+
+  getCover() {
+    return "url('" + this.imagePreviewUrl + "')"
   }
 
 }

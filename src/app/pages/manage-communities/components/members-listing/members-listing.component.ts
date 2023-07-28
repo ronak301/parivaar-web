@@ -90,5 +90,14 @@ export class MembersListingComponent implements OnInit {
     }
   }
 
+  getAllMembersByFilter(event: any) {
+    if(event === 'clear') {
+      this.getAllCommunityMembers()
+    } else {
+      this.allCommunityMembers = event
+      this.getAllMembers.emit(this.allCommunityMembers)
+    }
+  }
+
 
 }

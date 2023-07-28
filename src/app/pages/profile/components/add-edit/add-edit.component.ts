@@ -185,4 +185,8 @@ export class AddEditComponent implements OnInit {
     }
   }
 
+  getCover() {
+    return "url('" + this.imagePreviewUrl + "')"
+  }
+
 }

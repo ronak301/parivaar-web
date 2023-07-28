@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <app-filter [title]="'Members'" [type]="'members'"></app-filter>
+            <app-filter [title]="'Members'" [type]="'members'" (getAllMembers)="getAllMembersByFilter($event)"></app-filter>
 
             <ng-container *ngIf="selectedList.length>0">
                 <div class="row my-4">
@@ -56,12 +56,19 @@
                                 </td> -->
                                 <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.firstName}} {{data.lastName}}</td>
                                 <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.phone}}</td>
-                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.bloodGroup}}</td>
+                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.bloodGroup | bloodGroup}}</td>
                                 <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">
                                     {{data?.education}}
                                 </td>
                                 <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">
                                     {{data?.business?.name}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    No data found
                                 </td>
                             </tr>
                         </ng-template>
@@ -82,19 +89,6 @@
             (click)="makeAdmin.reject()"></button>
         <button type="button" pButton label="Confirm" class="p-button-rounded btn-primary"
             (click)="makeAdmin.accept()"></button>
-    </ng-template>
-</p-confirmDialog>
-
-<p-confirmDialog #deleteMember key="deleteMemberDialog" styleClass="confirmationDialog"
-    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
-    <ng-template pTemplate="header">
-        <h2 class="text-danger">Delete Members</h2>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <button type="button" pButton label="Cancel" class="p-button-outlined p-button-rounded p-button-secondary"
-            (click)="deleteMember.reject()"></button>
-        <button type="button" pButton label="Confirm" class="p-button-rounded p-button-danger"
-            (click)="deleteMember.accept()"></button>
     </ng-template>
 </p-confirmDialog>
 

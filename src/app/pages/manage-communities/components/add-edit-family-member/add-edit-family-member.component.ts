@@ -194,6 +194,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
         this.commonService.stopLoader()
       })
     }
+    this.formData.reset()
   }
 
 }
