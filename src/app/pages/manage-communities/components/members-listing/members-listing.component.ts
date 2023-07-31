@@ -19,6 +19,9 @@ export class MembersListingComponent implements OnInit {
 
   addEditMemberModalDisplay: boolean = false;
   selectedList: any = [];
+  skip: number = 0;
+  limit: number = 10;
+  lastPage: number = 0;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -32,11 +35,11 @@ export class MembersListingComponent implements OnInit {
 
   getAllCommunityMembers() {
     this.commonService.startLoader()
-    this.communitiesService.getCommunityMembers(this.communityId).then((res: any) => {
+    this.communitiesService.getCommunityMembers(this.communityId, this.skip, this.limit).then((res: any) => {
       console.log(res)
-      this.allCommunityMembers = res?.members?.rows
+      this.allCommunityMembers = res?.members?.rows;
       this.totalMembers = res?.totalMembers
-      this.getAllMembers.emit(this.allCommunityMembers)
+      this.getAllMembers.emit(this.allCommunityMembers);
       console.log(this.allCommunityMembers)
       this.commonService.stopLoader()
       this.closeAddEditMemberModal()
@@ -91,12 +94,29 @@ export class MembersListingComponent implements OnInit {
   }
 
   getAllMembersByFilter(event: any) {
-    if(event === 'clear') {
+    if (event === 'clear') {
       this.getAllCommunityMembers()
     } else {
       this.allCommunityMembers = event
       this.getAllMembers.emit(this.allCommunityMembers)
     }
+  }
+
+  paginate(event: any) {
+    console.log(event)
+    if (event.page == 0) {
+      this.skip = 0;
+      this.limit = 10;
+    } else if (event.page > this.lastPage) {
+      this.skip = this.skip + 10;
+      this.limit = this.skip + 10;
+    } else if (event.page < this.lastPage) {
+      this.skip = this.skip - 10;
+      this.limit = this.skip - 10;
+    }
+    this.getAllCommunityMembers()
+    console.log('skip', this.skip)
+    console.log('limit', this.limit)
   }
 
 

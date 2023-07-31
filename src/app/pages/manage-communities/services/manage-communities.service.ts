@@ -49,12 +49,12 @@ export class ManageCommunitiesService {
     return this.http.put(this.apiUrl + `community/${id}`, data).toPromise()
   }
 
-  getCommunityMembers(communityId: string) {
+  getCommunityMembers(communityId: string, skip: number, limit: number) {
     let data = {
       filter: {},
       query: '',
-      skip: 0,
-      limit: 1000
+      skip: skip,
+      limit: limit
     }
     return this.http.post(this.apiUrl + 'community/members/' + communityId, data).toPromise();
   }

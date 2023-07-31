@@ -14,6 +14,7 @@ import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import {PaginatorModule} from 'primeng/paginator';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         DividerModule,
         FileUploadModule,
         CheckboxModule,
-        InputSwitchModule
+        InputSwitchModule,
+        PaginatorModule
     ],
     exports: [
         ToastModule,
@@ -49,7 +51,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         DividerModule,
         FileUploadModule,
         CheckboxModule,
-        InputSwitchModule
+        InputSwitchModule,
+        PaginatorModule
     ],
     providers: [
         ConfirmationService
