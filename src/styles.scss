@@ -17,6 +17,8 @@
     --secondary-font-size: 16px;
     --tertiary-font-size: 14px;
     --tertiary-sm-font-size: 12px;
+    --text-primary-color: #1c2a4b;
+    --text-secondary-color: #666666;
 }
 
 // @font-face {
@@ -38,14 +40,14 @@ h2 {
     font-size: var(--primary-font-size);
     font-weight: 600;
     margin: 0;
-    color: #000;
+    color: var(--text-primary-color);
 }
 
 h3 {
     font-size: var(--primary-sm-font-size);
     font-weight: 600;
     margin: 0;
-    color: #000;
+    color: var(--text-primary-color);
 }
 
 .p-dropdown {
@@ -192,7 +194,7 @@ label {
         border: 1px solid #e9f7ff !important;
         h1 {
             font-size: 24px;
-            color: #000;
+            color: var(--text-primary-color);
             font-weight: 500;
         }
         p {
@@ -366,4 +368,31 @@ p-sorticon .p-sortable-column-icon {
     label {
         margin-left: 10px;
     }
+}
+
+input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+input[type="date"]:in-range::-webkit-datetime-edit-day-field,
+input[type="date"]:in-range::-webkit-datetime-edit-text {
+    color: transparent;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

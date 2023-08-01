@@ -36,7 +36,7 @@ export class MembersListingComponent implements OnInit {
   getAllCommunityMembers() {
     this.commonService.startLoader()
     this.communitiesService.getCommunityMembers(this.communityId, this.skip, this.limit).then((res: any) => {
-      console.log(res)
+      console.log('allCommunityMembers',res)
       this.allCommunityMembers = res?.members?.rows;
       this.totalMembers = res?.totalMembers
       this.getAllMembers.emit(this.allCommunityMembers);
