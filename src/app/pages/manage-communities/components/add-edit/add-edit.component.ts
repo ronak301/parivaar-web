@@ -80,7 +80,7 @@ export class AddEditComponent implements OnInit {
 
   onSelectFile(event: any) {
     const reader = new FileReader();
-    if (event.target.files[0].size / 1024 < 500) {
+    if (event.target.files[0].size / 1024 < 1024) {
       const [file] = event.target.files;
       this.imageFile = event.target.files[0];
       reader.readAsDataURL(file);
@@ -89,7 +89,7 @@ export class AddEditComponent implements OnInit {
       };
     }
     else {
-      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+      this.commonService.showToast("error", "Error", "Size should be less then 1mb!")
     }
   }
 

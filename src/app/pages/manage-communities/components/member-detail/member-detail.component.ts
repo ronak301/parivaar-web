@@ -27,9 +27,12 @@ export class MemberDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.communityId = this.route.snapshot.paramMap.get('communityId')
-    this.id = this.route.snapshot.paramMap.get('id')
-    this.getData()
+    this.route.params.subscribe((res:any)=>{
+      console.log('run route',res)
+      this.communityId = res.communityId
+      this.id = res.id
+      this.getData()
+    })
   }
 
   openAddEditMemberModal() {

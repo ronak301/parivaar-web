@@ -3,7 +3,7 @@
         <div class="col-12">
             <label class="d-block">Profile Picture</label>
             <div class="logo">
-                <i class="pi pi-plus"></i>
+                <i class="pi pi-plus" (click)="logo.click()"></i>
                 <div class="preview-image" (click)="logo.click()" [ngStyle]="{'background-image': getCover()}">
                 </div>
                 <input type="file" #logo class="d-none" (change)="onSelectFile($event)">
@@ -118,7 +118,7 @@
             <div class="col-12 my-2">
                 <label>Type</label>
                 <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="businessTypeOptions"
-                    optionLabel="label" optionValue="id" placeholder="Type"></p-dropdown>
+                    (onChange)="onSelectBusinessType()" optionLabel="label" optionValue="id" placeholder="Type"></p-dropdown>
             </div>
             <div class="col-12 my-2">
                 <label>Sub Type</label>

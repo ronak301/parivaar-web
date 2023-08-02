@@ -20,7 +20,7 @@ export class MembersListingComponent implements OnInit {
   addEditMemberModalDisplay: boolean = false;
   selectedList: any = [];
   skip: number = 0;
-  limit: number = 10;
+  limit: number = 40;
   lastPage: number = 0;
 
   constructor(
@@ -106,13 +106,13 @@ export class MembersListingComponent implements OnInit {
     console.log(event)
     if (event.page == 0) {
       this.skip = 0;
-      this.limit = 10;
+      this.limit = 40;
     } else if (event.page > this.lastPage) {
-      this.skip = this.skip + 10;
-      this.limit = this.skip + 10;
+      this.skip = this.skip + 40;
+      this.limit = this.skip + 40;
     } else if (event.page < this.lastPage) {
-      this.skip = this.skip - 10;
-      this.limit = this.skip - 10;
+      this.skip = this.skip - 40;
+      this.limit = this.skip - 40;
     }
     this.getAllCommunityMembers()
     console.log('skip', this.skip)

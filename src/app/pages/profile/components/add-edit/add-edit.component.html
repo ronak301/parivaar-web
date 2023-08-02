@@ -22,8 +22,9 @@
                     <div class="col-12 mb-2">
                         <label class="text-muted mb-2">Upload Image</label>
                         <div class="logo">
-                            <i class="pi pi-plus"></i>
-                            <div class="preview-image" (click)="logo.click()" [ngStyle]="{'background-image': getCover()}">
+                            <i class="pi pi-plus" (click)="logo.click()"></i>
+                            <div class="preview-image" (click)="logo.click()"
+                                [ngStyle]="{'background-image': getCover()}">
                             </div>
                             <input type="file" #logo class="d-none" (change)="onSelectFile($event)">
                         </div>
@@ -44,8 +45,8 @@
                     </div>
                     <div class="col-6 my-2">
                         <label>Phone Number*</label>
-                        <input type="text" maxlength="10" [readOnly]="id" formControlName="phone" class="custom-form-control"
-                            placeholder="Phone Number">
+                        <input type="text" maxlength="10" [readOnly]="id" formControlName="phone"
+                            class="custom-form-control" placeholder="Phone Number">
                         <field-error [control]="phone"></field-error>
                     </div>
                     <div class="col-6 my-2">
@@ -144,8 +145,8 @@
                         <div class="col-6 my-2">
                             <label>Type</label>
                             <p-dropdown class="custom-dropdown-control w-60" formControlName="type"
-                                [options]="businessTypeOptions" optionLabel="label" optionValue="id"
-                                placeholder="Type"></p-dropdown>
+                                (onChange)="onSelectBusinessType()" [options]="businessTypeOptions" optionLabel="label"
+                                optionValue="id" placeholder="Type"></p-dropdown>
                         </div>
                         <div class="col-6 my-2">
                             <label>Sub Type</label>
@@ -172,7 +173,7 @@
                     </div>
                 </ng-container>
 
-                
+
             </form>
         </p-card>
     </div>

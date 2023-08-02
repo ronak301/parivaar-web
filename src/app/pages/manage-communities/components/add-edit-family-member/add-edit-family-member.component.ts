@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroups, BusinessSubTypes, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, State } from 'src/app/shared/constants/constants';
+import { BloodGroups, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, Localities, State } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 
@@ -24,9 +24,9 @@ export class AddEditFamilyMemberComponent implements OnInit {
   stateOptions: any = State;
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
-  businessSubTypeOptions = BusinessSubTypes
+  businessSubTypeOptions = [];
   familyMemberRelationshipTypes = FamilyMemberRelationshipTypes
-  localityOptions = [];
+  localityOptions = Localities;
   imageFile: any = null;
 
   constructor(
@@ -48,6 +48,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
 
   patchValue() {
     this.formData.patchValue(this.data)
+    this.onSelectBusinessType()
   }
 
   initializeForms() {
@@ -105,10 +106,13 @@ export class AddEditFamilyMemberComponent implements OnInit {
   get hasBusiness() {
     return this.formData.get('hasBusiness') as FormGroup
   }
+  get businessType() {
+    return this.formData.get('business')?.get('type') as FormGroup
+  }
 
   onSelectFile(event: any) {
     const reader = new FileReader();
-    if (event.target.files[0].size / 1024 < 500) {
+    if (event.target.files[0].size / 1024 < 1024) {
       const [file] = event.target.files;
       this.imageFile = event.target.files[0];
       reader.readAsDataURL(file);
@@ -117,8 +121,14 @@ export class AddEditFamilyMemberComponent implements OnInit {
       };
     }
     else {
-      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+      this.commonService.showToast("error", "Error", "Size should be less then 1mb")
     }
+  }
+
+  onSelectBusinessType() {
+    let data: any = this.businessTypeOptions.find((el: any) => el.id == this.businessType?.value)
+    this.businessSubTypeOptions = data?.subTypes || []
+    console.log('businessSubTypeOptions', this.businessSubTypeOptions)
   }
 
   onSubmit() {
@@ -159,7 +169,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
             })
           }
         }
-        if (this.data.address.id) {
+        if (this.data.address?.id) {
           this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
             console.log(res)
             this.onSuccess.emit()
@@ -182,13 +192,33 @@ export class AddEditFamilyMemberComponent implements OnInit {
         }
         this.communitiesService.joinCommunity(joinData, this.communityId).then(res2 => {
           console.log(res2)
-          this.commonService.stopLoader()
-          this.commonService.showToast('success', 'Created', 'Created Successful!')
-          this.onSuccess.emit()
+          let typeReverse = nonNullFields.relative.type
+          console.log('typeReverse', typeReverse)
+          let relationship = this.familyMemberRelationshipTypes.find(el => el.id === typeReverse)
+          console.log('relationship', relationship)
+          if (relationship?.reverse?.id) {
+            let createRelationPayload = {
+              userId: res.id,
+              relativeId: this.relationshipId,
+              type: relationship?.reverse?.id
+            }
+            console.log('createRelationPayload', createRelationPayload)
+            this.communitiesService.createRelation(createRelationPayload).then((res3: any) => {
+              this.commonService.stopLoader()
+              this.commonService.showToast('success', 'Created', 'Created Successful!')
+              this.onSuccess.emit()
+            }).catch((err: any) => {
+              this.commonService.showToast('error', "Error", err?.message)
+              this.commonService.stopLoader()
+            })
+          } else {
+            this.commonService.stopLoader()
+          }
         }).catch(err => {
           this.commonService.showToast('error', "Error", err?.message)
           this.commonService.stopLoader()
         })
+
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.message)
         this.commonService.stopLoader()

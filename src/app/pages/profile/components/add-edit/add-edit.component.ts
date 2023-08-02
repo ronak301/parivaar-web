@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroups, BusinessSubTypes, BusinessTypes, Cities, Gender, State } from 'src/app/shared/constants/constants';
+import { BloodGroups, BusinessTypes, Cities, Gender, Localities, State } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ProfileService } from '../../services/profile.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -21,8 +21,8 @@ export class AddEditComponent implements OnInit {
   stateOptions: any = State;
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
-  businessSubTypeOptions = BusinessSubTypes
-  localityOptions = [];
+  businessSubTypeOptions = []
+  localityOptions = Localities;
   data: any;
   imageFile: any = null;
 
@@ -67,6 +67,7 @@ export class AddEditComponent implements OnInit {
 
   patchValue() {
     this.formData.patchValue(this.data)
+    this.onSelectBusinessType()
   }
 
   initializeForms() {
@@ -120,10 +121,13 @@ export class AddEditComponent implements OnInit {
   get hasBusiness() {
     return this.formData.get('hasBusiness') as FormGroup
   }
+  get businessType() {
+    return this.formData.get('business')?.get('type') as FormGroup
+  }
 
   onSelectFile(event: any) {
     const reader = new FileReader();
-    if (event.target.files[0].size / 1024 < 500) {
+    if (event.target.files[0].size / 1024 < 1024) {
       const [file] = event.target.files;
       this.imageFile = event.target.files[0];
       reader.readAsDataURL(file);
@@ -132,7 +136,7 @@ export class AddEditComponent implements OnInit {
       };
     }
     else {
-      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+      this.commonService.showToast("error", "Error", "Size should be less then 1mb")
     }
   }
 
@@ -187,6 +191,12 @@ export class AddEditComponent implements OnInit {
 
   getCover() {
     return "url('" + this.imagePreviewUrl + "')"
+  }
+
+  onSelectBusinessType() {
+    let data: any = this.businessTypeOptions.find((el: any) => el.id == this.businessType?.value)
+    this.businessSubTypeOptions = data?.subTypes || []
+    console.log('businessSubTypeOptions', this.businessSubTypeOptions)
   }
 
 }

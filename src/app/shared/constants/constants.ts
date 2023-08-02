@@ -17,7 +17,7 @@ export const Gender = [
 export const BusinessTypes = [
   {
     id: "HomeMaker",
-    label: "Home Maker",
+    label: "Home Maker (गृहस्वामिनी)",
   },
   {
     id: "SelfEmployed",
@@ -106,6 +106,28 @@ export const BusinessTypes = [
   {
     id: "Professionals",
     label: "Professionals",
+    subTypes: [
+      {
+        id: "Engineer",
+        label: "Engineer",
+      },
+      {
+        id: "CA",
+        label: "CA",
+      },
+      {
+        id: "Doctor",
+        label: "Doctor",
+      },
+      {
+        id: "Architect",
+        label: "Architect",
+      },
+      {
+        id: "MBA",
+        label: "MBA",
+      },
+    ],
   },
   {
     id: "RealEstate",
@@ -121,7 +143,7 @@ export const BusinessTypes = [
   },
   {
     id: "Machinaries",
-    label: "Tools & machineries",
+    label: "Tools & Machineries",
   },
   {
     id: "TourTravels",
@@ -137,7 +159,7 @@ export const BusinessTypes = [
   },
   {
     id: "Hardware",
-    label: "Wedding Event Management",
+    label: "Hardware",
   },
   {
     id: "Paints",
@@ -155,9 +177,11 @@ export const BusinessTypes = [
     id: "Utensils",
     label: "Utensils Metal Merchant",
   },
+  {
+    id: "Others",
+    label: "Others",
+  },
 ];
-
-export const BusinessSubTypes = [];
 
 export const CommunityTypes = [
   {
@@ -209,54 +233,110 @@ export const FamilyMemberRelationshipTypes = [
   {
     id: "Son",
     label: "Son",
+    reverse: {
+      id: "Parent",
+      label: "Parent",
+    },
   },
   {
     id: "Daughter",
     label: "Daughter",
+    reverse: {
+      id: "Parent",
+      label: "Parent",
+    },
   },
   {
     id: "Husband",
     label: "Husband",
+    reverse: {
+      id: "Wife",
+      label: "Wife",
+    },
   },
   {
     id: "Wife",
     label: "Wife",
+    reverse: {
+      id: "Husband",
+      label: "Husband",
+    },
   },
   {
     id: "Sister",
     label: "Sister",
+    reverse: {
+      id: "Brother",
+      label: "Brother",
+    },
   },
   {
     id: "Brother",
     label: "Brother",
+    reverse: {
+      id: "Brother",
+      label: "Brother",
+    },
   },
   {
     id: "Father",
     label: "Father",
+    reverse: {
+      id: "Child",
+      label: "Child",
+    },
   },
   {
     id: "Mother",
     label: "Mother",
-  },
-  {
-    id: "GrandFather",
-    label: "Grand Father",
-  },
-  {
-    id: "GrandMother",
-    label: "Grand Mother",
+    reverse: {
+      id: "Child",
+      label: "Child",
+    },
   },
   {
     id: "GrandSon",
     label: "Grand Son",
+    reverse: {
+      id: "GrandParent",
+      label: "Grand Parent",
+    },
   },
   {
     id: "GrandDaughter",
     label: "Grand Daughter",
+    reverse: {
+      id: "GrandParent",
+      label: "Grand Parent",
+    },
+  },
+  {
+    id: "GreatGrandSon",
+    label: "Great Grand Son",
+    reverse: {
+      id: "GrandParent",
+      label: "Grand Parent",
+    },
+  },
+  {
+    id: "GreatGrandDaughter",
+    label: "Great Grand Daughter",
+    reverse: {
+      id: "GrandParent",
+      label: "Grand Parent",
+    },
   },
   {
     id: "DaughterInLaw",
     label: "Daughter-in-Law",
+    reverse: {
+      id: "FatherInLaw",
+      label: "Father In Law",
+    },
+  },
+  {
+    id: "Others",
+    label: "Others",
   },
 ];
 
@@ -292,5 +372,205 @@ export const BloodGroups = [
   {
     id: "AB_NEGETIVE",
     label: "AB-",
+  },
+];
+
+export const Localities = [
+  {
+    id: "Naiyokitalai",
+    label: "Naiyo Ki Talai",
+  },
+  {
+    id: "Ziniretchowk",
+    label: "Zini Ret Chowk",
+  },
+  {
+    id: "Sindhibazaar",
+    label: "Sindhi Bazaar",
+  },
+  {
+    id: "Shrinathmaarg",
+    label: "Shrinath Marg",
+  },
+  {
+    id: "Mathokisehri",
+    label: "Matho Ki Sehri",
+  },
+  {
+    id: "Ganeshgati",
+    label: "Ganesh Gati",
+  },
+  {
+    id: "Maldasstreet",
+    label: "Maldaas Street",
+  },
+  {
+    id: "Kolpol",
+    label: "Kolpol",
+  },
+  {
+    id: "Dhanmandi",
+    label: "Dhanmandi",
+  },
+  {
+    id: "Nehrubazaar",
+    label: "Nehru Bazaar",
+  },
+  {
+    id: "Sarvrituvillas",
+    label: "Sarvritu Villas ",
+  },
+
+  {
+    id: "Surajpole",
+    label: "Surajpole",
+  },
+  {
+    id: "Gariyawas",
+    label: "Gariyawas",
+  },
+  {
+    id: "HiranMagrisector11",
+    label: "Hiran magri Sector 11",
+  },
+  {
+    id: "HiranMagrisector13",
+    label: "Hiran magri Sector 13",
+  },
+  {
+    id: "HiranMagrisector14",
+    label: "Hiran magri Sector 14",
+  },
+  {
+    id: "Durganursery",
+    label: "Durga Nursery",
+  },
+  {
+    id: "Subhashnagar",
+    label: "Subhash Nagar",
+  },
+  {
+    id: "HiranMagrisector3",
+    label: "Hiran magri Sector 3",
+  },
+  {
+    id: "HiranMagrisector4",
+    label: "Hiran magri Sector 4",
+  },
+  {
+    id: "HiranMagrisector5",
+    label: "Hiran magri Sector 5",
+  },
+  {
+    id: "HiranMagrisector6789",
+    label: "Hiran magri Sector 6,7,8,9",
+  },
+  {
+    id: "Bhupalpura",
+    label: "Bhupalpura",
+  },
+  {
+    id: "Newbhupalpura",
+    label: "New Bhupalpura",
+  },
+  {
+    id: "Ashoknagar",
+    label: "Ashok Nagar",
+  },
+  {
+    id: "Anandnagar",
+    label: "Anand Nagar",
+  },
+  {
+    id: "Keshavnagar",
+    label: "Keshav Nagar",
+  },
+  {
+    id: "Kalkamataroad",
+    label: "Kalka Mata Road",
+  },
+  {
+    id: "Bohraganeshmarg",
+    label: "Bohra Ganesh Marg",
+  },
+  {
+    id: "sunderwas",
+    label: "Sunderwas",
+  },
+  {
+    id: "Madhuban",
+    label: "Madhuban",
+  },
+  {
+    id: "Panchwati",
+    label: "Panchwati",
+  },
+  {
+    id: "Pologround",
+    label: "Polo Ground",
+  },
+  {
+    id: "Ahinsapuri",
+    label: "Ahinsapuri",
+  },
+  {
+    id: "Adinathnagar",
+    label: "Adinath Nagar",
+  },
+  {
+    id: "Panchratnacomplex",
+    label: "Panchratna Complex",
+  },
+  {
+    id: "NavratnaComplex",
+    label: "Navratna Complex",
+  },
+  {
+    id: "Bedlaroad",
+    label: "Bedlaroad",
+  },
+  {
+    id: "Bedla",
+    label: "Bedla",
+  },
+  {
+    id: "Samtanagar",
+    label: "Samta Nagar",
+  },
+  {
+    id: "Bhuvana",
+    label: "Bhuvana",
+  },
+  {
+    id: "Ambamata",
+    label: "Ambamata",
+  },
+  {
+    id: "Shobhagpura",
+    label: "Shobhagpura",
+  },
+  {
+    id: "Motichohatta",
+    label: "Moti Chohatta",
+  },
+  {
+    id: "Benadebathedahouse",
+    label: "Baneda Bathera House",
+  },
+  {
+    id: "Badabazaar",
+    label: "Bada Bazaar",
+  },
+  {
+    id: "Bhamashahmarg",
+    label: "Bhamashah Marg",
+  },
+  {
+    id: "Pula",
+    label: "Pula",
+  },
+  {
+    id: "Others",
+    label: "Others",
   },
 ];

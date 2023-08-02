@@ -1,15 +1,15 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
-import { BloodGroups, BusinessSubTypes, BusinessTypes, Cities, Gender, State } from 'src/app/shared/constants/constants';
+import { BloodGroups, BusinessTypes, Cities, Gender, Localities, State } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-add-edit-member',
   templateUrl: './add-edit-member.component.html',
   styleUrls: ['./add-edit-member.component.scss']
 })
-export class AddEditMemberComponent implements OnInit {
+export class AddEditMemberComponent implements OnInit, OnChanges {
 
   @Input() id: string = '';
   @Input() communityId: any;
@@ -23,8 +23,8 @@ export class AddEditMemberComponent implements OnInit {
   stateOptions: any = State;
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
-  businessSubTypeOptions = BusinessSubTypes
-  localityOptions = [];
+  businessSubTypeOptions = []
+  localityOptions = Localities;
   imageFile: any = null;
 
   constructor(
@@ -44,8 +44,20 @@ export class AddEditMemberComponent implements OnInit {
     }
   }
 
+  ngOnChanges() {
+    this.initializeForms()
+    console.log(this.id)
+    if (this.data?.profilePicture) {
+      this.imagePreviewUrl = this.data?.profilePicture
+    }
+    if (this.id) {
+      this.patchValue()
+    }
+  }
+
   patchValue() {
     this.formData.patchValue(this.data)
+    this.onSelectBusinessType()
   }
 
   initializeForms() {
@@ -99,10 +111,13 @@ export class AddEditMemberComponent implements OnInit {
   get hasBusiness() {
     return this.formData.get('hasBusiness') as FormGroup
   }
+  get businessType() {
+    return this.formData.get('business')?.get('type') as FormGroup
+  }
 
   onSelectFile(event: any) {
     const reader = new FileReader();
-    if (event.target.files[0].size / 1024 < 500) {
+    if (event.target.files[0].size / 1024 < 1024) {
       const [file] = event.target.files;
       this.imageFile = event.target.files[0];
       reader.readAsDataURL(file);
@@ -111,7 +126,7 @@ export class AddEditMemberComponent implements OnInit {
       };
     }
     else {
-      this.commonService.showToast("error", "Error", "Size should be less then 500kb!")
+      this.commonService.showToast("error", "Error", "Size should be less then 1mb")
     }
   }
 
@@ -153,7 +168,7 @@ export class AddEditMemberComponent implements OnInit {
             })
           }
         }
-        if (this.data.address.id) {
+        if (this.data?.address?.id) {
           this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
             console.log(res)
             this.onSuccess.emit()
@@ -192,6 +207,12 @@ export class AddEditMemberComponent implements OnInit {
 
   getCover() {
     return "url('" + this.imagePreviewUrl + "')"
+  }
+
+  onSelectBusinessType() {
+    let data: any = this.businessTypeOptions.find((el: any) => el.id == this.businessType?.value)
+    this.businessSubTypeOptions = data?.subTypes || []
+    console.log('businessSubTypeOptions', this.businessSubTypeOptions)
   }
 
 }

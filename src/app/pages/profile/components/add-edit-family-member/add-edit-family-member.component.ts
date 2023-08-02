@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroups, BusinessSubTypes, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, State } from 'src/app/shared/constants/constants';
+import { BloodGroups, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, State } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ProfileService } from '../../services/profile.service';
 
@@ -24,7 +24,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
   stateOptions: any = State;
   cityOptions: any = Cities;
   businessTypeOptions = BusinessTypes
-  businessSubTypeOptions = BusinessSubTypes
+  businessSubTypeOptions = []
   familyMemberRelationshipTypes = FamilyMemberRelationshipTypes
 
   constructor(
@@ -43,6 +43,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
 
   patchValue() {
     this.formData.patchValue(this.data)
+    this.onSelectBusinessType()
   }
 
   initializeForms() {
@@ -100,7 +101,15 @@ export class AddEditFamilyMemberComponent implements OnInit {
   get hasBusiness() {
     return this.formData.get('hasBusiness') as FormGroup
   }
+  get businessType() {
+    return this.formData.get('business')?.get('type') as FormGroup
+  }
 
+  onSelectBusinessType() {
+    let data: any = this.businessTypeOptions.find((el: any) => el.id == this.businessType?.value)
+    this.businessSubTypeOptions = data?.subTypes || []
+    console.log('businessSubTypeOptions', this.businessSubTypeOptions)
+  }
 
   onSubmit() {
     const nonNullFields: any = {};

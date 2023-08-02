@@ -51,7 +51,9 @@ export class ManageCommunitiesService {
 
   getCommunityMembers(communityId: string, skip: number, limit: number) {
     let data = {
-      filter: {},
+      filter: {
+        isAccountManager: true
+      },
       query: '',
       skip: skip,
       limit: limit
@@ -88,7 +90,10 @@ export class ManageCommunitiesService {
   addRelative(data: any) {
     return this.http.post(this.apiUrl + 'relationship/relative/new', data).toPromise()
   }
-
+  
+  createRelation(data:any) {
+    return this.http.post(this.apiUrl + 'relationship/relation/new', data).toPromise()
+  }
 
   updateAddress(id: string, data: any) {
     return this.http.put(this.apiUrl + `address/${id}`, data).toPromise()
