@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
           this.commonService.stopLoader()
         }).catch(err => {
           console.log(err)
+          this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader()
         })
       } else {
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.commonService.stopLoader()
       }
     }).catch(err => {
-      this.commonService.showToast('error', 'Error', err)
+      this.commonService.showToast('error', "Error", err?.error?.message)
       this.commonService.stopLoader()
       console.log(err)
     })
@@ -71,7 +72,7 @@ export class LoginComponent implements OnInit {
             this.commonService.stopLoader();
           }
         }, err => {
-          this.commonService.showToast('error', 'Error', err)
+          this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader();
         })
       } else {
@@ -88,12 +89,12 @@ export class LoginComponent implements OnInit {
             this.commonService.stopLoader();
           }
         }, err => {
-          this.commonService.showToast('error', 'Error', err)
+          this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader();
         })
       }
     }).catch(err => {
-      this.commonService.showToast('error', 'Error', err)
+      this.commonService.showToast('error', "Error", err?.error?.message)
       this.commonService.stopLoader()
       console.log(err)
     })

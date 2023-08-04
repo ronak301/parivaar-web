@@ -147,7 +147,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
         // }
         this.onSuccess.emit()
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err?.message)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     } else {
@@ -163,11 +163,11 @@ export class AddEditFamilyMemberComponent implements OnInit {
           this.commonService.stopLoader()
           this.onSuccess.emit()
         }).catch(err => {
-          this.commonService.showToast('error', "Error", err?.message)
+          this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader()
         })
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err?.message)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     }

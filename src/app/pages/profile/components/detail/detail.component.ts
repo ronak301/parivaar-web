@@ -15,6 +15,7 @@ export class DetailComponent implements OnInit {
   id: any = '';
   data: any;
   familyMembers: any[] = [];
+  isShowMore:boolean = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -55,6 +56,10 @@ export class DetailComponent implements OnInit {
 
   getCover() {
     return "url('" + this.imagePreviewUrl + "')"
+  }
+
+  toggleShowMore() {
+    this.isShowMore = !this.isShowMore
   }
 
 }

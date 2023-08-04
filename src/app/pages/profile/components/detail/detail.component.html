@@ -6,9 +6,10 @@
             </div>
             <div class="col-6 text-right">
                 <button pButton pRipple type="button" routerLink="/pages/manage-profile/edit/{{id}}"
-                    label="Update Profile" class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
-                <button pButton pRipple type="button"
-                    label="Remove Admin Access" class="p-button-outlined p-button-rounded p-button-danger"></button>
+                    label="Update Profile"
+                    class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
+                <button pButton pRipple type="button" label="Remove Admin Access"
+                    class="p-button-outlined p-button-rounded p-button-danger"></button>
             </div>
         </div>
         <p-card>
@@ -110,116 +111,129 @@
             </div>
 
             <div class="row">
-                <div class="col-12">
-                    <p-divider></p-divider>
+                <div class="col-12 text-center">
+                    <button pButton pRipple (click)="toggleShowMore()" type="button"
+                        label="{{!isShowMore ? 'Show More' : 'Show Less'}}"
+                        class="p-button-rounded btn-primary"></button>
                 </div>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-6 my-auto">
-                    <h3>Address</h3>
+            <ng-container *ngIf="isShowMore">
+                <div class="row">
+                    <div class="col-12">
+                        <p-divider></p-divider>
+                    </div>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Full Address
-                    </label>
-                    <p>{{data?.address?.fullAddress || '-'}}</p>
-                </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        City
-                    </label>
-                    <p>{{data?.address?.city || '-'}}</p>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        State
-                    </label>
-                    <p>{{data?.address?.state || '-'}}</p>
-                </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        Pincode
-                    </label>
-                    <p>{{data?.address?.pincode || '-'}}</p>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Locality
-                    </label>
-                    <p>{{data?.address?.locality || '-'}}</p>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <p-divider></p-divider>
+                <div class="row mb-4">
+                    <div class="col-6 my-auto">
+                        <h3>Address</h3>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="row mb-4">
-                <div class="col-6 my-auto">
-                    <h3>Business Information</h3>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Full Address
+                        </label>
+                        <p>{{data?.address?.fullAddress || '-'}}</p>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-muted">
+                            City
+                        </label>
+                        <p>{{data?.address?.city || '-'}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Name
-                    </label>
-                    <p>{{data?.business?.name || '-'}}</p>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <label class="text-muted">
+                            State
+                        </label>
+                        <p>{{data?.address?.state || '-'}}</p>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Pincode
+                        </label>
+                        <p>{{data?.address?.pincode || '-'}}</p>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        Type
-                    </label>
-                    <p>{{data?.business?.type || '-'}}</p>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Locality
+                        </label>
+                        <p>{{data?.address?.locality || '-'}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Sub Type
-                    </label>
-                    <p>{{data?.business?.subType || '-'}}</p>
+
+                <div class="row">
+                    <div class="col-12">
+                        <p-divider></p-divider>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        Website
-                    </label>
-                    <p>{{data?.business?.website || '-'}}</p>
+
+                <div class="row mb-4">
+                    <div class="col-6 my-auto">
+                        <h3>Business Information</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Business Phone Number
-                    </label>
-                    <p>{{data?.business?.phone || '-'}}</p>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Name
+                        </label>
+                        <p>{{data?.business?.name || '-'}}</p>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Type
+                        </label>
+                        <p>{{data?.business?.type || '-'}}</p>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label class="text-muted">
-                        Address
-                    </label>
-                    <p>{{data?.business?.address || '-'}}</p>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Sub Type
+                        </label>
+                        <p>{{data?.business?.subType || '-'}}</p>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Website
+                        </label>
+                        <p>{{data?.business?.website || '-'}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
-                    <label class="text-muted">
-                        Description
-                    </label>
-                    <p>{{data?.business?.description || '-'}}</p>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Business Phone Number
+                        </label>
+                        <p>{{data?.business?.phone || '-'}}</p>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Address
+                        </label>
+                        <p>{{data?.business?.address || '-'}}</p>
+                    </div>
                 </div>
-            </div>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <label class="text-muted">
+                            Description
+                        </label>
+                        <p>{{data?.business?.description || '-'}}</p>
+                    </div>
+                </div>
+            </ng-container>
         </p-card>
     </div>
 </div>
 
-<app-family-members-listing [data]="familyMembers" [relationshipId]="id" (reload)="reload()"></app-family-members-listing>
+<ng-container *ngIf="isShowMore">
+    <app-family-members-listing [data]="familyMembers" [relationshipId]="id"
+        (reload)="reload()"></app-family-members-listing>
+</ng-container>

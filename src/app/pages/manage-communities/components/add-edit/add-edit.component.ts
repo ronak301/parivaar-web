@@ -102,7 +102,7 @@ export class AddEditComponent implements OnInit {
         this.onSuccess.emit()
         this.commonService.showToast('success', "Updated", res?.message)
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     } else {
@@ -113,7 +113,7 @@ export class AddEditComponent implements OnInit {
         this.onSuccess.emit()
         this.commonService.showToast('success', "Created", "Created Successful!")
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     }

@@ -29,6 +29,14 @@ const routes: Routes = [
         path:'about-us',
         loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsModule)
       },
+      {
+        path:'privacy',
+        loadChildren: () => import('./privacy/privacy.module').then( m => m.PrivacyModule)
+      },
+      {
+        path:'terms',
+        loadChildren: () => import('./terms/terms.module').then( m => m.TermsModule)
+      },
     ]
   },
 ];

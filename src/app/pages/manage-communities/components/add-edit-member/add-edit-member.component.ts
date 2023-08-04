@@ -26,6 +26,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
   businessSubTypeOptions = []
   localityOptions = Localities;
   imageFile: any = null;
+  step: string = 'first';
 
   constructor(
     public fb: FormBuilder,
@@ -97,16 +98,16 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
   }
 
   get firstName() {
-    return this.formData.get('firstName')
+    return this.formData.get('firstName') as FormGroup
   }
   get lastName() {
-    return this.formData.get('lastName')
+    return this.formData.get('lastName') as FormGroup
   }
   get phone() {
-    return this.formData.get('phone')
+    return this.formData.get('phone') as FormGroup
   }
   get dob() {
-    return this.formData.get('dob')
+    return this.formData.get('dob') as FormGroup
   }
   get hasBusiness() {
     return this.formData.get('hasBusiness') as FormGroup
@@ -178,7 +179,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
         this.onSuccess.emit()
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err?.message)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     } else {
@@ -194,11 +195,13 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
           this.commonService.showToast('success', 'Created', res?.message)
           this.onSuccess.emit()
         }).catch(err => {
-          this.commonService.showToast('error', "Error", err?.message)
+          console.log(err)
+          this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader()
         })
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err?.message)
+        console.log(err)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     }
@@ -213,6 +216,10 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
     let data: any = this.businessTypeOptions.find((el: any) => el.id == this.businessType?.value)
     this.businessSubTypeOptions = data?.subTypes || []
     console.log('businessSubTypeOptions', this.businessSubTypeOptions)
+  }
+
+  onNextStep() {
+    this.step = "second"
   }
 
 }

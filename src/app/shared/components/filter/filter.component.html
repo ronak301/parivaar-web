@@ -3,13 +3,12 @@
         <div class="col-6">
             <h3>Filter {{title}}</h3>
         </div>
-        <div class="col-6 text-right">
+        <!-- <div class="col-6 text-right">
             <ng-container *ngIf="type == 'members'">
-                <button pButton pRipple type="button" icon="pi pi-search" label="Search"
-                    (click)="onSubmitMemberForm()"
+                <button pButton pRipple type="button" icon="pi pi-search" label="Search" (click)="onSubmitMemberForm()"
                     class="p-button-outlined primary-button-outlined p-button-rounded"></button>
             </ng-container>
-        </div>
+        </div> -->
     </div>
 
     <!-- Community Filter Start -->
@@ -37,17 +36,21 @@
     <ng-container *ngIf="type == 'members'">
         <form [formGroup]="memberFormData">
             <div class="row">
-                <div class="col-4">
-                    <label class="d-block">First Name</label>
-                    <input class="custom-form-control" formControlName="firstName" placeholder="First Name" />
+                <div class="col-10 my-auto">
+                    <!-- <label class="d-block">First Name</label> -->
+                    <input class="custom-form-control" formControlName="search" placeholder="Search name, number, etc" />
                 </div>
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <label class="d-block">Last Name</label>
                     <input class="custom-form-control" formControlName="lastName" placeholder="Last Name" />
                 </div>
                 <div class="col-4">
                     <label class="d-block">Phone</label>
                     <input class="custom-form-control" formControlName="phone" placeholder="Phone" />
+                </div> -->
+                <div class="col-2 my-auto">
+                    <button pButton pRipple (click)="onSubmitMemberForm()" type="button" label="Search"
+                        icon="pi pi-search" class="p-button-rounded btn-primary"></button>
                 </div>
             </div>
         </form>

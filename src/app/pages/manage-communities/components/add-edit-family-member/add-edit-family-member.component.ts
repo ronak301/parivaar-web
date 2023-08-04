@@ -28,6 +28,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
   familyMemberRelationshipTypes = FamilyMemberRelationshipTypes
   localityOptions = Localities;
   imageFile: any = null;
+  step: string = 'first';
 
   constructor(
     public fb: FormBuilder,
@@ -92,10 +93,10 @@ export class AddEditFamilyMemberComponent implements OnInit {
   }
 
   get firstName() {
-    return this.formData.get('firstName')
+    return this.formData.get('firstName') as FormGroup
   }
   get lastName() {
-    return this.formData.get('lastName')
+    return this.formData.get('lastName') as FormGroup
   }
   get phone() {
     return this.formData.get('phone')
@@ -179,7 +180,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
         this.commonService.stopLoader();
         this.onSuccess.emit()
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err?.message)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     } else {
@@ -215,16 +216,20 @@ export class AddEditFamilyMemberComponent implements OnInit {
             this.commonService.stopLoader()
           }
         }).catch(err => {
-          this.commonService.showToast('error', "Error", err?.message)
+          this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader()
         })
 
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err?.message)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     }
     this.formData.reset()
+  }
+
+  onNextStep() {
+    this.step = "second"
   }
 
 }

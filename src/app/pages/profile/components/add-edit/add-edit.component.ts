@@ -183,7 +183,7 @@ export class AddEditComponent implements OnInit {
         }
         this.commonService.stopLoader()
       }).catch(err => {
-        this.commonService.showToast('error', "Error", err?.message)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     }

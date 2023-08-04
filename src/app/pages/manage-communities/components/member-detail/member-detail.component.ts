@@ -17,6 +17,7 @@ export class MemberDetailComponent implements OnInit {
   communityId: any = '';
   data: any;
   familyMembers: any[] = [];
+  isShowMore:boolean = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class MemberDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((res:any)=>{
       console.log('run route',res)
+      this.isShowMore = false;
       this.communityId = res.communityId
       this.id = res.id
       this.getData()
@@ -61,7 +63,7 @@ export class MemberDetailComponent implements OnInit {
       this.commonService.stopLoader()
       this.scrollToTop()
     }).catch(err => {
-      this.commonService.showToast('error', "Error", err)
+      this.commonService.showToast('error', "Error", err?.error?.message)
       this.commonService.stopLoader()
     })
   }
@@ -88,7 +90,7 @@ export class MemberDetailComponent implements OnInit {
           this.commonService.showToast("success", "Deleted", "Member Deleted!");
           this.commonService.stopLoader();
         }).catch(err => {
-          this.commonService.showToast("error", "Error", err);
+          this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader();
         })
         //Actual logic to perform a confirmation
@@ -106,6 +108,10 @@ export class MemberDetailComponent implements OnInit {
           window.clearInterval(scrollToTop);
       }
     }, 16);
+  }
+
+  toggleShowMore() {
+    this.isShowMore = !this.isShowMore
   }
 
 }

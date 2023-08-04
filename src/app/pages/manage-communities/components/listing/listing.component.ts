@@ -43,7 +43,7 @@ export class ListingComponent implements OnInit {
         this.commonService.stopLoader()
       }).catch(err => {
         console.log(err)
-        this.commonService.showToast('error', 'Error', err)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     } else {
@@ -55,7 +55,7 @@ export class ListingComponent implements OnInit {
         this.data = res.data.communities || []
         this.commonService.stopLoader()
       }).catch(err => {
-        this.commonService.showToast('error', 'Error', err)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     }

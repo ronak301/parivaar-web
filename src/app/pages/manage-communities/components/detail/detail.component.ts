@@ -48,7 +48,7 @@ export class DetailComponent implements OnInit {
       this.allExecutivesMembers = res?.executives || []
       this.commonService.stopLoader()
     }).catch(err => {
-      this.commonService.showToast('error', "Error", err)
+      this.commonService.showToast('error', "Error", err?.error?.message)
       this.commonService.stopLoader()
     })
   }

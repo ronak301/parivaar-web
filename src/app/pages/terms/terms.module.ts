@@ -1,0 +1,16 @@
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TermsRoutingModule } from './terms-routing.module';
+import { TermsComponent } from './terms.component';
+
+@NgModule({
+  declarations: [
+    TermsComponent
+  ],
+  imports: [
+    TermsRoutingModule,
+    SharedModule,
+  ],
+})
+
+export class TermsModule { }

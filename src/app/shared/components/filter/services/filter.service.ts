@@ -15,11 +15,20 @@ export class FilterService {
 
   getMemberBySearch(data: any) {
     let tempData = {
-      "query": "",
-      "filter": data,
-      "limit": 10,
+      "query": data,
+      "filter": {},
+      "limit": 40,
       "skip": 0
     }
     return this.http.post(this.apiUrl + 'user/search', tempData).toPromise()
   }
+  // getMemberBySearch(data: any) {
+  //   let tempData = {
+  //     "query": "",
+  //     "filter": data,
+  //     "limit": 10,
+  //     "skip": 0
+  //   }
+  //   return this.http.post(this.apiUrl + 'user/search', tempData).toPromise()
+  // }
 }

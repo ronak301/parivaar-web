@@ -44,7 +44,7 @@ export class MembersListingComponent implements OnInit {
       this.commonService.stopLoader()
       this.closeAddEditMemberModal()
     }).catch(err => {
-      this.commonService.showToast('error', "Error", err?.message)
+      this.commonService.showToast('error', "Error", err?.error?.message)
       this.commonService.stopLoader()
     })
   }

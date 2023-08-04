@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public commonService: CommonService
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class SidebarComponent implements OnInit {
       this.auth.removeIsSuperAdmin()
       this.onRoute('/auth')
     }).catch(err => {
-      console.log(err)
+      this.commonService.showToast('error', "Error", err?.error?.message)
     });
   }
 

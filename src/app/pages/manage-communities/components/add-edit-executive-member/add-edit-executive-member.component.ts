@@ -108,7 +108,7 @@ export class AddEditExecutiveMemberComponent implements OnInit, OnChanges {
         this.onSuccess.emit();
         this.reset()
       }).catch(err => {
-        this.commonService.showToast('error', 'Error', err)
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     } else {
@@ -124,7 +124,7 @@ export class AddEditExecutiveMemberComponent implements OnInit, OnChanges {
         this.onSuccess.emit();
         this.reset()
       }).catch(err => {
-        this.commonService.showToast('error', 'Error', err);
+        this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader();
       })
 
