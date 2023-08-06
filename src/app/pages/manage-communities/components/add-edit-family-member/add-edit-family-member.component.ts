@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroups, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, Localities, State } from 'src/app/shared/constants/constants';
+// import { BloodGroups, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, Localities, State } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-add-edit-family-member',
@@ -18,25 +19,27 @@ export class AddEditFamilyMemberComponent implements OnInit {
   @Output() onSuccess = new EventEmitter<string>();
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
-  bloodGroupOptions: any = BloodGroups;
-  genderOptions: any = Gender;
+  bloodGroupOptions: any;
+  genderOptions: any;
   formData!: FormGroup
-  stateOptions: any = State;
-  cityOptions: any = Cities;
-  businessTypeOptions = BusinessTypes
+  stateOptions: any;
+  cityOptions: any;
+  businessTypeOptions: any;
   businessSubTypeOptions = [];
-  familyMemberRelationshipTypes = FamilyMemberRelationshipTypes
-  localityOptions = Localities;
+  familyMemberRelationshipTypes: any;
+  localityOptions: any;
   imageFile: any = null;
   step: string = 'first';
 
   constructor(
     public fb: FormBuilder,
     public commonService: CommonService,
-    private communitiesService: ManageCommunitiesService
+    private communitiesService: ManageCommunitiesService,
+    public firebaseService: FirebaseService
   ) { }
 
   ngOnInit(): void {
+    this.initializeConfigData()
     this.initializeForms()
     console.log(this.id)
     if (this.data?.profilePicture) {
@@ -45,6 +48,16 @@ export class AddEditFamilyMemberComponent implements OnInit {
     if (this.id) {
       this.patchValue()
     }
+  }
+
+  initializeConfigData() {
+    this.bloodGroupOptions = this.firebaseService.configData.BloodGroups;
+    this.genderOptions = this.firebaseService.configData.Gender;
+    this.stateOptions = this.firebaseService.configData.State;
+    this.cityOptions = this.firebaseService.configData.Cities;
+    this.businessTypeOptions = this.firebaseService.configData.BusinessTypes;
+    this.familyMemberRelationshipTypes = this.firebaseService.configData.FamilyMemberRelationshipTypes;
+    this.localityOptions = this.firebaseService.configData.Localities;
   }
 
   patchValue() {
@@ -195,7 +208,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
           console.log(res2)
           let typeReverse = nonNullFields.relative.type
           console.log('typeReverse', typeReverse)
-          let relationship = this.familyMemberRelationshipTypes.find(el => el.id === typeReverse)
+          let relationship = this.familyMemberRelationshipTypes.find((el: any) => el.id === typeReverse)
           console.log('relationship', relationship)
           if (relationship?.reverse?.id) {
             let createRelationPayload = {

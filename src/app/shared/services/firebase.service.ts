@@ -9,10 +9,16 @@ export class FirebaseService {
 
   configCollection: string = "config";
   configId: string = "ilKdvYeEcYxZSw9sRW2K";
+  configData: any;
 
   constructor(
-    public db: AngularFirestore
-  ) { }
+    public db: AngularFirestore,
+  ) {
+    this.getConfigData().then(res => {
+      console.log('getConfigData', res)
+      this.configData = res
+    })
+  }
 
   getConfigData() {
     return this.db.collection(this.configCollection).doc(this.configId).get().pipe(
@@ -21,7 +27,7 @@ export class FirebaseService {
         const id = a.id;
         return { id, ...data };
       })
-    )
+    ).toPromise()
   }
 
   updateConfigData(data: any) {

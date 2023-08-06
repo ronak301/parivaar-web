@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroups, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, State } from 'src/app/shared/constants/constants';
+// import { BloodGroups, BusinessTypes, Cities, FamilyMemberRelationshipTypes, Gender, State } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ProfileService } from '../../services/profile.service';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-add-edit-family-member',
@@ -18,27 +19,38 @@ export class AddEditFamilyMemberComponent implements OnInit {
   @Output() onSuccess = new EventEmitter<string>();
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
-  bloodGroupOptions: any = BloodGroups;
-  genderOptions: any = Gender;
+  bloodGroupOptions: any;
+  genderOptions: any;
   formData!: FormGroup
-  stateOptions: any = State;
-  cityOptions: any = Cities;
-  businessTypeOptions = BusinessTypes
+  stateOptions: any;
+  cityOptions: any;
+  businessTypeOptions: any;
   businessSubTypeOptions = []
-  familyMemberRelationshipTypes = FamilyMemberRelationshipTypes
+  familyMemberRelationshipTypes: any;
 
   constructor(
     public fb: FormBuilder,
     public commonService: CommonService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    public firebaseService: FirebaseService
   ) { }
 
   ngOnInit(): void {
+    this.initializeConfigData()
     this.initializeForms()
     console.log(this.id)
     if (this.id) {
       this.patchValue()
     }
+  }
+
+  initializeConfigData() {
+    this.bloodGroupOptions = this.firebaseService.configData.BloodGroups;
+    this.genderOptions = this.firebaseService.configData.Gender;
+    this.stateOptions = this.firebaseService.configData.State;
+    this.cityOptions = this.firebaseService.configData.Cities;
+    this.businessTypeOptions = this.firebaseService.configData.BusinessTypes;
+    this.familyMemberRelationshipTypes = this.firebaseService.configData.FamilyMemberRelationshipTypes;
   }
 
   patchValue() {

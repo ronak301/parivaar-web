@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BloodGroups, BusinessTypes, Cities, Gender, Localities, State } from 'src/app/shared/constants/constants';
+// import { BloodGroups, BusinessTypes, Cities, Gender, Localities, State } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ProfileService } from '../../services/profile.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-add-edit',
@@ -15,14 +16,14 @@ export class AddEditComponent implements OnInit {
   id: string = '';
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
-  bloodGroupOptions: any = BloodGroups;
-  genderOptions: any = Gender;
+  bloodGroupOptions: any;
+  genderOptions: any;
   formData!: FormGroup
-  stateOptions: any = State;
-  cityOptions: any = Cities;
-  businessTypeOptions = BusinessTypes
+  stateOptions: any;
+  cityOptions: any;
+  businessTypeOptions: any;
   businessSubTypeOptions = []
-  localityOptions = Localities;
+  localityOptions: any;
   data: any;
   imageFile: any = null;
 
@@ -32,15 +33,26 @@ export class AddEditComponent implements OnInit {
     public commonService: CommonService,
     private profileService: ProfileService,
     private authService: AuthService,
+    public firebaseService: FirebaseService,
   ) { }
 
   ngOnInit(): void {
+    this.initializeConfigData()
     this.initializeForms()
     console.log(this.id)
     this.id = this.authService.getUserLocalData().id
     if (this.id) {
       this.getData()
     }
+  }
+
+  initializeConfigData() {
+    this.bloodGroupOptions = this.firebaseService.configData.BloodGroups;
+    this.genderOptions = this.firebaseService.configData.Gender;
+    this.stateOptions = this.firebaseService.configData.State;
+    this.cityOptions = this.firebaseService.configData.Cities;
+    this.businessTypeOptions = this.firebaseService.configData.BusinessTypes;
+    this.localityOptions = this.firebaseService.configData.Localities;
   }
 
   getData() {

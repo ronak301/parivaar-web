@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommunityStatus, CommunityTypes } from 'src/app/shared/constants/constants';
+// import { CommunityStatus, CommunityTypes } from 'src/app/shared/constants/constants';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-add-edit',
@@ -17,9 +18,9 @@ export class AddEditComponent implements OnInit {
   @Output() onSuccess = new EventEmitter<string>();
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
-  types: any = CommunityTypes;
+  types: any;
   subTypes: any = [];
-  statusOptions: any = CommunityStatus;
+  statusOptions: any;
   formData!: FormGroup
   imageFile: any = null;
   isSuperAdmin: boolean = false;
@@ -29,9 +30,11 @@ export class AddEditComponent implements OnInit {
     public commonService: CommonService,
     private communitiesService: ManageCommunitiesService,
     private authService: AuthService,
+    public firebaseService: FirebaseService
   ) { }
 
   ngOnInit(): void {
+    this.initializeConfigData()
     this.initializeForms()
     this.isSuperAdmin = this.authService.isSuperAdmin();
     console.log('data', this.data)
@@ -41,6 +44,11 @@ export class AddEditComponent implements OnInit {
     if (this.id) {
       this.patchValue()
     }
+  }
+
+  initializeConfigData() {
+    this.types = this.firebaseService.configData.CommunityTypes;
+    this.statusOptions = this.firebaseService.configData.CommunityStatus;
   }
 
   initializeForms() {

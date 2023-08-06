@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
-import { BloodGroups, Gender } from 'src/app/shared/constants/constants';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({

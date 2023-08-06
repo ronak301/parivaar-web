@@ -17,6 +17,14 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () => import('./pages/pages.module').then( m => m.PagesModule)
   },
+  {
+    path:'privacy-policy',
+    loadChildren: () => import('./privacy/privacy.module').then( m => m.PrivacyModule)
+  },
+  {
+    path:'terms-and-conditions',
+    loadChildren: () => import('./terms/terms.module').then( m => m.TermsModule)
+  },
 ];
 
 @NgModule({

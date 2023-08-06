@@ -1,4 +1,4 @@
 <app-loader *ngIf="commonService.loader"></app-loader>
-<router-outlet></router-outlet>
+<router-outlet *ngIf="firebaseService.configData"></router-outlet>
 <p-toast></p-toast>
 <!-- <button (click)="submit()">Update</button> -->

@@ -2,7 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
-import { BloodGroups, BusinessTypes, Cities, Gender, Localities, State } from 'src/app/shared/constants/constants';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-edit-member',
@@ -17,24 +18,27 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
   @Output() onSuccess = new EventEmitter<string>();
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
-  bloodGroupOptions: any = BloodGroups;
-  genderOptions: any = Gender;
+  bloodGroupOptions: any;
+  genderOptions: any;
   formData!: FormGroup
-  stateOptions: any = State;
-  cityOptions: any = Cities;
-  businessTypeOptions = BusinessTypes
+  stateOptions: any;
+  cityOptions: any;
+  businessTypeOptions: any;
   businessSubTypeOptions = []
-  localityOptions = Localities;
+  localityOptions: any;
   imageFile: any = null;
   step: string = 'first';
 
   constructor(
     public fb: FormBuilder,
     public commonService: CommonService,
-    private communitiesService: ManageCommunitiesService
+    private communitiesService: ManageCommunitiesService,
+    public firebaseService: FirebaseService,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.initializeConfigData()
     this.initializeForms()
     console.log(this.id)
     if (this.data?.profilePicture) {
@@ -43,6 +47,15 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
     if (this.id) {
       this.patchValue()
     }
+  }
+
+  initializeConfigData() {
+    this.bloodGroupOptions = this.firebaseService.configData.BloodGroups;
+    this.genderOptions = this.firebaseService.configData.Gender;
+    this.stateOptions = this.firebaseService.configData.State;
+    this.cityOptions = this.firebaseService.configData.Cities;
+    this.businessTypeOptions = this.firebaseService.configData.BusinessTypes;
+    this.localityOptions = this.firebaseService.configData.Localities;
   }
 
   ngOnChanges() {
@@ -178,6 +191,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
         this.commonService.stopLoader()
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
         this.onSuccess.emit()
+        this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${res.id}`)
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
