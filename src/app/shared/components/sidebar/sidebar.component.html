@@ -9,19 +9,21 @@
 
     <ul class="sidebar-menu">
         <li>
-            <a routerLink="/pages/manage-communities" 
-                routerLinkActive="active">
-                <i class="pi pi-th-large"></i>
-                <span>All Communities</span>
-            </a>
-            <a routerLink="/pages/manage-profile" routerLinkActive="active">
-                <i class="pi pi-user"></i>
-                <span>My Profile</span>
-            </a>
-            <a routerLink="/pages/about-us" routerLinkActive="active">
-                <i class="pi pi-info-circle"></i>
-                <span>About Us</span>
-            </a>
+            <ng-container *ngIf="this.auth.getUserAuthStateLocalData()">
+                <a routerLink="/pages/manage-communities" 
+                    routerLinkActive="active">
+                    <i class="pi pi-th-large"></i>
+                    <span>All Communities</span>
+                </a>
+                <a routerLink="/pages/manage-profile" routerLinkActive="active">
+                    <i class="pi pi-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a routerLink="/pages/about-us" routerLinkActive="active">
+                    <i class="pi pi-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+            </ng-container>
             <a routerLink="/pages/help-center" routerLinkActive="active">
                 <i class="pi pi-phone"></i>
                 <span>Help Center</span>
