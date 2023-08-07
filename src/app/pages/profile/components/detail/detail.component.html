@@ -233,7 +233,7 @@
     </div>
 </div>
 
-<ng-container *ngIf="isShowMore">
+<ng-container>
     <app-family-members-listing [data]="familyMembers" [relationshipId]="id"
         (reload)="reload()"></app-family-members-listing>
 </ng-container>

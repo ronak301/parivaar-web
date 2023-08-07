@@ -108,6 +108,7 @@ export class AddEditComponent implements OnInit {
       this.communitiesService.updateCommunity(this.id, this.formData.value, this.imageFile, this.data?.imagePath).then((res: any) => {
         this.commonService.stopLoader()
         this.onSuccess.emit()
+        this.formData.reset()
         this.commonService.showToast('success', "Updated", res?.message)
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
@@ -119,13 +120,13 @@ export class AddEditComponent implements OnInit {
         console.log(res)
         this.commonService.stopLoader()
         this.onSuccess.emit()
+        this.formData.reset()
         this.commonService.showToast('success', "Created", "Created Successful!")
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
       })
     }
-    this.formData.reset()
   }
 
   getCover() {

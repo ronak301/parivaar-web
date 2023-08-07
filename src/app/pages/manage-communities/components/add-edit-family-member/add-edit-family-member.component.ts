@@ -16,6 +16,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
   @Input() relationshipId: string = '';
   @Input() communityId: any;
   @Input() data: any;
+  @Input() memberDetails: any;
   @Output() onSuccess = new EventEmitter<string>();
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
@@ -44,6 +45,12 @@ export class AddEditFamilyMemberComponent implements OnInit {
     console.log(this.id)
     if (this.data?.profilePicture) {
       this.imagePreviewUrl = this.data?.profilePicture
+    }
+    console.log('this.memberDetails',this.memberDetails)
+    if(this.memberDetails && !this.id) {
+      console.log('mnew patch')
+      this.formData.patchValue(this.memberDetails.address)
+      console.log(this.formData.value)
     }
     if (this.id) {
       this.patchValue()
@@ -112,7 +119,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
     return this.formData.get('lastName') as FormGroup
   }
   get phone() {
-    return this.formData.get('phone')
+    return this.formData.get('phone') as FormGroup
   }
   get dob() {
     return this.formData.get('dob')
@@ -192,6 +199,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
         this.commonService.stopLoader();
         this.onSuccess.emit()
+        this.formData.reset()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
@@ -221,6 +229,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
               this.commonService.stopLoader()
               this.commonService.showToast('success', 'Created', 'Created Successful!')
               this.onSuccess.emit()
+              this.formData.reset()
             }).catch((err: any) => {
               this.commonService.showToast('error', "Error", err?.message)
               this.commonService.stopLoader()
@@ -238,11 +247,27 @@ export class AddEditFamilyMemberComponent implements OnInit {
         this.commonService.stopLoader()
       })
     }
-    this.formData.reset()
   }
 
   onNextStep() {
-    this.step = "second"
+    if(!this.phone.value || this.id) {
+      this.step = "second"
+      return
+    }
+    this.commonService.startLoader()
+    this.communitiesService.getMemberBySearch(this.phone.value).then((res: any) => {
+      console.log(res)
+      if (res?.data?.rows?.length > 0) {
+        this.commonService.showToast("error","Error","Phone number already exist! Please use another phone number.")
+        return
+      } else {
+        this.step = "second"
+      }
+      this.commonService.startLoader()
+    }).catch(err=>{
+      this.commonService.showToast("error","Error",err?.error?.message)
+      this.commonService.startLoader()
+    })
   }
 
 }

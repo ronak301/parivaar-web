@@ -191,7 +191,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
         this.commonService.stopLoader()
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
         this.onSuccess.emit()
-        this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${res.id}`)
+        this.formData.reset()
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
@@ -208,6 +208,8 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
           this.commonService.stopLoader()
           this.commonService.showToast('success', 'Created', res?.message)
           this.onSuccess.emit()
+          this.formData.reset()
+          this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${res.id}`)
         }).catch(err => {
           console.log(err)
           this.commonService.showToast('error', "Error", err?.error?.message)
@@ -219,7 +221,6 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
         this.commonService.stopLoader()
       })
     }
-    this.formData.reset()
   }
 
   getCover() {
@@ -233,7 +234,24 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
   }
 
   onNextStep() {
-    this.step = "second"
+    if(this.id) {
+      this.step = "second"
+      return
+    }
+    this.commonService.startLoader()
+    this.communitiesService.getMemberBySearch(this.phone.value).then((res: any) => {
+      console.log(res)
+      if (res?.data?.rows?.length > 0) {
+        this.commonService.showToast("error","Error","Phone number already exist! Please use another phone number.")
+        return
+      } else {
+        this.step = "second"
+      }
+      this.commonService.startLoader()
+    }).catch(err=>{
+      this.commonService.showToast("error","Error",err?.error?.message)
+      this.commonService.startLoader()
+    })
   }
 
 }

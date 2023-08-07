@@ -246,9 +246,9 @@
 </p-dialog>
 <!-- Add Member Modal End -->
 
-<ng-container *ngIf="isShowMore">
-    <app-family-members-listing [data]="familyMembers" [relationshipId]="id" [communityId]="communityId"
-        (reload)="reload($event)"></app-family-members-listing>
+<ng-container *ngIf="data">
+    <app-family-members-listing [data]="familyMembers" [memberDetails]="data" [relationshipId]="id"
+        [communityId]="communityId" (reload)="reload($event)"></app-family-members-listing>
 </ng-container>
 
 

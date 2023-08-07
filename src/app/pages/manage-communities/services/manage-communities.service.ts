@@ -90,8 +90,8 @@ export class ManageCommunitiesService {
   addRelative(data: any) {
     return this.http.post(this.apiUrl + 'relationship/relative/new', data).toPromise()
   }
-  
-  createRelation(data:any) {
+
+  createRelation(data: any) {
     return this.http.post(this.apiUrl + 'relationship/relation/new', data).toPromise()
   }
 
@@ -131,4 +131,13 @@ export class ManageCommunitiesService {
     return this.http.delete(this.apiUrl + `user/delete/${id}`).toPromise()
   }
 
+  getMemberBySearch(data: any) {
+    let tempData = {
+      "query": data,
+      "filter": {},
+      "limit": 1,
+      "skip": 0
+    }
+    return this.http.post(this.apiUrl + 'user/search', tempData).toPromise()
+  }
 }

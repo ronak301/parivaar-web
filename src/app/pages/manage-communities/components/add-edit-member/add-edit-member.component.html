@@ -9,30 +9,28 @@
                 <input type="file" #logo class="d-none" (change)="onSelectFile($event)">
             </div>
         </div>
-        <div class="col-6 my-2">
-            <label>First Name*</label>
-            <input type="text" formControlName="firstName" class="custom-form-control" placeholder="First Name">
-            <field-error [control]="firstName"></field-error>
-        </div>
-        <div class="col-6 my-2">
-            <label>Last Name*</label>
-            <input type="text" formControlName="lastName" class="custom-form-control" placeholder="Last Name">
-            <field-error [control]="lastName"></field-error>
-        </div>
-        <div class="col-6 my-2">
+        <div class="col-12 my-2" *ngIf="step === 'first'">
             <label>Phone Number*</label>
             <input type="text" maxlength="10" [readOnly]="id" formControlName="phone" class="custom-form-control"
                 placeholder="Phone Number">
             <field-error [control]="phone"></field-error>
         </div>
-        <div class="col-6 my-2">
-            <label>Date of Birth*</label>
-            <input type="date" formControlName="dob" class="custom-form-control">
-            <field-error [control]="dob"></field-error>
-        </div>
-
-
         <ng-container *ngIf="step === 'second'">
+            <div class="col-6 my-2">
+                <label>First Name*</label>
+                <input type="text" formControlName="firstName" class="custom-form-control" placeholder="First Name">
+                <field-error [control]="firstName"></field-error>
+            </div>
+            <div class="col-6 my-2">
+                <label>Last Name*</label>
+                <input type="text" formControlName="lastName" class="custom-form-control" placeholder="Last Name">
+                <field-error [control]="lastName"></field-error>
+            </div>
+            <div class="col-6 my-2">
+                <label>Date of Birth</label>
+                <input type="date" formControlName="dob" class="custom-form-control">
+                <field-error [control]="dob"></field-error>
+            </div>
             <div class="col-6 my-2">
                 <label>Gender</label>
                 <p-dropdown class="custom-dropdown-control" formControlName="gender" [options]="genderOptions"
@@ -163,7 +161,7 @@
     <ng-container *ngIf="step === 'first'">
         <div class="row">
             <div class="col-12 modal-footer-fixed">
-                <button pButton pRipple type="button" (click)="onNextStep()" [disabled]="!firstName.value || !lastName.value || !phone.value" label="Next" class="p-button-rounded button-with-icon btn-primary"></button>
+                <button pButton pRipple type="button" (click)="onNextStep()" [disabled]="!phone.value" label="Next" class="p-button-rounded button-with-icon btn-primary"></button>
             </div>
         </div>
     </ng-container>

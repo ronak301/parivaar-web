@@ -13,6 +13,7 @@ export class FamilyMembersListingComponent implements OnInit {
   @Input() data: any = [];
   @Input() relationshipId: string = '';
   @Input() communityId: string = '';
+  @Input() memberDetails: any;
   @Output() reload = new EventEmitter<string>();
 
   addEditMemberModalDisplay: boolean = false;

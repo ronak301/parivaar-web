@@ -58,7 +58,7 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
-                            <tr>
+                            <tr class="emptymessage">
                                 <td colspan="3" class="text-center">
                                     No data found
                                 </td>
@@ -103,6 +103,6 @@
     <ng-template pTemplate="header">
         <h2>Add Family Member</h2>
     </ng-template>
-    <app-add-edit-family-member [relationshipId]="relationshipId" [communityId]="communityId" (onSuccess)="onUpdateSuccessful()"></app-add-edit-family-member>
+    <app-add-edit-family-member [relationshipId]="relationshipId" [communityId]="communityId" [memberDetails]="memberDetails" (onSuccess)="onUpdateSuccessful()"></app-add-edit-family-member>
 </p-dialog>
 <!-- Add Member Modal End -->
