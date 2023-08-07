@@ -1,36 +1,42 @@
-<div class="login-container">
-    <p-card>
-        <div class="row">
-            <div class="col-12 text-center">
-                <h1>Welcome Back !</h1>
-                <p>{{!isOtpSent ? 'Please enter your mobile number' : 'Please enter OTP'}}</p>
-                <div class="otp-container" *ngIf="!isOtpSent">
-                    <span>+91</span>
-                    <span class="mx-4">|</span>
-                    <p-inputMask [(ngModel)]="phoneNumber" mask="9 9 9 9  - 9 9  - 9 9 9 9"
-                        placeholder="O O O O  -  O O  - O O O O"></p-inputMask>
-                </div>
-                <div class="custom-control custom-checkbox text-left mt-3 mb-2" *ngIf="!isOtpSent">
-                    <input type="checkbox" [(ngModel)]="isSuperAdmin" class="custom-control-input" id="isSuperAdmin">
-                    <label class="custom-control-label" for="isSuperAdmin">Are you Super Admin?</label>
-                </div>
-                <div class="otp-container" *ngIf="isOtpSent">
-                    <p-inputMask [(ngModel)]="otp" mask="9 9 9 9 9 9" placeholder="O O O O O O"></p-inputMask>
-                </div>
-                <ng-container *ngIf="!isOtpSent">
-                    <button pButton pRipple [disabled]="!phoneNumber" (click)="onSignin()" type="button" label="Get OTP"
-                        class="w-100 my-3 bg-primary"></button>
-                </ng-container>
-                <ng-container *ngIf="isOtpSent">
-                    <button pButton pRipple (click)="back()" type="button" label="Back"
-                        class="w-48 my-3 bg-primary"></button>&nbsp;&nbsp;
-                    <button pButton pRipple [disabled]="!otp" (click)="onOtpVerify()" type="button" label="Verify OTP"
-                        class="w-48 my-3 bg-primary"></button>
-                    <div class="text-center">
-                        <span>Didn’t receive code?</span> <a class="link" (click)="resendOtp()">&nbsp;&nbsp;Resend</a>
+<div class="main-container">
+    <div class="login-container">
+        <img src="../../../assets/images/login-banner.png" class="login-banner" alt="">
+    </div>
+    <div class="login-container">
+        <p-card>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img src="./assets/images/logo.svg" width="70px" class="mb-2" alt="">
+                    <h1>Welcome Back On Parivaar App!</h1>
+                    <p>{{!isOtpSent ? 'Please enter your mobile number' : 'Please enter OTP'}}</p>
+                    <div class="otp-container" *ngIf="!isOtpSent">
+                        <span>+91</span>
+                        <span class="mx-4">|</span>
+                        <p-inputMask [(ngModel)]="phoneNumber" mask="9 9 9 9  - 9 9  - 9 9 9 9"
+                            placeholder="O O O O  -  O O  - O O O O"></p-inputMask>
                     </div>
-                </ng-container>
+                    <div class="custom-control custom-checkbox text-left mt-3 mb-2" *ngIf="!isOtpSent">
+                        <input type="checkbox" [(ngModel)]="isSuperAdmin" class="custom-control-input" id="isSuperAdmin">
+                        <label class="custom-control-label" for="isSuperAdmin">Are you Super Admin?</label>
+                    </div>
+                    <div class="otp-container" *ngIf="isOtpSent">
+                        <p-inputMask [(ngModel)]="otp" mask="9 9 9 9 9 9" placeholder="O O O O O O"></p-inputMask>
+                    </div>
+                    <ng-container *ngIf="!isOtpSent">
+                        <button pButton pRipple [disabled]="!phoneNumber" (click)="onSignin()" type="button" label="Get OTP"
+                            class="w-100 my-3 bg-primary"></button>
+                    </ng-container>
+                    <ng-container *ngIf="isOtpSent">
+                        <button pButton pRipple (click)="back()" type="button" label="Back"
+                            class="w-48 my-3 bg-primary"></button>&nbsp;&nbsp;
+                        <button pButton pRipple [disabled]="!otp" (click)="onOtpVerify()" type="button" label="Verify OTP"
+                            class="w-48 my-3 bg-primary"></button>
+                        <div class="text-center">
+                            <span>Didn’t receive code?</span> <a class="link" (click)="resendOtp()">&nbsp;&nbsp;Resend</a>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
-        </div>
-    </p-card>
+        </p-card>
+    </div>
 </div>
