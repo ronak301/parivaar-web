@@ -234,7 +234,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
   }
 
   onNextStep() {
-    if(this.id) {
+    if (this.id) {
       this.step = "second"
       return
     }
@@ -242,15 +242,16 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
     this.communitiesService.getMemberBySearch(this.phone.value).then((res: any) => {
       console.log(res)
       if (res?.data?.rows?.length > 0) {
-        this.commonService.showToast("error","Error","Phone number already exist! Please use another phone number.")
+        this.commonService.showToast("error", "Error", "Phone number already exist! Please use another phone number.")
+        this.commonService.stopLoader();
         return
       } else {
         this.step = "second"
       }
-      this.commonService.startLoader()
-    }).catch(err=>{
-      this.commonService.showToast("error","Error",err?.error?.message)
-      this.commonService.startLoader()
+      this.commonService.stopLoader();
+    }).catch(err => {
+      this.commonService.showToast("error", "Error", err?.error?.message)
+      this.commonService.stopLoader();
     })
   }
 

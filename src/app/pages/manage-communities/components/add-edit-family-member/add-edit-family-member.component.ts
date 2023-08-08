@@ -259,14 +259,15 @@ export class AddEditFamilyMemberComponent implements OnInit {
       console.log(res)
       if (res?.data?.rows?.length > 0) {
         this.commonService.showToast("error","Error","Phone number already exist! Please use another phone number.")
+        this.commonService.stopLoader()
         return
       } else {
         this.step = "second"
       }
-      this.commonService.startLoader()
+      this.commonService.stopLoader()
     }).catch(err=>{
       this.commonService.showToast("error","Error",err?.error?.message)
-      this.commonService.startLoader()
+      this.commonService.stopLoader()
     })
   }
 
