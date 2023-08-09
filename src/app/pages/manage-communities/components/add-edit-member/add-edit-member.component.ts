@@ -188,10 +188,11 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
             this.onSuccess.emit()
           })
         }
-        this.commonService.stopLoader()
+        this.commonService.stopLoader();
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
-        this.onSuccess.emit()
-        this.formData.reset()
+        this.step = "first";
+        this.formData.reset();
+        this.onSuccess.emit();
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
@@ -207,8 +208,9 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
           console.log(res2)
           this.commonService.stopLoader()
           this.commonService.showToast('success', 'Created', res?.message)
-          this.onSuccess.emit()
           this.formData.reset()
+          this.step = "first";
+          this.onSuccess.emit()
           this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${res.id}`)
         }).catch(err => {
           console.log(err)

@@ -46,8 +46,8 @@ export class AddEditFamilyMemberComponent implements OnInit {
     if (this.data?.profilePicture) {
       this.imagePreviewUrl = this.data?.profilePicture
     }
-    console.log('this.memberDetails',this.memberDetails)
-    if(this.memberDetails && !this.id) {
+    console.log('this.memberDetails', this.memberDetails)
+    if (this.memberDetails && !this.id) {
       console.log('mnew patch')
       this.formData.patchValue(this.memberDetails.address)
       console.log(this.formData.value)
@@ -181,25 +181,26 @@ export class AddEditFamilyMemberComponent implements OnInit {
             businessData['ownerId'] = this.id
             this.communitiesService.createBusiness(nonNullFields.business).then(res => {
               console.log(res)
-              this.onSuccess.emit()
+              this.onSuccess.emit();
             })
           } else {
             this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business).then(res => {
               console.log(res)
-              this.onSuccess.emit()
+              this.onSuccess.emit();
             })
           }
         }
         if (this.data.address?.id) {
           this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
             console.log(res)
-            this.onSuccess.emit()
+            this.onSuccess.emit();
           })
         }
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
         this.commonService.stopLoader();
-        this.onSuccess.emit()
-        this.formData.reset()
+        this.step = "first";
+        this.formData.reset();
+        this.onSuccess.emit();
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
@@ -228,8 +229,9 @@ export class AddEditFamilyMemberComponent implements OnInit {
             this.communitiesService.createRelation(createRelationPayload).then((res3: any) => {
               this.commonService.stopLoader()
               this.commonService.showToast('success', 'Created', 'Created Successful!')
-              this.onSuccess.emit()
+              this.step = "first";
               this.formData.reset()
+              this.onSuccess.emit()
             }).catch((err: any) => {
               this.commonService.showToast('error', "Error", err?.message)
               this.commonService.stopLoader()
@@ -250,7 +252,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
   }
 
   onNextStep() {
-    if(!this.phone.value || this.id) {
+    if (!this.phone.value || this.id) {
       this.step = "second"
       return
     }
@@ -258,15 +260,15 @@ export class AddEditFamilyMemberComponent implements OnInit {
     this.communitiesService.getMemberBySearch(this.phone.value).then((res: any) => {
       console.log(res)
       if (res?.data?.rows?.length > 0) {
-        this.commonService.showToast("error","Error","Phone number already exist! Please use another phone number.")
+        this.commonService.showToast("error", "Error", "Phone number already exist! Please use another phone number.")
         this.commonService.stopLoader()
         return
       } else {
         this.step = "second"
       }
       this.commonService.stopLoader()
-    }).catch(err=>{
-      this.commonService.showToast("error","Error",err?.error?.message)
+    }).catch(err => {
+      this.commonService.showToast("error", "Error", err?.error?.message)
       this.commonService.stopLoader()
     })
   }
