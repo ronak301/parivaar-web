@@ -186,12 +186,14 @@ label {
     min-height: 100vh;
     max-height: 100vh;
     .p-card {
-        width: 500px;
-        border-radius: 0 10px 10px 0 !important;
-        box-shadow:
-            0px 4px 30px 0px rgba(111, 100, 100, 0.04),
-            0px 4px 4px 0px rgba(85, 76, 76, 0.06) !important;
-        border: 1px solid #e9f7ff !important;
+        border: 1px solid #b0b0b0 !important;
+        border-radius: 12px !important;
+        padding: 0;
+        width: 568px !important;
+        margin-top: 32px !important;
+        margin-bottom: 32px !important;
+        overflow: visible !important;
+        box-shadow: none !important;
         h1 {
             font-size: 24px;
             color: var(--text-primary-color);
@@ -201,7 +203,6 @@ label {
             font-size: var(--secondary-font-size);
             color: #8897ae;
             font-weight: 400;
-            margin-bottom: 40px;
         }
     }
 
@@ -210,18 +211,19 @@ label {
     }
 
     .p-card-body {
-        padding: 36px !important;
+        padding: 0 !important;
     }
 
     .otp-container {
         width: 100%;
-        background-color: #f5f7f9;
+        background-color: #ffffff;
         color: #8897ae;
         font-size: var(--primary-font-size);
         text-align: left;
         border-radius: 10px;
         padding: 0 10px;
         height: 48px;
+        border: 1px solid #b0b0b0;
         span {
             font-size: var(--secondary-font-size);
         }

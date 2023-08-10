@@ -45,6 +45,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
       this.imagePreviewUrl = this.data?.profilePicture
     }
     if (this.id) {
+      this.step = "second";
       this.patchValue()
     }
   }
@@ -71,7 +72,9 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
 
   patchValue() {
     this.formData.patchValue(this.data)
-    this.onSelectBusinessType()
+    if(this.businessType?.value) {
+      this.onSelectBusinessType()
+    }
   }
 
   initializeForms() {

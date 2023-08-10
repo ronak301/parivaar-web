@@ -53,6 +53,7 @@ export class AddEditFamilyMemberComponent implements OnInit {
       console.log(this.formData.value)
     }
     if (this.id) {
+      this.step = "second";
       this.patchValue()
     }
   }
@@ -237,13 +238,23 @@ export class AddEditFamilyMemberComponent implements OnInit {
               this.commonService.stopLoader()
             })
           } else {
+            this.step = "first";
+            this.formData.reset()
+            this.onSuccess.emit()
             this.commonService.stopLoader()
           }
         }).catch(err => {
           this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader()
         })
-
+        if (nonNullFields.hasBusiness) {
+          let businessData: any = nonNullFields.business;
+          businessData['ownerId'] = res.id
+          this.communitiesService.createBusiness(nonNullFields.business).then(res => {
+            console.log(res)
+            this.onSuccess.emit();
+          })
+        }
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
