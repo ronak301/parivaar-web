@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } fro
 import { ConfirmationService } from 'primeng/api';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { RowsPerPage, RowsPerPageOptions } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-members-listing',
@@ -14,20 +15,30 @@ export class MembersListingComponent implements OnInit {
   @Input() communityId: any;
   @Output() getAllMembers = new EventEmitter<string>();
 
-  allCommunityMembers: any = [];
-  totalMembers: number = 0;
+  data: any = [];
 
   addEditMemberModalDisplay: boolean = false;
   selectedList: any = [];
-  skip: number = 0;
-  limit: number = 40;
-  lastPage: number = 0;
+
+  cols: any[];
+  rowsPerPage: number = RowsPerPage;
+  rowsPerPageOptions: number[] = RowsPerPageOptions;
+  totalRecords: number = 0;
+  firstRowIndex: number = 0;
 
   constructor(
     private confirmationService: ConfirmationService,
     private communitiesService: ManageCommunitiesService,
     private commonService: CommonService,
-  ) { }
+  ) {
+    this.cols = [
+      { field: 'firstName', header: 'Full Name' },
+      { field: 'phone', header: 'Phone Number' },
+      { field: 'bloodGroup', header: 'Blood Group' },
+      { field: 'education', header: 'Education' },
+      { field: 'business', header: 'Business' },
+    ];
+  }
 
   ngOnInit(): void {
     this.getAllCommunityMembers()
@@ -35,12 +46,11 @@ export class MembersListingComponent implements OnInit {
 
   getAllCommunityMembers() {
     this.commonService.startLoader()
-    this.communitiesService.getCommunityMembers(this.communityId, this.skip, this.limit).then((res: any) => {
-      console.log('allCommunityMembers',res)
-      this.allCommunityMembers = res?.members?.rows;
-      this.totalMembers = res?.totalMembers
-      this.getAllMembers.emit(this.allCommunityMembers);
-      console.log(this.allCommunityMembers)
+    this.communitiesService.getCommunityMembers(this.communityId).then((res: any) => {
+      console.log('allCommunityMembers', res)
+      this.data = res?.members?.rows;
+      this.totalRecords = res?.members?.count;
+      this.getAllMembers.emit(this.data);
       this.commonService.stopLoader()
       this.closeAddEditMemberModal()
     }).catch(err => {
@@ -97,27 +107,9 @@ export class MembersListingComponent implements OnInit {
     if (event === 'clear') {
       this.getAllCommunityMembers()
     } else {
-      this.allCommunityMembers = event
-      this.getAllMembers.emit(this.allCommunityMembers)
+      this.data = event
+      this.getAllMembers.emit(this.data)
     }
   }
-
-  paginate(event: any) {
-    console.log(event)
-    if (event.page == 0) {
-      this.skip = 0;
-      this.limit = 40;
-    } else if (event.page > this.lastPage) {
-      this.skip = this.skip + 40;
-      this.limit = this.skip + 40;
-    } else if (event.page < this.lastPage) {
-      this.skip = this.skip - 40;
-      this.limit = this.skip - 40;
-    }
-    this.getAllCommunityMembers()
-    console.log('skip', this.skip)
-    console.log('limit', this.limit)
-  }
-
 
 }

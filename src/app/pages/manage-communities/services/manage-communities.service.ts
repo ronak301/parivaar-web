@@ -49,14 +49,13 @@ export class ManageCommunitiesService {
     return this.http.put(this.apiUrl + `community/${id}`, data).toPromise()
   }
 
-  getCommunityMembers(communityId: string, skip: number, limit: number) {
+  getCommunityMembers(communityId: string) {
     let data = {
       filter: {
         isAccountManager: true
       },
       query: '',
-      skip: skip,
-      limit: limit
+      skip: 0,
     }
     return this.http.post(this.apiUrl + 'community/members/' + communityId, data).toPromise();
   }

@@ -3,7 +3,7 @@
         <p-card>
             <div class="row mb-4">
                 <div class="col-6 my-auto">
-                    <h2>{{allCommunityMembers.length <= 1 ? 'Member' : 'Members' }}({{allCommunityMembers.length}})</h2>
+                    <h2>{{totalRecords <= 1 ? 'Member' : 'Members' }}({{totalRecords}})</h2>
                 </div>
                 <div class="col-6 text-right">
                     <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member"
@@ -12,7 +12,8 @@
                 </div>
             </div>
 
-            <app-filter [title]="'Members'" [type]="'members'" (getAllMembers)="getAllMembersByFilter($event)"></app-filter>
+            <app-filter [title]="'Members'" [type]="'members'"
+                (getAllMembers)="getAllMembersByFilter($event)"></app-filter>
 
             <ng-container *ngIf="selectedList.length>0">
                 <div class="row my-4">
@@ -30,13 +31,10 @@
 
             <div class="row" [ngClass]="{'my-4':selectedList.length == 0}">
                 <div class="col-12">
-                    <p-table [value]="allCommunityMembers" [resizableColumns]="true"
+                    <!-- <p-table [value]="allCommunityMembers" [resizableColumns]="true"
                         styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
-                                <!-- <th style="width: 3rem">
-                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                                </th> -->
                                 <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
                                         field="firstName"></p-sortIcon></th>
                                 <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
@@ -51,9 +49,6 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
                             <tr>
-                                <!-- <td>
-                                    <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
-                                </td> -->
                                 <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.firstName}} {{data.lastName}}</td>
                                 <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.phone}}</td>
                                 <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.bloodGroup | bloodGroup}}</td>
@@ -72,8 +67,53 @@
                                 </td>
                             </tr>
                         </ng-template>
+                    </p-table> -->
+                    <p-table [columns]="cols" [value]="data" [paginator]="true" [totalRecords]="totalRecords"
+                        [scrollable]="true" [rows]="rowsPerPage" scrollHeight="500px" [virtualScroll]="true"
+                        [first]="firstRowIndex" [rows]="rowsPerPage" [rowsPerPageOptions]="rowsPerPageOptions">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{rowData['id']}}">
+                                <td *ngFor="let col of columns">
+                                    <ng-container
+                                        *ngIf="col.field !== 'firstName' && col.field !== 'bloodGroup' && col.field !== 'business'">
+                                        {{rowData[col.field]}}
+                                    </ng-container>
+                                    <ng-container *ngIf="col.field === 'firstName'">
+                                        {{rowData['firstName']}} {{rowData['lastName']}}
+                                    </ng-container>
+                                    <ng-container *ngIf="col.field === 'bloodGroup'">
+                                        {{rowData[col.field] | bloodGroup}}
+                                    </ng-container>
+                                    <ng-container *ngIf="col.field === 'business'">
+                                        {{rowData['business']?.name || "-"}}
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr class="emptymessage">
+                                <td colspan="5" class="text-center">
+                                    No data found
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="paginatorleft" let-state>
+                            Showing {{ state.first + 1}} to
+                            {{
+                            state.rows + state.first > data.length
+                            ? data.length
+                            : state.rows + state.first
+                            }}
+                            of {{ data.length }} entries
+                        </ng-template>
                     </p-table>
-                    <p-paginator [rows]="10" [totalRecords]="totalMembers" (onPageChange)="paginate($event)"></p-paginator>
                 </div>
             </div>
         </p-card>
