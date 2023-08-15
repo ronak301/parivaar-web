@@ -3,6 +3,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { RowsPerPage, RowsPerPageOptions } from 'src/app/shared/constants/constants';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-members-listing',
@@ -25,11 +26,15 @@ export class MembersListingComponent implements OnInit {
   rowsPerPageOptions: number[] = RowsPerPageOptions;
   totalRecords: number = 0;
   firstRowIndex: number = 0;
+  from:number = 0;
+  to:number = 100;
 
   constructor(
     private confirmationService: ConfirmationService,
     private communitiesService: ManageCommunitiesService,
     private commonService: CommonService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.cols = [
       { field: 'firstName', header: 'Full Name' },
@@ -41,12 +46,17 @@ export class MembersListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllCommunityMembers()
+    // this.route.queryParamMap.subscribe((res:any)=>{
+    //   console.log('params',res)
+    //   this.from = res.get("params")
+    //   this.to = this.to + this.from
+    // })
+      this.getAllCommunityMembers()
   }
 
   getAllCommunityMembers() {
     this.commonService.startLoader()
-    this.communitiesService.getCommunityMembers(this.communityId).then((res: any) => {
+    this.communitiesService.getCommunityMembers(this.communityId,this.from,this.to).then((res: any) => {
       console.log('allCommunityMembers', res)
       this.data = res?.members?.rows;
       this.totalRecords = res?.members?.count;
@@ -110,6 +120,15 @@ export class MembersListingComponent implements OnInit {
       this.data = event
       this.getAllMembers.emit(this.data)
     }
+  }
+
+  onPageChange(event: { first: number; rows: number; page: number; pageCount: number }): void {
+    // This function is called when the page changes
+    // You can access event properties like event.first, event.rows, event.page, event.pageCount
+    // console.log('Page changed:', event);
+    // this.router.navigateByUrl(`/pages/manage-communities/detail/${this.communityId}?page=${event?.first}`)
+    // You can perform any action you need here, such as fetching new data based on the page
+    // For example, you can update this.data with the new data fetched from an API
   }
 
 }

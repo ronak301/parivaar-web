@@ -49,13 +49,14 @@ export class ManageCommunitiesService {
     return this.http.put(this.apiUrl + `community/${id}`, data).toPromise()
   }
 
-  getCommunityMembers(communityId: string) {
+  getCommunityMembers(communityId: string, from: number, to: number) {
     let data = {
       filter: {
         isAccountManager: true
       },
       query: '',
       skip: 0,
+      // limit: to
     }
     return this.http.post(this.apiUrl + 'community/members/' + communityId, data).toPromise();
   }
@@ -92,6 +93,10 @@ export class ManageCommunitiesService {
 
   createRelation(data: any) {
     return this.http.post(this.apiUrl + 'relationship/relation/new', data).toPromise()
+  }
+
+  deleteRelation(id: any) {
+    return this.http.delete(this.apiUrl + 'relationship/delete/' + id).toPromise()
   }
 
   updateAddress(id: string, data: any) {

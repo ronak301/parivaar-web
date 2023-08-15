@@ -77,7 +77,7 @@ export class FamilyMembersListingComponent implements OnInit {
   }
 
   onRowClick(id: string) {
-    this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${id}`)
+    this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${id}?isFamilyMember=true`)
     this.reload.emit(id)
   }
 }

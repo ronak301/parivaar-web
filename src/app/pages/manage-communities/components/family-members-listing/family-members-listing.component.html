@@ -103,6 +103,8 @@
     <ng-template pTemplate="header">
         <h2>Add Family Member</h2>
     </ng-template>
-    <app-add-edit-family-member [relationshipId]="relationshipId" [communityId]="communityId" [memberDetails]="memberDetails" (onSuccess)="onUpdateSuccessful()"></app-add-edit-family-member>
+    <ng-container *ngIf="memberDetails">
+        <app-add-edit-family-member [relationshipId]="relationshipId" [communityId]="communityId" [memberDetails]="memberDetails" (onSuccess)="onUpdateSuccessful()"></app-add-edit-family-member>
+    </ng-container>
 </p-dialog>
 <!-- Add Member Modal End -->

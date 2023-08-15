@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 import { ConfirmationService } from 'primeng/api';
+import { Location } from '@angular/common';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -13,11 +15,16 @@ export class MemberDetailComponent implements OnInit {
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
   addEditMemberModalDisplay: boolean = false;
+  addEditFamilyMemberModalDisplay: boolean = false;
   id: any = '';
   communityId: any = '';
   data: any;
   familyMembers: any[] = [];
-  isShowMore:boolean = false;
+  isShowMore: boolean = false;
+  isShowFamilyMember: boolean = false;
+  isFamilyMember: boolean = false;
+  relationship:string = "";
+  familyMemberRelationshipTypes: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -25,11 +32,17 @@ export class MemberDetailComponent implements OnInit {
     private communitiesService: ManageCommunitiesService,
     private confirmationService: ConfirmationService,
     private router: Router,
+    private location: Location,
+    public firebaseService: FirebaseService
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((res:any)=>{
-      console.log('run route',res)
+    this.familyMemberRelationshipTypes = this.firebaseService.configData.FamilyMemberRelationshipTypes;
+    this.route.queryParams.subscribe((res: any) => {
+      this.isFamilyMember = res?.isFamilyMember ? true : false
+    })
+    this.route.params.subscribe((res: any) => {
+      console.log('run route', res)
       this.isShowMore = false;
       this.communityId = res.communityId
       this.id = res.id
@@ -38,11 +51,19 @@ export class MemberDetailComponent implements OnInit {
   }
 
   openAddEditMemberModal() {
-    this.addEditMemberModalDisplay = true
+    if(this.isFamilyMember) {
+      this.addEditFamilyMemberModalDisplay = true;
+    } else {
+      this.addEditMemberModalDisplay = true;
+    }
   }
 
   closeAddEditMemberModal() {
-    this.addEditMemberModalDisplay = false
+    if(this.isFamilyMember) {
+      this.addEditFamilyMemberModalDisplay = false;
+    } else {
+      this.addEditMemberModalDisplay = false;
+    }
   }
 
   getData() {
@@ -50,6 +71,14 @@ export class MemberDetailComponent implements OnInit {
     this.commonService.startLoader()
     this.communitiesService.getUserById(this.id).then((res: any) => {
       this.data = res.data
+      if(this.isFamilyMember) {
+        this.isShowFamilyMember = true;
+        if (this.data?.relatives?.length > 0 && this.familyMemberRelationshipTypes?.length > 0) {
+          let findValue = this.familyMemberRelationshipTypes.find((el: any) => el.id == this.data?.relatives[0]?.relationship?.type)
+          console.log('findValue',findValue)
+          this.relationship = findValue?.reverse?.id || '-'
+        }
+      }
       if (this.data?.business == null) {
         this.data['hasBusiness'] = false
       } else {
@@ -103,15 +132,19 @@ export class MemberDetailComponent implements OnInit {
     const scrollToTop = window.setInterval(() => {
       const pos: number = window.pageYOffset;
       if (pos > 0) {
-          window.scrollTo(0, pos - 20); // how far to scroll on each step
+        window.scrollTo(0, pos - 20); // how far to scroll on each step
       } else {
-          window.clearInterval(scrollToTop);
+        window.clearInterval(scrollToTop);
       }
     }, 16);
   }
 
   toggleShowMore() {
     this.isShowMore = !this.isShowMore
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

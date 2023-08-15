@@ -30,8 +30,9 @@
             </div>
             <div class="col-12 my-2" formGroupName="relative">
                 <label>Relationship Type*</label>
-                <p-dropdown class="custom-dropdown-control" formControlName="type" [options]="familyMemberRelationshipTypes"
-                    optionLabel="label" optionValue="id" placeholder="Relationship Type"></p-dropdown>
+                <p-dropdown class="custom-dropdown-control" [readonly]="id ? true : false" formControlName="type"
+                    [options]="familyMemberRelationshipTypes" optionLabel="label" optionValue="id"
+                    placeholder="Relationship Type"></p-dropdown>
             </div>
             <div class="col-6 my-2">
                 <label>Date of Birth</label>

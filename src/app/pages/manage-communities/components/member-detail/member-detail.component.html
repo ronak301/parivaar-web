@@ -1,11 +1,12 @@
 <div class="container-fluid mb-4">
     <div class="info-container">
         <div class="row mb-4">
-            <div class="col-6 my-auto">
+            <div class="col-6 my-auto d-flex align-item-center">
+                <i class="pi pi-arrow-left mr-3 cursor-pointer" (click)="goBack()"></i>
                 <h2>{{data?.firstName}} {{data?.lastName}}</h2>
             </div>
             <div class="col-6 text-right">
-                <button pButton pRipple type="button" (click)="openAddEditMemberModal()" label="Update Profile"
+                <button pButton pRipple type="button" (click)="openAddEditMemberModal()" [label]="!isFamilyMember ? 'Update Profile' : 'Update Family Member'"
                     class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
                 <button pButton pRipple type="button" label="Delete Member" (click)="deleteMemberConfirmation()"
                     class="p-button-outlined p-button-rounded p-button-danger"></button>
@@ -24,84 +25,80 @@
                     </div>
                 </div>
             </div>
-            <div class="row my-4">
-                <div class="col-6">
+            <div class="row">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         First Name
                     </label>
                     <p>{{data?.firstName || '-'}}</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Last Name
                     </label>
                     <p>{{data?.lastName || '-'}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
+                <div class="col-6 my-3" *ngIf="isFamilyMember">
+                    <label class="text-muted">
+                        Relationship Type
+                    </label>
+                    <p>{{relationship || '-'}}</p>
+                </div>
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Phone Number
                     </label>
                     <p>{{data?.phone || '-'}}</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Date of Birth
                     </label>
                     <p>{{(data?.dob | date:'dd MMMM yyyy') || '-'}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Gender
                     </label>
                     <p>{{data?.gender || '-'}}</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Blood Group
                     </label>
                     <p>{{(data?.bloodGroup | bloodGroup) || '-'}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Guardian Name (पति / पिता का नाम)
                     </label>
                     <p>{{data?.guardianName || '-'}}</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Wedding Date
                     </label>
                     <p>{{data?.weddingDate || '-'}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Email
                     </label>
                     <p>{{data?.email || '-'}}</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Education
                     </label>
                     <p>{{data?.education || '-'}}</p>
                 </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Landline
                     </label>
                     <p>{{data?.landline || '-'}}</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <label class="text-muted">
                         Native Place
                     </label>
@@ -118,52 +115,54 @@
             </div>
 
             <ng-container *ngIf="isShowMore">
-                <div class="row">
-                    <div class="col-12">
-                        <p-divider></p-divider>
+                <ng-container *ngIf="!isFamilyMember">
+                    <div class="row">
+                        <div class="col-12">
+                            <p-divider></p-divider>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-6 my-auto">
-                        <h3>Address</h3>
+                    <div class="row mb-4">
+                        <div class="col-6 my-auto">
+                            <h3>Address</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="row my-4">
-                    <div class="col-6">
-                        <label class="text-muted">
-                            Full Address
-                        </label>
-                        <p>{{data?.address?.fullAddress || '-'}}</p>
+                    <div class="row my-4">
+                        <div class="col-6">
+                            <label class="text-muted">
+                                Full Address
+                            </label>
+                            <p>{{data?.address?.fullAddress || '-'}}</p>
+                        </div>
+                        <div class="col-6">
+                            <label class="text-muted">
+                                City
+                            </label>
+                            <p>{{data?.address?.city || '-'}}</p>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <label class="text-muted">
-                            City
-                        </label>
-                        <p>{{data?.address?.city || '-'}}</p>
+                    <div class="row my-4">
+                        <div class="col-6">
+                            <label class="text-muted">
+                                State
+                            </label>
+                            <p>{{data?.address?.state || '-'}}</p>
+                        </div>
+                        <div class="col-6">
+                            <label class="text-muted">
+                                Pincode
+                            </label>
+                            <p>{{data?.address?.pincode || '-'}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row my-4">
-                    <div class="col-6">
-                        <label class="text-muted">
-                            State
-                        </label>
-                        <p>{{data?.address?.state || '-'}}</p>
+                    <div class="row my-4">
+                        <div class="col-6">
+                            <label class="text-muted">
+                                Locality
+                            </label>
+                            <p>{{data?.address?.locality || '-'}}</p>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <label class="text-muted">
-                            Pincode
-                        </label>
-                        <p>{{data?.address?.pincode || '-'}}</p>
-                    </div>
-                </div>
-                <div class="row my-4">
-                    <div class="col-6">
-                        <label class="text-muted">
-                            Locality
-                        </label>
-                        <p>{{data?.address?.locality || '-'}}</p>
-                    </div>
-                </div>
+                </ng-container>
 
                 <div class="row">
                     <div class="col-12">
@@ -233,7 +232,7 @@
 </div>
 
 
-<!-- Add Member Modal Start -->
+<!-- Update Member Modal Start -->
 <p-dialog position="top-right" class="add-edit-community-modal full-height-modal" [modal]="true" [draggable]="false"
     [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
     [(visible)]="addEditMemberModalDisplay">
@@ -244,9 +243,24 @@
         <app-add-edit-member [id]="id" [data]="data" (onSuccess)="getData()"></app-add-edit-member>
     </ng-container>
 </p-dialog>
-<!-- Add Member Modal End -->
+<!-- Update Member Modal End -->
 
-<ng-container *ngIf="data">
+
+<!-- Update Family Member Modal Start -->
+<p-dialog position="top-right" class="add-edit-community-modal full-height-modal" [modal]="true" [draggable]="false"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
+    [(visible)]="addEditFamilyMemberModalDisplay">
+    <ng-template pTemplate="header">
+        <h2>Update Family Member</h2>
+    </ng-template>
+    <ng-container *ngIf="data && isShowFamilyMember">
+        <app-add-edit-family-member [communityId]="communityId" [id]="id" [data]="data"
+            (onSuccess)="getData()"></app-add-edit-family-member>
+    </ng-container>
+</p-dialog>
+<!-- Update Family Member Modal End -->
+
+<ng-container *ngIf="data?.isAccountManager">
     <app-family-members-listing [data]="familyMembers" [memberDetails]="data" [relationshipId]="id"
         [communityId]="communityId" (reload)="reload($event)"></app-family-members-listing>
 </ng-container>

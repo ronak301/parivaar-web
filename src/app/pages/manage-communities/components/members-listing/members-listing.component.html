@@ -69,8 +69,9 @@
                         </ng-template>
                     </p-table> -->
                     <p-table [columns]="cols" [value]="data" [paginator]="true" [totalRecords]="totalRecords"
-                        [scrollable]="true" [rows]="rowsPerPage" scrollHeight="500px" [virtualScroll]="true"
-                        [first]="firstRowIndex" [rows]="rowsPerPage" [rowsPerPageOptions]="rowsPerPageOptions">
+                        [scrollable]="true" scrollHeight="500px" [virtualScroll]="true"
+                        [first]="firstRowIndex" [rows]="rowsPerPage" [rowsPerPageOptions]="rowsPerPageOptions" (onPage)="onPageChange($event)">
+                        <!-- [first]="firstRowIndex" [rows]="rowsPerPage" (onPage)="onPageChange($event)"> -->
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th *ngFor="let col of columns">
@@ -99,7 +100,7 @@
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
                             <tr class="emptymessage">
-                                <td colspan="5" class="text-center">
+                                <td colspan="5" style="justify-content: center;">
                                     No data found
                                 </td>
                             </tr>

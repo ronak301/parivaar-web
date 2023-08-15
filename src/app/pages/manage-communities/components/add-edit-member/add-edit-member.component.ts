@@ -72,7 +72,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
 
   patchValue() {
     this.formData.patchValue(this.data)
-    if(this.businessType?.value) {
+    if (this.businessType?.value) {
       this.onSelectBusinessType()
     }
   }
@@ -166,6 +166,8 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
         }
       }
     });
+    nonNullFields.firstName = nonNullFields.firstName.trim()
+    nonNullFields.lastName = nonNullFields.lastName.trim()
     if (this.id) {
       console.log(nonNullFields)
       this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
@@ -193,7 +195,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
         }
         this.commonService.stopLoader();
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
-        this.step = "first";
+        // this.step = "first";
         this.formData.reset();
         this.onSuccess.emit();
       }).catch(err => {
@@ -233,7 +235,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
   }
 
   onSelectBusinessType() {
-    let data: any = this.businessTypeOptions.find((el: any) => el.id == this.businessType?.value)
+    let data: any = this.businessTypeOptions?.length > 0 ? this.businessTypeOptions.find((el: any) => el.id == this.businessType?.value) : []
     this.businessSubTypeOptions = data?.subTypes || []
     console.log('businessSubTypeOptions', this.businessSubTypeOptions)
   }
