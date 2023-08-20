@@ -48,7 +48,7 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-data>
-                            <tr (click)="onRowClick(data.id)">
+                            <tr (click)="onRowClick(data)">
                                 <!-- <td>
                                     <p-tableCheckbox [value]="data" (click)="onSelectMembers(data)"></p-tableCheckbox>
                                 </td> -->
@@ -103,7 +103,7 @@
     <ng-template pTemplate="header">
         <h2>Add Family Member</h2>
     </ng-template>
-    <ng-container *ngIf="memberDetails">
+    <ng-container *ngIf="memberDetails && addEditMemberModalDisplay">
         <app-add-edit-family-member [relationshipId]="relationshipId" [communityId]="communityId" [memberDetails]="memberDetails" (onSuccess)="onUpdateSuccessful()"></app-add-edit-family-member>
     </ng-container>
 </p-dialog>

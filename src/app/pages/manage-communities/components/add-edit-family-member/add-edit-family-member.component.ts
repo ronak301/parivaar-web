@@ -17,6 +17,7 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
   @Input() communityId: any;
   @Input() data: any;
   @Input() memberDetails: any;
+  @Input() relationship: any;
   @Output() onSuccess = new EventEmitter<string>();
 
   imagePreviewUrl: string = './assets/images/user.jpeg';
@@ -45,19 +46,24 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.initializeForms()
     this.initializeConfigData()
-    console.log(this.id)
+    console.log(this.data)
     if (this.data?.profilePicture) {
       this.imagePreviewUrl = this.data?.profilePicture
     }
     console.log('this.memberDetails', this.memberDetails)
+    console.log('relationshipId', this.relationshipId)
     if (this.memberDetails && !this.id) {
       console.log('mnew patch', this.memberDetails.address)
+      console.log(this.address.value)
       this.address.patchValue(this.memberDetails.address)
       console.log(this.formData.value)
     }
     if (this.id) {
       this.step = "second";
       this.patchValue()
+    }
+    if (this.relationship) {
+      this.relativeType.patchValue(this.relationship.type)
     }
   }
 
@@ -68,13 +74,6 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
     this.cityOptions = this.firebaseService.configData.Cities;
     this.businessTypeOptions = this.firebaseService.configData.BusinessTypes;
     this.familyMemberRelationshipTypes = this.firebaseService.configData.FamilyMemberRelationshipTypes;
-    if (this.data?.relatives?.length > 0 && this.familyMemberRelationshipTypes?.length > 0) {
-      let findValue = this.familyMemberRelationshipTypes.find((el: any) => el.id == this.data?.relatives[0]?.relationship?.type)
-      console.log('findValue', findValue)
-      this.relativeId.patchValue(this.data?.relatives[0].relationship.id)
-      this.relativeType.patchValue(findValue.reverse.id)
-      console.log(this.formData.value)
-    }
     this.localityOptions = this.firebaseService.configData.Localities;
   }
 
@@ -200,6 +199,9 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
     nonNullFields.firstName = nonNullFields.firstName.trim()
     nonNullFields.lastName = nonNullFields.lastName.trim()
     if (this.id) {
+      if (nonNullFields?.relative) {
+        delete nonNullFields.relative
+      }
       console.log(nonNullFields)
       this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
         console.log(res)
@@ -219,52 +221,51 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
           }
         }
 
-        let findValue = this.familyMemberRelationshipTypes.find((el: any) => el.id == this.data?.relatives[0]?.relationship?.type)
-        if (findValue.reverse.id !== this.relativeType.value) {
-          if (this.data?.relatives[0].relationship.id) {
-            // this.communitiesService.deleteRelation(this.data?.relatives[0].relationship.id).then((res: any) => {
-            //   console.log(this.relativeType.value)
-            //   let typeReverse = this.relativeType.value
-            //   console.log('typeReverse', typeReverse)
-            //   let relationship = this.familyMemberRelationshipTypes.find((el: any) => el.id === typeReverse)
-            //   console.log('relationship', relationship)
-            //   if (relationship?.reverse?.id) {
-            //     let createRelationPayload = {
-            //       userId: res.id,
-            //       relativeId: this.relationshipId,
-            //       type: relationship?.reverse?.id
-            //     }
-            //     console.log('createRelationPayload', createRelationPayload)
-            //     this.communitiesService.createRelation(createRelationPayload).then((res3: any) => {
-            //       this.commonService.stopLoader()
-            //       this.commonService.showToast('success', 'Created', 'Created Successful!')
-            //       this.step = "first";
-            //       this.formData.reset()
-            //       this.onSuccess.emit()
-            //     }).catch((err: any) => {
-            //       this.commonService.showToast('error', "Error", err?.message)
-            //       this.commonService.stopLoader()
-            //     })
-            //   } else {
-            //     // this.step = "first";
-            //     this.formData.reset()
-            //     this.onSuccess.emit()
-            //     this.commonService.stopLoader()
-            //   }
-            // })
-          }
+        if (this.relativeType.value != this.relationship.type) {
+          this.communitiesService.deleteRelation(this.relationship.id).then((res: any) => {
+            let typeReverse = this.relativeType.value
+            let relationship = this.familyMemberRelationshipTypes.find((el: any) => el.id === typeReverse)
+            console.log('relationship', relationship)
+              let createRelationPayload = {
+                userId: this.id,
+                relativeId: this.relationshipId,
+                type: relationship?.reverse?.id
+              }
+              console.log('createRelationPayload', createRelationPayload)
+              this.communitiesService.createRelation(createRelationPayload).then((res3: any) => {
+                let createRelationPayload2 = {
+                  userId: this.relationshipId,
+                  relativeId: this.id,
+                  type: this.relativeType.value
+                }
+                this.communitiesService.createRelation(createRelationPayload2).then((res3: any) => {
+                  this.commonService.stopLoader()
+                  this.commonService.showToast('success', 'Created', 'Updated Successful!')
+                  // this.step = "first";
+                  this.formData.reset()
+                  this.onSuccess.emit()
+                }).catch((err: any) => {
+                  this.commonService.showToast('error', "Error", err?.message)
+                  this.commonService.stopLoader()
+                })
+              }).catch((err: any) => {
+                this.commonService.showToast('error', "Error", err?.message)
+                this.commonService.stopLoader()
+              })
+            })
+        } else {
+          this.commonService.showToast('success', 'Updated', 'Updated Successful!')
+          this.commonService.stopLoader();
+          this.formData.reset();
+          this.onSuccess.emit();
         }
+
         // if (this.data.address?.id) {
         //   this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
         //     console.log(res)
         //     this.onSuccess.emit();
         //   })
         // }
-        this.commonService.showToast('success', 'Updated', 'Updated Successful!')
-        this.commonService.stopLoader();
-        // this.step = "first";
-        this.formData.reset();
-        this.onSuccess.emit();
       }).catch(err => {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()

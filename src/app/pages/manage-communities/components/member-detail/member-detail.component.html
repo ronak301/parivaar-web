@@ -42,7 +42,7 @@
                     <label class="text-muted">
                         Relationship Type
                     </label>
-                    <p>{{relationship || '-'}}</p>
+                    <p>{{relationship?.type || '-'}}</p>
                 </div>
                 <div class="col-6 my-3">
                     <label class="text-muted">
@@ -239,7 +239,7 @@
     <ng-template pTemplate="header">
         <h2>Edit Member</h2>
     </ng-template>
-    <ng-container *ngIf="data">
+    <ng-container *ngIf="data && addEditMemberModalDisplay">
         <app-add-edit-member [id]="id" [data]="data" (onSuccess)="getData()"></app-add-edit-member>
     </ng-container>
 </p-dialog>
@@ -253,8 +253,8 @@
     <ng-template pTemplate="header">
         <h2>Update Family Member</h2>
     </ng-template>
-    <ng-container *ngIf="data && isShowFamilyMember">
-        <app-add-edit-family-member [communityId]="communityId" [id]="id" [data]="data"
+    <ng-container *ngIf="data && isShowFamilyMember && addEditFamilyMemberModalDisplay">
+        <app-add-edit-family-member [communityId]="communityId" [id]="id" [data]="data" [relationship]="relationship" [relationshipId]="relationshipId"
             (onSuccess)="getData()"></app-add-edit-family-member>
     </ng-container>
 </p-dialog>

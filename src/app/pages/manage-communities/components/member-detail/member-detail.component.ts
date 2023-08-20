@@ -23,8 +23,9 @@ export class MemberDetailComponent implements OnInit {
   isShowMore: boolean = false;
   isShowFamilyMember: boolean = false;
   isFamilyMember: boolean = false;
-  relationship:string = "";
-  familyMemberRelationshipTypes: any;
+  relationship: any;
+  relationshipId:any = ""
+  // familyMemberRelationshipTypes: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -37,9 +38,13 @@ export class MemberDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.familyMemberRelationshipTypes = this.firebaseService.configData.FamilyMemberRelationshipTypes;
+    // this.familyMemberRelationshipTypes = this.firebaseService.configData.FamilyMemberRelationshipTypes;
     this.route.queryParams.subscribe((res: any) => {
       this.isFamilyMember = res?.isFamilyMember ? true : false
+      this.relationship = res?.relationship ? JSON.parse(res?.relationship) : "";
+      this.relationshipId = res?.relationshipId
+      console.log('relationshipId', this.relationshipId)
+      console.log('relationship from route', res)
     })
     this.route.params.subscribe((res: any) => {
       console.log('run route', res)
@@ -51,7 +56,7 @@ export class MemberDetailComponent implements OnInit {
   }
 
   openAddEditMemberModal() {
-    if(this.isFamilyMember) {
+    if (this.isFamilyMember) {
       this.addEditFamilyMemberModalDisplay = true;
     } else {
       this.addEditMemberModalDisplay = true;
@@ -59,7 +64,7 @@ export class MemberDetailComponent implements OnInit {
   }
 
   closeAddEditMemberModal() {
-    if(this.isFamilyMember) {
+    if (this.isFamilyMember) {
       this.addEditFamilyMemberModalDisplay = false;
     } else {
       this.addEditMemberModalDisplay = false;
@@ -71,13 +76,8 @@ export class MemberDetailComponent implements OnInit {
     this.commonService.startLoader()
     this.communitiesService.getUserById(this.id).then((res: any) => {
       this.data = res.data
-      if(this.isFamilyMember) {
+      if (this.isFamilyMember) {
         this.isShowFamilyMember = true;
-        if (this.data?.relatives?.length > 0 && this.familyMemberRelationshipTypes?.length > 0) {
-          let findValue = this.familyMemberRelationshipTypes.find((el: any) => el.id == this.data?.relatives[0]?.relationship?.type)
-          console.log('findValue',findValue)
-          this.relationship = findValue?.reverse?.id || '-'
-        }
       }
       if (this.data?.business == null) {
         this.data['hasBusiness'] = false
@@ -115,7 +115,8 @@ export class MemberDetailComponent implements OnInit {
         console.log('accept')
         this.commonService.startLoader();
         this.communitiesService.deleteMember(this.id).then(res => {
-          this.router.navigateByUrl("/pages/manage-communities/detail/" + this.communityId);
+          this.goBack()
+          // this.router.navigateByUrl("/pages/manage-communities/detail/" + this.communityId);
           this.commonService.showToast("success", "Deleted", "Member Deleted!");
           this.commonService.stopLoader();
         }).catch(err => {

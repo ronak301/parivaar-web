@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -22,6 +23,7 @@ export class FamilyMembersListingComponent implements OnInit {
   constructor(
     private confirmationService: ConfirmationService,
     private router: Router,
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -76,8 +78,15 @@ export class FamilyMembersListingComponent implements OnInit {
     this.reload.emit()
   }
 
-  onRowClick(id: string) {
-    this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${id}?isFamilyMember=true`)
-    this.reload.emit(id)
+  onRowClick(data: any) {
+    console.log('abcd', data)
+    this.router.navigate([`/pages/manage-communities/${this.communityId}/member-detail/${data.id}`], { queryParams: { isFamilyMember: true, relationship: JSON.stringify(data.relationship), relationshipId: this.relationshipId } });
+    // this.router.navigate([`/pages/manage-communities/${this.communityId}/member-detail/${data.id}?isFamilyMember=true`], { state: { relationship: data.relationship } });
+    this.reload.emit(data.id)
   }
+
+  goBack(): void {
+    this.location.back();
+  }
+
 }
