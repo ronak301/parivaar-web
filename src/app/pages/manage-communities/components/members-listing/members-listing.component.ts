@@ -4,7 +4,6 @@ import { ManageCommunitiesService } from '../../services/manage-communities.serv
 import { CommonService } from 'src/app/shared/services/common.service';
 import { RowsPerPage, RowsPerPageOptions } from 'src/app/shared/constants/constants';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-members-listing',
