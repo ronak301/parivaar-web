@@ -55,8 +55,8 @@ export class ManageCommunitiesService {
         isAccountManager: true
       },
       query: '',
-      skip: 0,
-      // limit: to
+      skip: from,
+      limit: to
     }
     return this.http.post(this.apiUrl + 'community/members/' + communityId, data).toPromise();
   }

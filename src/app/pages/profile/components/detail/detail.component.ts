@@ -29,9 +29,11 @@ export class DetailComponent implements OnInit {
     this.getData()
   }
 
-  getData() {
-    this.commonService.startLoader()
-    this.profileService.getUserById(this.id).then((res: any) => {
+  async getData() {
+    try {
+      this.commonService.startLoader()
+      const res:any = await this.profileService.getUserById(this.id)
+      this.commonService.stopLoader()
       this.data = res.data
       if (this.data?.business == null) {
         this.data['hasBusiness'] = false
@@ -43,11 +45,10 @@ export class DetailComponent implements OnInit {
         this.imagePreviewUrl = this.data.profilePicture
       }
       console.log(this.data)
-      this.commonService.stopLoader()
-    }).catch((err: any) => {
+    } catch(err:any) {
       this.commonService.showToast('error', "Error", err)
       this.commonService.stopLoader()
-    })
+    }
   }
 
   reload() {

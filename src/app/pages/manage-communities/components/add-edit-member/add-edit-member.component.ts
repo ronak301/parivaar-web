@@ -147,7 +147,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.commonService.startLoader()
     const nonNullFields: any = {};
     Object.entries(this.formData.value).forEach(([key, value]) => {
@@ -170,63 +170,53 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
     nonNullFields.lastName = nonNullFields.lastName.trim()
     if (this.id) {
       console.log(nonNullFields)
-      this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
+      try {
+        const res: any = await this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath)
         console.log(res)
         if (nonNullFields.hasBusiness) {
           if (!this.data.hasBusiness) {
             let businessData: any = nonNullFields.business;
             businessData['ownerId'] = this.id
-            this.communitiesService.createBusiness(nonNullFields.business).then(res => {
-              console.log(res)
-              this.onSuccess.emit()
-            })
+            await this.communitiesService.createBusiness(nonNullFields.business)
+            this.onSuccess.emit()
           } else {
-            this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business).then(res => {
-              console.log(res)
-              this.onSuccess.emit()
-            })
+            await this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business)
+            this.onSuccess.emit()
           }
         }
         if (this.data?.address?.id) {
-          this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
-            console.log(res)
-            this.onSuccess.emit()
-          })
+          await this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address)
+          this.onSuccess.emit()
         }
         this.commonService.stopLoader();
         this.commonService.showToast('success', 'Updated', 'Updated Successful!')
         // this.step = "first";
         this.formData.reset();
         this.onSuccess.emit();
-      }).catch(err => {
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     } else {
       console.log(nonNullFields)
-      this.communitiesService.addMember(nonNullFields, this.imageFile).then((res: any) => {
+      try {
+        const res: any = await this.communitiesService.addMember(nonNullFields, this.imageFile)
         console.log(res)
         let joinData = {
           userId: res.id
         }
-        this.communitiesService.joinCommunity(joinData, this.communityId).then(res2 => {
-          console.log(res2)
-          this.commonService.stopLoader()
-          this.commonService.showToast('success', 'Created', res?.message)
-          this.formData.reset()
-          this.step = "first";
-          this.onSuccess.emit()
-          this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${res.id}`)
-        }).catch(err => {
-          console.log(err)
-          this.commonService.showToast('error', "Error", err?.error?.message)
-          this.commonService.stopLoader()
-        })
-      }).catch(err => {
-        console.log(err)
+        const res2: any = await this.communitiesService.joinCommunity(joinData, this.communityId)
+        console.log(res2)
+        this.commonService.stopLoader()
+        this.commonService.showToast('success', 'Created', res?.message)
+        this.formData.reset()
+        this.step = "first";
+        this.onSuccess.emit()
+        this.router.navigateByUrl(`/pages/manage-communities/${this.communityId}/member-detail/${res.id}`)
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     }
   }
 
@@ -240,13 +230,14 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
     console.log('businessSubTypeOptions', this.businessSubTypeOptions)
   }
 
-  onNextStep() {
+  async onNextStep() {
     if (this.id) {
       this.step = "second"
       return
     }
-    this.commonService.startLoader()
-    this.communitiesService.getMemberBySearch(this.phone.value).then((res: any) => {
+    try {
+      this.commonService.startLoader()
+      const res:any = await this.communitiesService.getMemberBySearch(this.phone.value)
       console.log(res)
       if (res?.data?.rows?.length > 0) {
         this.commonService.showToast("error", "Error", "Phone number already exist! Please use another phone number.")
@@ -256,10 +247,10 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
         this.step = "second"
       }
       this.commonService.stopLoader();
-    }).catch(err => {
+    } catch(err:any) {
       this.commonService.showToast("error", "Error", err?.error?.message)
       this.commonService.stopLoader();
-    })
+    }
   }
 
 }

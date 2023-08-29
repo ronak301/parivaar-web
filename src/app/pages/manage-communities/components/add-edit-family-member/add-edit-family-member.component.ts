@@ -173,12 +173,9 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
     console.log('businessSubTypeOptions', this.businessSubTypeOptions)
   }
 
-  onSubmit() {
+  async onSubmit() {
     const nonNullFields: any = {};
     this.commonService.startLoader();
-    // if (this.id) {
-    //   delete this.formData.value.relative
-    // }
     console.log(this.formData.value)
     Object.entries(this.formData.value).forEach(([key, value]) => {
       if (value !== null) {
@@ -202,63 +199,47 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
       if (nonNullFields?.relative) {
         delete nonNullFields.relative
       }
-      console.log(nonNullFields)
-      this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
+      try {
+        console.log(nonNullFields)
+        const res = await this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath)
         console.log(res)
         if (nonNullFields.hasBusiness) {
           if (!this.data.hasBusiness) {
             let businessData: any = nonNullFields.business;
             businessData['ownerId'] = this.id
-            this.communitiesService.createBusiness(nonNullFields.business).then(res => {
-              console.log(res)
-              this.onSuccess.emit();
-            })
+            await this.communitiesService.createBusiness(nonNullFields.business)
           } else {
-            this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business).then(res => {
-              console.log(res)
-              this.onSuccess.emit();
-            })
+            await this.communitiesService.updateBusiness(this.data.business.id, nonNullFields.business)
           }
         }
-
         if (this.relativeType.value != this.relationship.type) {
-          this.communitiesService.deleteRelation(this.relationship.id).then((res: any) => {
-            let typeReverse = this.relativeType.value
-            let relationship = this.familyMemberRelationshipTypes.find((el: any) => el.id === typeReverse)
-            console.log('relationship', relationship)
-              let createRelationPayload = {
-                userId: this.id,
-                relativeId: this.relationshipId,
-                type: relationship?.reverse?.id
-              }
-              console.log('createRelationPayload', createRelationPayload)
-              this.communitiesService.createRelation(createRelationPayload).then((res3: any) => {
-                let createRelationPayload2 = {
-                  userId: this.relationshipId,
-                  relativeId: this.id,
-                  type: this.relativeType.value
-                }
-                this.communitiesService.createRelation(createRelationPayload2).then((res3: any) => {
-                  this.commonService.stopLoader()
-                  this.commonService.showToast('success', 'Created', 'Updated Successful!')
-                  // this.step = "first";
-                  this.formData.reset()
-                  this.onSuccess.emit()
-                }).catch((err: any) => {
-                  this.commonService.showToast('error', "Error", err?.message)
-                  this.commonService.stopLoader()
-                })
-              }).catch((err: any) => {
-                this.commonService.showToast('error', "Error", err?.message)
-                this.commonService.stopLoader()
-              })
-            })
-        } else {
-          this.commonService.showToast('success', 'Updated', 'Updated Successful!')
-          this.commonService.stopLoader();
-          this.formData.reset();
-          this.onSuccess.emit();
+          await this.communitiesService.deleteRelation(this.relationship.id)
+          let typeReverse = this.relativeType.value
+          let relationship = this.familyMemberRelationshipTypes.find((el: any) => el.id === typeReverse)
+          let createRelationPayload = {
+            userId: this.id,
+            relativeId: this.relationshipId,
+            type: relationship?.reverse?.id
+          }
+          let createRelationPayload2 = {
+            userId: this.relationshipId,
+            relativeId: this.id,
+            type: this.relativeType.value
+          }
+          const promise1 = new Promise<string>(async (resolve) => {
+            await this.communitiesService.createRelation(createRelationPayload)
+            resolve("Async Function 1 complete");
+          });
+          const promise2 = new Promise<string>(async (resolve) => {
+            await this.communitiesService.createRelation(createRelationPayload2)
+            resolve("Async Function 1 complete");
+          });
+          await Promise.all([promise1, promise2])
         }
+        this.commonService.showToast('success', 'Updated', 'Updated Successful!')
+        this.commonService.stopLoader();
+        this.formData.reset();
+        this.onSuccess.emit();
 
         // if (this.data.address?.id) {
         //   this.communitiesService.updateAddress(this.data.address.id, nonNullFields.address).then(res => {
@@ -266,63 +247,42 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
         //     this.onSuccess.emit();
         //   })
         // }
-      }).catch(err => {
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     } else {
-      console.log(nonNullFields)
-      console.log(this.communityId)
-      this.communitiesService.addRelative(nonNullFields).then((res: any) => {
-        console.log(res)
+      try {
+        const res: any = await this.communitiesService.addRelative(nonNullFields)
         let joinData = {
           userId: res.id
         }
-        this.communitiesService.joinCommunity(joinData, this.communityId).then(res2 => {
-          console.log(res2)
-          let typeReverse = nonNullFields.relative.type
-          console.log('typeReverse', typeReverse)
-          let relationship = this.familyMemberRelationshipTypes.find((el: any) => el.id === typeReverse)
-          console.log('relationship', relationship)
-          if (relationship?.reverse?.id) {
-            let createRelationPayload = {
-              userId: res.id,
-              relativeId: this.relationshipId,
-              type: relationship?.reverse?.id
-            }
-            console.log('createRelationPayload', createRelationPayload)
-            this.communitiesService.createRelation(createRelationPayload).then((res3: any) => {
-              this.commonService.stopLoader()
-              this.commonService.showToast('success', 'Created', 'Created Successful!')
-              this.step = "first";
-              this.formData.reset()
-              this.onSuccess.emit()
-            }).catch((err: any) => {
-              this.commonService.showToast('error', "Error", err?.message)
-              this.commonService.stopLoader()
-            })
-          } else {
-            this.step = "first";
-            this.formData.reset()
-            this.onSuccess.emit()
-            this.commonService.stopLoader()
+        await this.communitiesService.joinCommunity(joinData, this.communityId)
+        let typeReverse = nonNullFields.relative.type
+        let relationship = this.familyMemberRelationshipTypes.find((el: any) => el.id === typeReverse)
+        if (relationship?.reverse?.id) {
+          let createRelationPayload = {
+            userId: res.id,
+            relativeId: this.relationshipId,
+            type: relationship?.reverse?.id
           }
-        }).catch(err => {
-          this.commonService.showToast('error', "Error", err?.error?.message)
-          this.commonService.stopLoader()
-        })
+          await this.communitiesService.createRelation(createRelationPayload)
+        }
         if (nonNullFields.hasBusiness) {
           let businessData: any = nonNullFields.business;
           businessData['ownerId'] = res.id
-          this.communitiesService.createBusiness(nonNullFields.business).then(res => {
-            console.log(res)
-            this.onSuccess.emit();
-          })
+          await this.communitiesService.createBusiness(nonNullFields.business)
+          this.onSuccess.emit();
         }
-      }).catch(err => {
+        this.commonService.stopLoader()
+        this.commonService.showToast('success', 'Created', 'Created Successful!')
+        this.step = "first";
+        this.formData.reset()
+        this.onSuccess.emit()
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     }
   }
 

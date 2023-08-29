@@ -33,31 +33,29 @@ export class ListingComponent implements OnInit {
     this.addEditModalDisplay = false
   }
 
-  getAllData() {
+  async getAllData() {
     this.commonService.startLoader()
-    console.log('isSuperAdmin', this.authService.isSuperAdmin())
     if (this.authService.isSuperAdmin()) {
-      this.communitiesService.getAllCommunities().then((res: any) => {
-        console.log(res)
-        this.data = res.communities
-        this.commonService.stopLoader()
-      }).catch(err => {
-        console.log(err)
+      try {
+        const res: any = await this.communitiesService.getAllCommunities();
+        this.data = res.communities;
+        this.commonService.stopLoader();
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     } else {
       // admin funcationality have to wright
-      let id = this.authService.getUserLocalData().id
-      this.communitiesService.getUserById(id).then((res: any) => {
-        console.log('single User', res)
+      try {
+        let id = this.authService.getUserLocalData().id
+        const res: any = await this.communitiesService.getUserById(id)
         this.authService.setUserinLocal(res.data)
         this.data = res.data.communities || []
         this.commonService.stopLoader()
-      }).catch(err => {
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     }
   }
 

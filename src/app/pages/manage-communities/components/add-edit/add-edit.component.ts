@@ -101,31 +101,32 @@ export class AddEditComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log(this.formData.value)
     this.commonService.startLoader()
     if (this.id) {
-      this.communitiesService.updateCommunity(this.id, this.formData.value, this.imageFile, this.data?.imagePath).then((res: any) => {
+      try {
+        const res: any = await this.communitiesService.updateCommunity(this.id, this.formData.value, this.imageFile, this.data?.imagePath)
         this.commonService.stopLoader()
         this.onSuccess.emit()
         this.formData.reset()
         this.commonService.showToast('success', "Updated", res?.message)
-      }).catch(err => {
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     } else {
-      let data = { status: 'Pending', ...this.formData.value }
-      this.communitiesService.createCommunity(data, this.imageFile).then(res => {
-        console.log(res)
+      try {
+        let data = { status: 'Pending', ...this.formData.value }
+        await this.communitiesService.createCommunity(data, this.imageFile)
         this.commonService.stopLoader()
         this.onSuccess.emit()
         this.formData.reset()
         this.commonService.showToast('success', "Created", "Created Successful!")
-      }).catch(err => {
+      } catch (err: any) {
         this.commonService.showToast('error', "Error", err?.error?.message)
         this.commonService.stopLoader()
-      })
+      }
     }
   }
 

@@ -575,6 +575,6 @@
 //   },
 // ];
 
-export const RowsPerPageOptions = [100, 150, 200];
+export const RowsPerPageOptions = [40, 80, 120];
 
-export const RowsPerPage = 50;
+export const RowsPerPage = 40;

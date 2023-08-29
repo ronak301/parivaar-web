@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ManageCommunitiesService } from '../../services/manage-communities.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { RowsPerPage, RowsPerPageOptions } from 'src/app/shared/constants/constants';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-members-listing',
@@ -16,18 +17,19 @@ export class MembersListingComponent implements OnInit {
   @Input() communityId: any;
   @Output() getAllMembers = new EventEmitter<string>();
 
+  // @ViewChild('p', { static: true }) paginator!: Paginator
+
   data: any = [];
 
   addEditMemberModalDisplay: boolean = false;
   selectedList: any = [];
 
   cols: any[];
-  rowsPerPage: number = RowsPerPage;
   rowsPerPageOptions: number[] = RowsPerPageOptions;
+  pageSize: number = RowsPerPage;
   totalRecords: number = 0;
-  firstRowIndex: number = 0;
-  from:number = 0;
-  to:number = 100;
+  currentPage: number = 1;
+  isShowPagination:boolean = false;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -46,27 +48,33 @@ export class MembersListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.route.queryParamMap.subscribe((res:any)=>{
-    //   console.log('params',res)
-    //   this.from = res.get("params")
-    //   this.to = this.to + this.from
-    // })
-      this.getAllCommunityMembers()
+    this.pageSize = +(this.route.snapshot.queryParamMap.get('pageSize') as any) || RowsPerPage;
+    this.currentPage = +(this.route.snapshot.queryParamMap.get('currentPage') as any) || 1;
+    console.log('this.pageSize',this.pageSize)
+    console.log('this.currentPage',this.currentPage)
+    // this.paginator.changePage(this.currentPage);
+    // this.paginator.first = 0;
+    // console.log('currentPage',this.paginator.currentPage())
+    // this.paginator.changePage(this.currentPage)
+    this.getAllCommunityMembers()
   }
 
-  getAllCommunityMembers() {
-    this.commonService.startLoader()
-    this.communitiesService.getCommunityMembers(this.communityId,this.from,this.to).then((res: any) => {
+  async getAllCommunityMembers() {
+    try {
+      const startIndex = (this.currentPage - 1) * this.pageSize;
+      this.commonService.startLoader()
+      const res: any = await this.communitiesService.getCommunityMembers(this.communityId, startIndex, this.pageSize)
+      this.commonService.stopLoader()
       console.log('allCommunityMembers', res)
       this.data = res?.members?.rows;
       this.totalRecords = res?.members?.count;
       this.getAllMembers.emit(this.data);
-      this.commonService.stopLoader()
       this.closeAddEditMemberModal()
-    }).catch(err => {
+    } catch (err: any) {
+      console.log(err)
       this.commonService.showToast('error', "Error", err?.error?.message)
       this.commonService.stopLoader()
-    })
+    }
   }
 
   makeAdminConfirmation() {
@@ -122,13 +130,13 @@ export class MembersListingComponent implements OnInit {
     }
   }
 
-  onPageChange(event: { first: number; rows: number; page: number; pageCount: number }): void {
-    // This function is called when the page changes
-    // You can access event properties like event.first, event.rows, event.page, event.pageCount
-    // console.log('Page changed:', event);
-    // this.router.navigateByUrl(`/pages/manage-communities/detail/${this.communityId}?page=${event?.first}`)
-    // You can perform any action you need here, such as fetching new data based on the page
-    // For example, you can update this.data with the new data fetched from an API
+  onPageChange(event: any): void {
+    console.log(event)
+    this.pageSize = event.rows
+    this.currentPage = event.page + 1;
+    const queryParams = { pageSize: this.pageSize, currentPage: this.currentPage };
+    this.router.navigate([`/pages/manage-communities/detail/${this.communityId}`], { queryParams: queryParams });
+    this.getAllCommunityMembers()
   }
 
 }

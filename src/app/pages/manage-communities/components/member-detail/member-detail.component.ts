@@ -24,7 +24,7 @@ export class MemberDetailComponent implements OnInit {
   isShowFamilyMember: boolean = false;
   isFamilyMember: boolean = false;
   relationship: any;
-  relationshipId:any = ""
+  relationshipId: any = ""
   // familyMemberRelationshipTypes: any;
 
   constructor(
@@ -71,10 +71,11 @@ export class MemberDetailComponent implements OnInit {
     }
   }
 
-  getData() {
-    this.closeAddEditMemberModal()
-    this.commonService.startLoader()
-    this.communitiesService.getUserById(this.id).then((res: any) => {
+  async getData() {
+    try {
+      this.closeAddEditMemberModal()
+      this.commonService.startLoader()
+      const res: any = await this.communitiesService.getUserById(this.id)
       this.data = res.data
       if (this.isFamilyMember) {
         this.isShowFamilyMember = true;
@@ -91,10 +92,10 @@ export class MemberDetailComponent implements OnInit {
       console.log(this.data)
       this.commonService.stopLoader()
       this.scrollToTop()
-    }).catch(err => {
+    } catch (err: any) {
       this.commonService.showToast('error', "Error", err?.error?.message)
       this.commonService.stopLoader()
-    })
+    }
   }
 
   reload(event: any) {
@@ -111,18 +112,17 @@ export class MemberDetailComponent implements OnInit {
   deleteMemberConfirmation() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete member?',
-      accept: () => {
-        console.log('accept')
+      accept: async () => {
         this.commonService.startLoader();
-        this.communitiesService.deleteMember(this.id).then(res => {
+        try {
+          await this.communitiesService.deleteMember(this.id)
           this.goBack()
-          // this.router.navigateByUrl("/pages/manage-communities/detail/" + this.communityId);
           this.commonService.showToast("success", "Deleted", "Member Deleted!");
           this.commonService.stopLoader();
-        }).catch(err => {
+        } catch (err: any) {
           this.commonService.showToast('error', "Error", err?.error?.message)
           this.commonService.stopLoader();
-        })
+        }
         //Actual logic to perform a confirmation
       },
       key: "deleteMemberDialog"
