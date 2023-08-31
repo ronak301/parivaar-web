@@ -4,6 +4,7 @@ import { ManageCommunitiesService } from '../../services/manage-communities.serv
 import { CommonService } from 'src/app/shared/services/common.service';
 import { RowsPerPage, RowsPerPageOptions } from 'src/app/shared/constants/constants';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-members-listing',
@@ -15,8 +16,7 @@ export class MembersListingComponent implements OnInit {
 
   @Input() communityId: any;
   @Output() getAllMembers = new EventEmitter<string>();
-
-  // @ViewChild('p', { static: true }) paginator!: Paginator
+  @ViewChild('paginator', { static: true }) paginator!: Paginator;
 
   data: any = [];
 
@@ -28,8 +28,10 @@ export class MembersListingComponent implements OnInit {
   pageSize: number = RowsPerPage;
   totalRecords: number = 0;
   currentPage: number = 1;
-  isShowPagination:boolean = false;
-
+  isShowPagination: boolean = false;
+  isReloaded: boolean = false;
+  first!: number;
+  
   constructor(
     private confirmationService: ConfirmationService,
     private communitiesService: ManageCommunitiesService,
@@ -49,8 +51,8 @@ export class MembersListingComponent implements OnInit {
   ngOnInit(): void {
     this.pageSize = +(this.route.snapshot.queryParamMap.get('pageSize') as any) || RowsPerPage;
     this.currentPage = +(this.route.snapshot.queryParamMap.get('currentPage') as any) || 1;
-    console.log('this.pageSize',this.pageSize)
-    console.log('this.currentPage',this.currentPage)
+    console.log('this.pageSize', this.pageSize)
+    console.log('this.currentPage', this.currentPage)
     // this.paginator.changePage(this.currentPage);
     // this.paginator.first = 0;
     // console.log('currentPage',this.paginator.currentPage())
@@ -67,6 +69,14 @@ export class MembersListingComponent implements OnInit {
       console.log('allCommunityMembers', res)
       this.data = res?.members?.rows;
       this.totalRecords = res?.members?.count;
+      if (!this.isReloaded) {
+        this.first = (this.currentPage - 1) * this.pageSize;
+        // this.paginator.changePage(this.currentPage)
+        // this.paginator.paginatorState.page = this.currentPage
+        // this.paginator.paginatorState.first = this.pageSize * this.currentPage
+      }
+      this.isReloaded = true;
+      console.log('this.paginator._page', this.paginator)
       this.getAllMembers.emit(this.data);
       this.closeAddEditMemberModal()
     } catch (err: any) {

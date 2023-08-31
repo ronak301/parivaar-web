@@ -115,7 +115,7 @@
                             of {{ data.length }} entries
                         </ng-template>
                     </p-table>
-                    <p-paginator [rows]="pageSize" [totalRecords]="totalRecords"
+                    <p-paginator #paginator [first]="first" [rows]="pageSize" [totalRecords]="totalRecords"
                         (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
                 </div>
             </div>
