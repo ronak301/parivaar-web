@@ -3,6 +3,20 @@
         <div class="col-6">
             <h3>Filter {{title}}</h3>
         </div>
+        <ng-container *ngIf="type == 'members'">
+            <div class="col-6 text-right d-none d-md-block">
+                <div style="display: flex;align-items: center;justify-content: end;">
+                    <label>Show Only Head &nbsp;&nbsp;</label>
+                    <p-inputSwitch [(ngModel)]="isShowOnlyAccountManager" (onChange)="onChangeSwitch()"></p-inputSwitch>
+                </div>
+            </div>
+            <div class="col-12 d-block d-md-none mt-3">
+                <div style="display: flex!important;align-items: center;">
+                    <label>Show Only Head &nbsp;&nbsp;</label>
+                    <p-inputSwitch [(ngModel)]="isShowOnlyAccountManager" (onChange)="onChangeSwitch()"></p-inputSwitch>
+                </div>
+            </div>
+        </ng-container>
         <!-- <div class="col-6 text-right">
             <ng-container *ngIf="type == 'members'">
                 <button pButton pRipple type="button" icon="pi pi-search" label="Search" (click)="onSubmitMemberForm()"
@@ -36,7 +50,7 @@
     <ng-container *ngIf="type == 'members'">
         <form [formGroup]="memberFormData">
             <div class="row">
-                <div class="col-10 my-auto">
+                <div class="col-md-10 col-12 my-auto">
                     <!-- <label class="d-block">First Name</label> -->
                     <input class="custom-form-control" formControlName="search" placeholder="Search name, number, etc" />
                 </div>
@@ -48,7 +62,7 @@
                     <label class="d-block">Phone</label>
                     <input class="custom-form-control" formControlName="phone" placeholder="Phone" />
                 </div> -->
-                <div class="col-2 my-auto">
+                <div class="col-md-2 col-12 my-md-auto mt-3">
                     <button pButton pRipple (click)="onSubmitMemberForm()" type="button" label="Search"
                         icon="pi pi-search" class="p-button-rounded btn-primary"></button>
                 </div>

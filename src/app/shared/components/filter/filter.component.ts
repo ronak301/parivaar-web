@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterService } from './services/filter.service';
 import { CommonService } from '../../services/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filter',
@@ -12,20 +13,30 @@ export class FilterComponent implements OnInit {
 
   @Input() type: string = 'community';
   @Input() title: string = 'Communities';
+  @Input() search: any;
+  @Input() communityId: any;
+  @Input() currentPage: any;
+  @Input() pageSize: any;
   @Output() getAllMembers = new EventEmitter<string>();
 
   status: any = [];
   cities: any = [];
   memberFormData!: FormGroup
+  isShowOnlyAccountManager: boolean = false;
 
   constructor(
     public fb: FormBuilder,
     public filterService: FilterService,
-    public commonService: CommonService
+    public commonService: CommonService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.initializeMemberForm()
+    if (this.search) {
+      this.searchData.patchValue(this.search)
+      this.onSubmitMemberForm()
+    }
   }
 
   initializeMemberForm() {
@@ -34,13 +45,24 @@ export class FilterComponent implements OnInit {
     })
   }
 
+  get searchData() {
+    return this.memberFormData.get('search') as FormGroup;
+  }
+
+  onChangeSwitch() {
+    console.log(this.isShowOnlyAccountManager)
+    this.onSubmitMemberForm()
+  }
+
   onSubmitMemberForm() {
+    const queryParams = { pageSize: this.pageSize, currentPage: this.currentPage, search: this.memberFormData.value.search };
+    this.router.navigate([`/pages/manage-communities/detail/${this.communityId}`], { queryParams: queryParams });
     this.commonService.startLoader()
     if (this.memberFormData.value.search) {
-      this.filterService.getMemberBySearch(this.memberFormData.value.search).then((res: any) => {
+      this.filterService.getMemberBySearch(this.memberFormData.value.search, this.isShowOnlyAccountManager).then((res: any) => {
         this.commonService.stopLoader()
-        console.log(res.data.rows)
-        this.getAllMembers.emit(res.data.rows)
+        console.log(res)
+        this.getAllMembers.emit(res)
       }).catch(err => {
         this.commonService.stopLoader()
         this.commonService.showToast('error', "Error", err?.error?.message)

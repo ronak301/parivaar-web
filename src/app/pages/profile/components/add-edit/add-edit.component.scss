@@ -19,3 +19,11 @@ input {
 textarea {
     width: 60%;
 }
+@media screen and (max-width: 767px) {
+    input {
+        width: 100%!important;
+    }
+    textarea {
+        width: 100%!important;
+    }
+}

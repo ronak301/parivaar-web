@@ -1,12 +1,78 @@
 <div class="container-fluid mb-4">
     <div class="info-container">
         <div class="row mb-4">
-            <div class="col-6 my-auto d-flex align-item-center">
+            <div class="col-md-5 col-12 my-auto d-flex align-item-center">
                 <i class="pi pi-arrow-left mr-3 cursor-pointer" (click)="goBack()"></i>
                 <h2>{{data?.firstName}} {{data?.lastName}}</h2>
+                <small *ngIf="data?.guardianName">&nbsp; ({{data?.guardianName}})</small>
+
             </div>
-            <div class="col-6 text-right">
-                <button pButton pRipple type="button" (click)="openAddEditMemberModal()" [label]="!isFamilyMember ? 'Update Profile' : 'Update Family Member'"
+            <div class="col-md-7 col-12 text-right mt-md-0 mt-3 d-none d-md-block">
+                <div style="display: flex;align-items: center;justify-content: end;">
+                    <div class="card mr-2" style="width: 18rem;" *ngIf="!data?.isAccountManager"
+                        routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data?.relatives[0]?.id}}">
+                        <div class="card-body">
+                            <h5 class="card-title">Family Head</h5>
+                            <div class="row">
+                                <div class="col-4 my-auto">
+                                    <ng-container *ngIf="data?.relatives[0]?.profilePicture">
+                                        <img [src]="data?.relatives[0]?.profilePicture" width="100%" alt="">
+                                    </ng-container>
+                                    <ng-container *ngIf="!data?.relatives[0]?.profilePicture">
+                                        <div class="no-profile">
+                                            {{data?.relatives[0]?.firstName.split('')[0]}}{{data?.relatives[0]?.lastName.split('')[0]}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="my-auto" [ngClass]="data?.relatives[0]?.bloodGroup ? 'col-4' : 'col-8'">
+                                    <span>{{data?.relatives[0]?.firstName}} {{data?.relatives[0]?.lastName}}</span>
+                                </div>
+                                <div class="col-4 my-auto text-right" *ngIf="data?.relatives[0]?.bloodGroup">
+                                    <span class="chips chips-danger rounded-25 blood"><img
+                                            src="../../../../../assets/images/blood.png" alt="">
+                                        {{data?.relatives[0]?.bloodGroup | bloodGroup}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button pButton pRipple type="button" (click)="openAddEditMemberModal()"
+                        [label]="!isFamilyMember ? 'Update Profile' : 'Update Family Member'"
+                        class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
+                    <button pButton pRipple type="button" label="Delete Member" (click)="deleteMemberConfirmation()"
+                        class="p-button-outlined p-button-rounded p-button-danger"></button>
+                </div>
+            </div>
+            <div class="col-12 text-right mt-md-0 mt-3 d-block d-md-none" *ngIf="!data?.isAccountManager">
+                <div class="card mr-2" style="width: 18rem;"
+                    routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data?.relatives[0]?.id}}">
+                    <div class="card-body">
+                        <h5 class="card-title">Family Head</h5>
+                        <div class="row">
+                            <div class="col-4 my-auto">
+                                <ng-container *ngIf="data?.relatives[0]?.profilePicture">
+                                    <img [src]="data?.relatives[0]?.profilePicture" width="100%" alt="">
+                                </ng-container>
+                                <ng-container *ngIf="!data?.relatives[0]?.profilePicture">
+                                    <div class="no-profile">
+                                        {{data?.relatives[0]?.firstName.split('')[0]}}{{data?.relatives[0]?.lastName.split('')[0]}}
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div class="my-auto" [ngClass]="data?.relatives[0]?.bloodGroup ? 'col-4' : 'col-8'">
+                                <span>{{data?.relatives[0]?.firstName}} {{data?.relatives[0]?.lastName}}</span>
+                            </div>
+                            <div class="col-4 my-auto text-right" *ngIf="data?.relatives[0]?.bloodGroup">
+                                <span class="chips chips-danger rounded-25 blood"><img
+                                        src="../../../../../assets/images/blood.png" alt="">
+                                    {{data?.relatives[0]?.bloodGroup | bloodGroup}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-md-0 mt-3 d-block d-md-none">
+                <button pButton pRipple type="button" (click)="openAddEditMemberModal()"
+                    [label]="!isFamilyMember ? 'Update Profile' : 'Update Family Member'"
                     class="p-button-outlined primary-button-outlined p-button-rounded mr-2"></button>
                 <button pButton pRipple type="button" label="Delete Member" (click)="deleteMemberConfirmation()"
                     class="p-button-outlined p-button-rounded p-button-danger"></button>
@@ -17,10 +83,15 @@
                 <div class="col-6 my-auto">
                     <h3>Personal Information</h3>
                 </div>
+                <div class="col-6 text-right" *ngIf="data?.isAccountManager">
+                    <span class="chips chips-success">
+                        Family Head
+                    </span>
+                </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <label class="text-muted mb-4">Profile Picture</label><br>
+                    <label class="text-muted mb-md-4 mb-2">Profile Picture</label><br>
                     <div class="preview-image" [ngStyle]="{'background-image': getCover()}">
                     </div>
                 </div>
@@ -254,8 +325,8 @@
         <h2>Update Family Member</h2>
     </ng-template>
     <ng-container *ngIf="data && isShowFamilyMember && addEditFamilyMemberModalDisplay">
-        <app-add-edit-family-member [communityId]="communityId" [id]="id" [data]="data" [relationship]="relationship" [relationshipId]="relationshipId"
-            (onSuccess)="getData()"></app-add-edit-family-member>
+        <app-add-edit-family-member [communityId]="communityId" [id]="id" [data]="data" [relationship]="relationship"
+            [relationshipId]="relationshipId" (onSuccess)="getData()"></app-add-edit-family-member>
     </ng-container>
 </p-dialog>
 <!-- Update Family Member Modal End -->

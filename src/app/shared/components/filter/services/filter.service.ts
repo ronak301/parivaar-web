@@ -13,10 +13,10 @@ export class FilterService {
     public http: HttpClient
   ) { }
 
-  getMemberBySearch(data: any) {
+  getMemberBySearch(data: any, isAccountManager: any) {
     let tempData = {
       "query": data,
-      "filter": {},
+      "filter": { isAccountManager: isAccountManager || undefined},
       "limit": 40,
       "skip": 0
     }

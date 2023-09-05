@@ -1,0 +1,94 @@
+<div class="container-fluid">
+    <div class="member-list-container">
+        <p-card>
+            <ng-container>
+                <div class="row my-4">
+                    <div class="col-6 my-auto">
+                        <h2>All Queries</h2>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- <p-table [value]="allCommunityMembers" [resizableColumns]="true"
+                        styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pResizableColumn pSortableColumn="firstName">Full Name <p-sortIcon
+                                        field="firstName"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="phone">Phone Number <p-sortIcon
+                                        field="phone"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="bloodGroup">Blood Group <p-sortIcon
+                                        field="bloodGroup"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="education">Education <p-sortIcon
+                                        field="education"></p-sortIcon></th>
+                                <th pResizableColumn pSortableColumn="business">Business <p-sortIcon
+                                        field="business"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data>
+                            <tr>
+                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.firstName}} {{data.lastName}}</td>
+                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.phone}}</td>
+                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">{{data.bloodGroup | bloodGroup}}</td>
+                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">
+                                    {{data?.education}}
+                                </td>
+                                <td routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{data.id}}">
+                                    {{data?.business?.name}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr class="emptymessage">
+                                <td colspan="5" class="text-center">
+                                    No data found
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table> -->
+                    <!-- <p-table [columns]="cols" [value]="data"> -->
+                    <p-table [columns]="cols" [value]="data" [paginator]="true"
+                        [rows]="pageSize" [rowsPerPageOptions]="rowsPerPageOptions">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns">
+                                    <ng-container *ngIf="col.field !== 'timestamp'">
+                                        {{rowData[col.field]}}
+                                    </ng-container>
+                                    <ng-container *ngIf="col.field === 'timestamp'">
+                                        {{(rowData[col.field]['seconds'] * 1000) | date : 'medium'}}
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr class="emptymessage">
+                                <td colspan="5" style="justify-content: center;text-align: center;">
+                                    No data found
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <!-- <ng-template pTemplate="paginatorleft" let-state>
+                            Showing {{ state.first + 1}} to
+                            {{
+                            state.rows + state.first > data.length
+                            ? data.length
+                            : state.rows + state.first
+                            }}
+                            of {{ data.length }} entries
+                        </ng-template> -->
+                    </p-table>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>

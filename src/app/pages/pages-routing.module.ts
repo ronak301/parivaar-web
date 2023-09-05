@@ -33,6 +33,11 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule)
       },
+      {
+        path: 'queries',
+        canActivate: [AuthGuardService],
+        loadChildren: () => import('./manage-contacts/manage-contacts.module').then(m => m.ManageContactsModule)
+      },
     ]
   },
 ];

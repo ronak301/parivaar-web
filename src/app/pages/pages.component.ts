@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { CommonService } from '../shared/services/common.service';
 
 @Component({
   selector: 'app-pages',
@@ -16,7 +17,10 @@ export class PagesComponent implements OnInit {
   communities: any;
   selectedCommunity: any;
 
-  constructor(public router:Router) {
+  constructor(
+    public router:Router,
+    public commonService:CommonService,
+    ) {
   }
 
   ngOnInit(): void {

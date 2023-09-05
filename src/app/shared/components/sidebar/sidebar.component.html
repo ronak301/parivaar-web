@@ -3,6 +3,7 @@
         <div class="logo-container">
             <img src="../../../../assets/images/logo.svg" alt="">
             <span>Parivaar</span>
+            <i class="pi pi-times close-icon d-lg-none" (click)="commonService.toggleSidebar()"></i>
         </div>
         <small>India’s First Local Community App</small>
     </div>
@@ -10,21 +11,26 @@
     <ul class="sidebar-menu">
         <li>
             <ng-container *ngIf="this.auth.getUserAuthStateLocalData()">
-                <a routerLink="/pages/manage-communities" 
-                    routerLinkActive="active">
+                <a routerLink="/pages/manage-communities" (click)="commonService.toggleSidebar()" routerLinkActive="active">
                     <i class="pi pi-th-large"></i>
                     <span>All Communities</span>
                 </a>
-                <a routerLink="/pages/manage-profile" routerLinkActive="active">
+                <a routerLink="/pages/manage-profile" (click)="commonService.toggleSidebar()" routerLinkActive="active">
                     <i class="pi pi-user"></i>
                     <span>My Profile</span>
                 </a>
-                <a routerLink="/pages/about-us" routerLinkActive="active">
+                <a routerLink="/pages/about-us" (click)="commonService.toggleSidebar()" routerLinkActive="active">
                     <i class="pi pi-info-circle"></i>
                     <span>About Us</span>
                 </a>
+                <ng-container *ngIf="this.auth.isSuperAdmin()">
+                    <a routerLink="/pages/queries" (click)="commonService.toggleSidebar()" routerLinkActive="active">
+                        <i class="pi pi-envelope"></i>
+                        <span>Queries</span>
+                    </a>
+                </ng-container>
             </ng-container>
-            <a routerLink="/pages/help-center" routerLinkActive="active">
+            <a routerLink="/pages/help-center" (click)="commonService.toggleSidebar()" routerLinkActive="active">
                 <i class="pi pi-phone"></i>
                 <span>Help Center</span>
             </a>

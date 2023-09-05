@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <p-card>
         <div class="row mb-4">
-            <div class="col-6 my-auto">
+            <div class="col-md-6 col-12 my-auto">
                 <h2>Communities({{data.length}})</h2>
             </div>
-            <div class="col-6 text-right">
+            <div class="col-md-6 col-12 text-md-right mt-md-0 mt-4">
                 <button pButton pRipple (click)="openAddEditCommunityModal()" type="button" icon="pi pi-plus"
                     label="Add Community" class="p-button-outlined primary-button-outlined p-button-rounded"></button>
             </div>
@@ -12,7 +12,7 @@
 
         <!-- <app-filter></app-filter> -->
 
-        <div class="row mt-5">
+        <div class="row mt-md-5 mt-4">
             <div class="col-12">
                 <p-table [value]="data" [resizableColumns]="true"
                     styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped" responsiveLayout="scroll">

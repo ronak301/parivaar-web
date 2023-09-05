@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,8 @@ export class HeaderComponent implements OnInit {
   user:any;
 
   constructor(
-    public auth: AuthService
+    public auth: AuthService,
+    public commonService:CommonService
   ) { }
 
   ngOnInit(): void {

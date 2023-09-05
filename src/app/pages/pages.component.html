@@ -34,10 +34,12 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2 px-0">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="col-md-10">
+    <ng-container *ngIf="commonService.showSidebar">
+      <div class="col-md-2 px-0">
+        <app-sidebar></app-sidebar>
+      </div>
+    </ng-container>
+    <div class="col-md-10" [ngClass]="commonService.showSidebar ? 'col-md-10 d-none d-md-block' : 'col-md-12'">
       <div class="row">
         <div class="col-md-12 px-0">
           <app-header></app-header>

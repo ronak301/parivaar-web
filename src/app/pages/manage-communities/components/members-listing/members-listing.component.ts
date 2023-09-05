@@ -31,7 +31,8 @@ export class MembersListingComponent implements OnInit {
   isShowPagination: boolean = false;
   isReloaded: boolean = false;
   first!: number;
-  
+  search:string = '';
+
   constructor(
     private confirmationService: ConfirmationService,
     private communitiesService: ManageCommunitiesService,
@@ -51,13 +52,16 @@ export class MembersListingComponent implements OnInit {
   ngOnInit(): void {
     this.pageSize = +(this.route.snapshot.queryParamMap.get('pageSize') as any) || RowsPerPage;
     this.currentPage = +(this.route.snapshot.queryParamMap.get('currentPage') as any) || 1;
+    this.search = this.route.snapshot.queryParamMap.get('search') || '';
     console.log('this.pageSize', this.pageSize)
     console.log('this.currentPage', this.currentPage)
     // this.paginator.changePage(this.currentPage);
     // this.paginator.first = 0;
     // console.log('currentPage',this.paginator.currentPage())
     // this.paginator.changePage(this.currentPage)
-    this.getAllCommunityMembers()
+    if(!this.search) {
+      this.getAllCommunityMembers()
+    }
   }
 
   async getAllCommunityMembers() {
@@ -71,9 +75,6 @@ export class MembersListingComponent implements OnInit {
       this.totalRecords = res?.members?.count;
       if (!this.isReloaded) {
         this.first = (this.currentPage - 1) * this.pageSize;
-        // this.paginator.changePage(this.currentPage)
-        // this.paginator.paginatorState.page = this.currentPage
-        // this.paginator.paginatorState.first = this.pageSize * this.currentPage
       }
       this.isReloaded = true;
       console.log('this.paginator._page', this.paginator)
@@ -134,7 +135,8 @@ export class MembersListingComponent implements OnInit {
     if (event === 'clear') {
       this.getAllCommunityMembers()
     } else {
-      this.data = event
+      this.data = event.data.rows
+      this.totalRecords = event.data.count
       this.getAllMembers.emit(this.data)
     }
   }

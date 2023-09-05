@@ -2,17 +2,18 @@
     <div class="member-list-container">
         <p-card>
             <div class="row mb-4">
-                <div class="col-6 my-auto">
-                    <h2>{{totalRecords <= 1 ? 'Member' : 'Members' }}({{totalRecords}})</h2>
+                <div class="col-md-6 col-5 my-auto">
+                    <h2>{{totalRecords <= 1 ? 'Member' : 'Members' }} ({{totalRecords}})</h2>
                 </div>
-                <div class="col-6 text-right">
+                <div class="col-md-6 col-7 text-right">
                     <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member"
                         (click)="openAddEditMemberModal()"
                         class="p-button-outlined primary-button-outlined p-button-rounded"></button>
                 </div>
             </div>
 
-            <app-filter [title]="'Members'" [type]="'members'"
+            <app-filter [title]="'Members'" [type]="'members'" [search]="search" [communityId]="communityId"
+                [currentPage]="currentPage" [pageSize]="pageSize"
                 (getAllMembers)="getAllMembersByFilter($event)"></app-filter>
 
             <ng-container *ngIf="selectedList.length>0">
@@ -69,7 +70,7 @@
                         </ng-template>
                     </p-table> -->
                     <p-table [columns]="cols" [value]="data">
-                    <!-- <p-table [columns]="cols" [value]="data" [scrollable]="true" scrollHeight="500px"
+                        <!-- <p-table [columns]="cols" [value]="data" [scrollable]="true" scrollHeight="500px"
                         [virtualScroll]="true"> -->
                         <!-- [first]="firstRowIndex" [rows]="rowsPerPage" [rowsPerPageOptions]="rowsPerPageOptions" (onPage)="onPageChange($event)"> -->
                         <!-- [first]="firstRowIndex" [rows]="rowsPerPage" (onPage)="onPageChange($event)"> -->
@@ -101,7 +102,7 @@
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
                             <tr class="emptymessage">
-                                <td colspan="5" style="justify-content: center;">
+                                <td colspan="5" style="justify-content: center;text-align: center;">
                                     No data found
                                 </td>
                             </tr>
@@ -116,7 +117,9 @@
                             of {{ data.length }} entries
                         </ng-template>
                     </p-table>
-                    <p-paginator #paginator [first]="first" [showFirstLastIcon]="false" [rows]="pageSize" [totalRecords]="totalRecords"
+                    <p-paginator #paginator [first]="first" class="d-none d-md-block" [rows]="pageSize" [totalRecords]="totalRecords"
+                        (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
+                    <p-paginator #paginator [first]="first" class="d-block d-md-none" [pageLinkSize]="3" [rows]="pageSize" [totalRecords]="totalRecords"
                         (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
                 </div>
             </div>

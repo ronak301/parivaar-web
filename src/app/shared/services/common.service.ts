@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, HostListener } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -7,10 +7,19 @@ import { MessageService } from 'primeng/api';
 export class CommonService {
 
   loader: boolean = false
+  showSidebar: boolean = false;
+  isMobile: boolean = false;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.checkScreenSize();
+  }
 
   constructor(
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+  ) {
+    this.checkScreenSize()
+  }
 
   startLoader() {
     this.loader = true
@@ -31,4 +40,16 @@ export class CommonService {
     }
   }
 
+  toggleSidebar() {
+    if(this.isMobile) {
+      this.showSidebar = !this.showSidebar;
+    }
+  }
+
+  private checkScreenSize(): void {
+    this.isMobile = window.innerWidth < 768;
+    if(!this.isMobile) {
+      this.showSidebar = true
+    }
+  }
 }
