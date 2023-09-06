@@ -168,6 +168,7 @@ export class AddEditMemberComponent implements OnInit, OnChanges {
     });
     nonNullFields.firstName = nonNullFields.firstName.trim()
     nonNullFields.lastName = nonNullFields.lastName.trim()
+    nonNullFields.fullName = nonNullFields.firstName + ' ' + nonNullFields.lastName
     if (this.id) {
       console.log(nonNullFields)
       try {

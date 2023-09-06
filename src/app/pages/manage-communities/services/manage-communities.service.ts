@@ -144,4 +144,14 @@ export class ManageCommunitiesService {
     }
     return this.http.post(this.apiUrl + 'user/search', tempData).toPromise()
   }
+
+  searchExecutiveMembers(data: any, communityId: any) {
+    let tempData = {
+      "query": data,
+      "filter": { isAccountManager: true },
+      "limit": 40,
+      "skip": 0
+    }
+    return this.http.post(this.apiUrl + 'user/search', tempData).toPromise()
+  }
 }

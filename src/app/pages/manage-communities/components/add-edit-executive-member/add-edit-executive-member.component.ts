@@ -37,30 +37,57 @@ export class AddEditExecutiveMemberComponent implements OnInit, OnChanges {
   }
 
   applyFilter() {
-    if (!this.searchQuery) {
-      this.filteredData = this.allMembers;
-      return;
-    }
+    // if (!this.searchQuery) {
+    //   this.filteredData = this.allMembers;
+    //   return;
+    // }
 
-    const lowerCaseQuery = this.searchQuery.toLowerCase();
-    this.filteredData = this.allMembers.filter((item: any) => {
-      for (const key in item) {
-        if (item.hasOwnProperty(key) && typeof item[key] === 'string') {
-          if (item[key].toLowerCase().includes(lowerCaseQuery)) {
-            return true;
-          }
-        }
-      }
-      return false;
-    });
+    // const lowerCaseQuery = this.searchQuery.toLowerCase();
+    // this.filteredData = this.allMembers.filter((item: any) => {
+    //   for (const key in item) {
+    //     if (item.hasOwnProperty(key) && typeof item[key] === 'string') {
+    //       if (item[key].toLowerCase().includes(lowerCaseQuery)) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    //   return false;
+    // });
+    if(!this.searchQuery) {
+      this.filteredData = this.allMembers
+      return
+    }
+    this.communitiesService.searchExecutiveMembers(this.searchQuery,this.communityId).then((res:any)=>{
+      console.log(res)
+      this.filteredData = res?.data?.rows 
+    })
   }
 
-  onSearchKeyUp() {
-    if (!this.searchQuery) {
-      this.filteredData = this.allMembers;
-      return;
-    }
-  }
+  // applyFilter() {
+  //   if (!this.searchQuery) {
+  //     this.filteredData = this.allMembers;
+  //     return;
+  //   }
+
+  //   const lowerCaseQuery = this.searchQuery.toLowerCase();
+  //   this.filteredData = this.allMembers.filter((item: any) => {
+  //     for (const key in item) {
+  //       if (item.hasOwnProperty(key) && typeof item[key] === 'string') {
+  //         if (item[key].toLowerCase().includes(lowerCaseQuery)) {
+  //           return true;
+  //         }
+  //       }
+  //     }
+  //     return false;
+  //   });
+  // }
+
+  // onSearchKeyUp() {
+  //   if (!this.searchQuery) {
+  //     this.filteredData = this.allMembers;
+  //     return;
+  //   }
+  // }
 
   onNextstep(step: string) {
     this.step = step;
