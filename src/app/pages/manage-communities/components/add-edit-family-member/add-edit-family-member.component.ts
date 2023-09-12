@@ -196,6 +196,7 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
     nonNullFields.firstName = nonNullFields.firstName.trim()
     nonNullFields.lastName = nonNullFields.lastName.trim()
     nonNullFields.fullName = nonNullFields.firstName + ' ' + nonNullFields.lastName
+    nonNullFields.fullName = nonNullFields.fullName.replace(/\s/g, '');
     if (this.id) {
       if (nonNullFields?.relative) {
         delete nonNullFields.relative

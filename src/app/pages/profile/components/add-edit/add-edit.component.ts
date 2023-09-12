@@ -174,6 +174,7 @@ export class AddEditComponent implements OnInit {
     nonNullFields.firstName = nonNullFields.firstName.trim()
     nonNullFields.lastName = nonNullFields.lastName.trim()
     nonNullFields.fullName = nonNullFields.firstName + ' ' + nonNullFields.lastName
+    nonNullFields.fullName = nonNullFields.fullName.replace(/\s/g, '');
     if (this.id) {
       this.profileService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath).then((res: any) => {
         console.log(res)
