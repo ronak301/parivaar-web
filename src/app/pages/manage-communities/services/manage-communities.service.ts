@@ -49,10 +49,10 @@ export class ManageCommunitiesService {
     return this.http.put(this.apiUrl + `community/${id}`, data).toPromise()
   }
 
-  getCommunityMembers(communityId: string, from: number, to: number) {
+  getCommunityMembers(communityId: string, from: number, to: number, isAccountManager: boolean) {
     let data = {
       filter: {
-        isAccountManager: true
+        isAccountManager: isAccountManager
       },
       query: '',
       skip: from,

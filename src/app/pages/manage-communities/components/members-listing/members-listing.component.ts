@@ -21,6 +21,7 @@ export class MembersListingComponent implements OnInit {
   data: any = [];
 
   addEditMemberModalDisplay: boolean = false;
+  editMemberModalDisplay: boolean = false;
   selectedList: any = [];
 
   cols: any[];
@@ -31,7 +32,10 @@ export class MembersListingComponent implements OnInit {
   isShowPagination: boolean = false;
   isReloaded: boolean = false;
   first!: number;
-  search:string = '';
+  search: string = '';
+  isAccountManager: boolean = true;
+  singleMemberDetails: any;
+  imagePreviewUrl: string = './assets/images/user.jpeg';
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -46,6 +50,7 @@ export class MembersListingComponent implements OnInit {
       { field: 'bloodGroup', header: 'Blood Group' },
       { field: 'education', header: 'Education' },
       { field: 'business', header: 'Business' },
+      { field: '', header: 'Action' },
     ];
   }
 
@@ -59,16 +64,17 @@ export class MembersListingComponent implements OnInit {
     // this.paginator.first = 0;
     // console.log('currentPage',this.paginator.currentPage())
     // this.paginator.changePage(this.currentPage)
-    if(!this.search) {
+    if (!this.search) {
       this.getAllCommunityMembers()
     }
   }
 
   async getAllCommunityMembers() {
     try {
+      this.editMemberModalDisplay = false;
       const startIndex = (this.currentPage - 1) * this.pageSize;
       this.commonService.startLoader()
-      const res: any = await this.communitiesService.getCommunityMembers(this.communityId, startIndex, this.pageSize)
+      const res: any = await this.communitiesService.getCommunityMembers(this.communityId, startIndex, this.pageSize, this.isAccountManager)
       this.commonService.stopLoader()
       console.log('allCommunityMembers', res)
       this.data = res?.members?.rows;
@@ -148,6 +154,41 @@ export class MembersListingComponent implements OnInit {
     const queryParams = { pageSize: this.pageSize, currentPage: this.currentPage };
     this.router.navigate([`/pages/manage-communities/detail/${this.communityId}`], { queryParams: queryParams });
     this.getAllCommunityMembers()
+  }
+
+  toggleIsAccountManager() {
+    this.isAccountManager = !this.isAccountManager
+    this.getAllCommunityMembers()
+  }
+
+  onEditMember(data: any) {
+    this.getsingleMemberData(data.id)
+  }
+
+  async getsingleMemberData(id: any) {
+    try {
+      this.commonService.startLoader()
+      const res: any = await this.communitiesService.getUserById(id)
+      this.singleMemberDetails = res.data;
+      if (this.singleMemberDetails?.business == null) {
+        this.singleMemberDetails['hasBusiness'] = false
+      } else {
+        this.singleMemberDetails['hasBusiness'] = true
+      }
+      if (this.singleMemberDetails?.profilePicture != null) {
+        this.imagePreviewUrl = this.singleMemberDetails.profilePicture
+      }
+      console.log(this.singleMemberDetails)
+      this.commonService.stopLoader()
+      this.editMemberModalDisplay = true;
+    } catch (err: any) {
+      this.commonService.showToast('error', "Error", err?.error?.message)
+      this.commonService.stopLoader()
+    }
+  }
+
+  getCover() {
+    return "url('" + this.imagePreviewUrl + "')"
   }
 
 }

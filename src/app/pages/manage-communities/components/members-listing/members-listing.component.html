@@ -6,6 +6,8 @@
                     <h2>{{totalRecords <= 1 ? 'Member' : 'Members' }} ({{totalRecords}})</h2>
                 </div>
                 <div class="col-md-6 col-7 text-right">
+                    <button pButton pRipple (click)="toggleIsAccountManager()" type="button" [label]="isAccountManager ? 'Show All Members' : 'Show Only Head'"
+                        class="p-button-rounded btn-primary mr-3"></button>
                     <button pButton pRipple type="button" icon="pi pi-plus" label="Add Member"
                         (click)="openAddEditMemberModal()"
                         class="p-button-outlined primary-button-outlined p-button-rounded"></button>
@@ -82,20 +84,31 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-columns="columns">
-                            <tr routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{rowData['id']}}">
+                            <tr>
                                 <td *ngFor="let col of columns">
                                     <ng-container
                                         *ngIf="col.field !== 'firstName' && col.field !== 'bloodGroup' && col.field !== 'business'">
-                                        {{rowData[col.field]}}
+                                        <span routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{rowData['id']}}">
+                                            {{rowData[col.field]}}
+                                        </span> 
                                     </ng-container>
                                     <ng-container *ngIf="col.field === 'firstName'">
-                                        {{rowData['firstName']}} {{rowData['lastName']}}
+                                        <span routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{rowData['id']}}">
+                                            {{rowData['firstName']}} {{rowData['lastName']}}
+                                        </span>
                                     </ng-container>
                                     <ng-container *ngIf="col.field === 'bloodGroup'">
-                                        {{rowData[col.field] | bloodGroup}}
+                                        <span routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{rowData['id']}}">
+                                            {{rowData[col.field] | bloodGroup}}
+                                        </span>
                                     </ng-container>
                                     <ng-container *ngIf="col.field === 'business'">
-                                        {{rowData['business']?.name || "-"}}
+                                        <span routerLink="/pages/manage-communities/{{communityId}}/member-detail/{{rowData['id']}}">
+                                            {{rowData['business']?.name || "-"}}
+                                        </span>
+                                    </ng-container>
+                                    <ng-container *ngIf="col.header === 'Action'">
+                                        <i class="pi pi-pencil cursor-pointer" (click)="onEditMember(rowData)"></i>
                                     </ng-container>
                                 </td>
                             </tr>
@@ -117,10 +130,12 @@
                             of {{ data.length }} entries
                         </ng-template>
                     </p-table>
-                    <p-paginator #paginator [first]="first" class="d-none d-md-block" [rows]="pageSize" [totalRecords]="totalRecords"
-                        (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
-                    <p-paginator #paginator [first]="first" class="d-block d-md-none" [pageLinkSize]="3" [rows]="pageSize" [totalRecords]="totalRecords"
-                        (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
+                    <p-paginator #paginator [first]="first" class="d-none d-md-block" [rows]="pageSize"
+                        [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"
+                        [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
+                    <p-paginator #paginator [first]="first" class="d-block d-md-none" [pageLinkSize]="3"
+                        [rows]="pageSize" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"
+                        [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
                 </div>
             </div>
         </p-card>
@@ -150,3 +165,17 @@
     <app-add-edit-member [communityId]="communityId" (onSuccess)="getAllCommunityMembers()"></app-add-edit-member>
 </p-dialog>
 <!-- Add Member Modal End -->
+
+
+<!-- Update Member Modal Start -->
+<p-dialog position="top-right" class="add-edit-community-modal full-height-modal" [modal]="true" [draggable]="false"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}"
+    [(visible)]="editMemberModalDisplay">
+    <ng-template pTemplate="header">
+        <h2>Edit Member</h2>
+    </ng-template>
+    <ng-container *ngIf="singleMemberDetails && editMemberModalDisplay">
+        <app-add-edit-member [id]="singleMemberDetails?.id" [data]="singleMemberDetails" [communityId]="communityId" (onSuccess)="getAllCommunityMembers()"></app-add-edit-member>
+    </ng-container>
+</p-dialog>
+<!-- Update Member Modal End -->
