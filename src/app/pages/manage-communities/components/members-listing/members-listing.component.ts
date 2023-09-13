@@ -36,7 +36,167 @@ export class MembersListingComponent implements OnInit {
   isAccountManager: boolean = true;
   singleMemberDetails: any;
   imagePreviewUrl: string = './assets/images/user.jpeg';
-
+  nameMapping: any = {
+    "सुश्री दानिशा": "Sushri Danisha",
+    "उदावत": "Udawat",
+    "सुश्री प्रणवी": "Sushri Pranavi",
+    "जैन": "Jain",
+    "सेवित": "Sevit",
+    "बाबेल": "Babel",
+    "हर्षिता": "Harshita",
+    "पोरवाल": "Porwal",
+    "हिना": "Hina",
+    "तलेसरा": "Talesara",
+    "आदित्यराज": "Adityaraj",
+    "आयुषी": "Ayushi",
+    "इन्टोदिया": "Intodia",
+    "आसोज": "Asoj",
+    "इंद्रा": "Indra",
+    "नागौरी": "Nagauri",
+    "उपासना": "Upasana",
+    "उषा": "Usha",
+    "नैनावटी": "Nainavati",
+    "लोढ़ा": "Lodha",
+    "ऋषिका": "Rishika",
+    "सुराना": "Surana",
+    "एकता": "Ekta",
+    "सामोता": "Samota",
+    "ऐश्वर्या": "Aishwarya",
+    "दक": "Dak",
+    "कन्हैयालाल": "Kanhaiyalal",
+    "परमार": "Paramar",
+    "कमला": "Kamla",
+    "कान्ता": "Kanta",
+    "कोठारी": "Kothari",
+    "काव्या": "Kavya",
+    "कैलाश देवी": "Kailash Devi",
+    "खुशी": "Khushi",
+    "भंडारी": "Bhandari",
+    "गजल": "Gazal",
+    "गौरव": "Gaurav",
+    "चंद्र कला": "Chandra Kala",
+    "पोखरना": "Pokharna",
+    "चंद्रकांता": "Chandrakanta",
+    "चिराग": "Chirag",
+    "सरणोत": "Saranot",
+    "जसवी": "Jasvi",
+    "जिविशा": "Jivisha",
+    "जिवेन्द्र": "Jivendra",
+    "ज्योति": "Jyoti",
+    "महनोत": "Mahanot",
+    "झंखना जैन": "Jhankhna Jain",
+    "(चांदनी)": "(Chandni)",
+    "डा० नीरज": "Dr. Neeraj",
+    "डॉ": "Dr.",
+    "प्रीति": "Preeti",
+    "डॉ रेनू शशि": "Dr. Renu Shashi",
+    "मेहता": "Mehta",
+    "डॉ. राहुल": "Dr. Rahul",
+    "डॉ. सुनील कुमार": "Dr. Sunil Kumar",
+    "डॉक्टर": "Doctor",
+    "निशा": "Nisha",
+    "मिताषा": "Mitasha",
+    "तारा": "Tara",
+    "तेजस": "Tejas",
+    "दर्शिल": "Darshil",
+    "दिपक": "Deepak",
+    "धीर": "Dheer",
+    "धैर्य": "Dhairya",
+    "ध्रुव": "Dhruv",
+    "ध्वनि": "Dhvani",
+    "कंठालिया": "Kanthalia",
+    "नमीता": "Namita",
+    "निर्मला": "Nirmala",
+    "नीता": "Neeta",
+    "खोखावत": "Khokhawat",
+    "नीतिज्ञ राय": "Neetij Ray",
+    "नीलम": "Neelam",
+    "नेहा": "Neha",
+    "पगारिया": "Pagariya",
+    "नेहा लोढ़ा": "Neha Lodha",
+    "नेहिल": "Nehil",
+    "नैतिक": "Naitik",
+    "परिधि": "Paridhi",
+    "पायल": "Payal",
+    "पिस्ता देवी": "Pista Devi",
+    "पुष्पा": "Pushpa",
+    "पूनम": "Poonam",
+    "प्रकाश चन्द्र": "Prakash Chandra",
+    "प्रणवीर": "Pranveer",
+    "प्रतीक": "Prateek",
+    "प्रतीक्षा": "Pratiksha",
+    "प्रमिला": "Pranmila",
+    "प्रयाग": "Prayag",
+    "चौधरी": "Chaudhary",
+    "प्रांशुल": "Pranshul",
+    "प्रेक्षा": "Preksha",
+    "बाली": "Bali",
+    "बीना": "Beena",
+    "बेला": "Bela",
+    "भगवती": "Bhagwati",
+    "भव्यश्री": "Bhavyashree",
+    "मनीषा": "Manisha",
+    "ममता": "Mamta",
+    "मयंक": "Mayank",
+    "यथार्थ": "Yatharth",
+    "बोहरा": "Bohra",
+    "युग": "Yug",
+    "बम्ब": "Bomb",
+    "रंजना": "Ranjana",
+    "भानावत": "Bhanawat",
+    "रजत": "Rajat",
+    "राजकुमार": "Rajkumar",
+    "रानी": "Rani",
+    "रिद्धि": "Riddhi",
+    "रिया": "Riya",
+    "रीना": "Reena",
+    "रेणुबाला": "Renubala",
+    "कच्छारा": "Kachhara",
+    "लब्धि": "Labdhi",
+    "भण्डारी": "Bhandari",
+    "लोहित": "Lohit",
+    "वंदना": "Vandana",
+    "विक्रम": "Vikram",
+    "विदुषी": "Vidushi",
+    "विद्या": "Vidya",
+    "विनीत": "Vineet",
+    "विपुल": "Vipul",
+    "विमला": "Vimala",
+    "विवेक": "Vivek",
+    "विहिका": "Vihika",
+    "शकुंतला": "Shakuntala",
+    "शब्दांक": "Shabdank",
+    "शलभ": "Shalabh",
+    "शशि बाला": "Shashi Bala",
+    "लोढा": "Lodha",
+    "शशीकांत": "Shashikant",
+    "शांता": "Shanta",
+    "देवी": "Devi",
+    "शाश्वत": "Shashwat",
+    "शिखा": "Shikha",
+    "शीतल": "Sheetal",
+    "शुभम": "Shubham",
+    "श्री मती वन्दना": "Shrimati Vandana",
+    "श्रीमती कविता": "Shrimati Kavita",
+    "श्रीमती मधुलिका": "Shrimati Madhulika",
+    "श्रीमती मन्जू": "Shrimati Manju",
+    "श्रीमती वर्तिका": "Shrimati Vartika",
+    "श्वेता पोरवाल": "Shweta Porwal",
+    "सात्विक": "Satvik",
+    "सान्वी": "Sanvi",
+    "सारिका": "Sarika",
+    "सिद्धार्थ": "Siddharth",
+    "सु मधुर": "Su Madhur",
+    "सुमन": "Suman",
+    "अंजू": "Anju",
+    "बापना": "Bapna",
+    "अक्षत": "Akshat",
+    "अदिति लोढ़ा": "Aditi Lodha",
+    "अनुराग": "Anurag",
+    "अनुश्री": "Anushree",
+    "अर्थांक": "Arthank",
+    "आदित्य": "Aditya"
+  }
   constructor(
     private confirmationService: ConfirmationService,
     private communitiesService: ManageCommunitiesService,
@@ -52,6 +212,7 @@ export class MembersListingComponent implements OnInit {
       { field: 'business', header: 'Business' },
       { field: '', header: 'Action' },
     ];
+    // console.log('convertToEnglish',this.convertToEnglish(['सिद्धार्थ']))
   }
 
   ngOnInit(): void {
@@ -190,5 +351,37 @@ export class MembersListingComponent implements OnInit {
   getCover() {
     return "url('" + this.imagePreviewUrl + "')"
   }
+
+
+  async convertNames() {
+    try {
+      this.commonService.startLoader()
+      for (let index = 0; index < this.data.length; index++) {
+        const singleData = this.data[index];
+        let firstName = this.convertToEnglish([singleData.firstName])[0];
+        let lastName = this.convertToEnglish([singleData.lastName])[0];
+        let fullName = firstName + ' ' + lastName;
+        fullName = fullName.replace(/\s/g, '');;
+        let data = {
+          firstName: firstName,
+          lastName: lastName,
+          fullName: fullName
+        }
+        console.log('convertedData',data)
+        await this.communitiesService.updateMember(singleData.id,data)
+      }
+      this.commonService.stopLoader()
+    } catch (err) {
+      console.log(err)
+      this.commonService.stopLoader()
+    }
+  }
+
+  convertToEnglish(names: string[]): string[] {
+    return names.map(name => this.nameMapping[name] || name);
+  }
+
+
+
 
 }
