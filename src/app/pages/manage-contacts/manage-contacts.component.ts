@@ -26,7 +26,7 @@ export class ManageContactsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.getAll()
+    this.getAll()
   }
 
   async getAll() {
