@@ -210,7 +210,7 @@ export class MembersListingComponent implements OnInit {
       { field: 'bloodGroup', header: 'Blood Group' },
       { field: 'education', header: 'Education' },
       { field: 'business', header: 'Business' },
-      { field: '', header: 'Action' },
+      // { field: '', header: 'Action' },
     ];
     // console.log('convertToEnglish',this.convertToEnglish(['सिद्धार्थ']))
   }

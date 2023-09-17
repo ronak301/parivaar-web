@@ -88,6 +88,8 @@ export class MemberDetailComponent implements OnInit {
       this.familyMembers = res.data?.relatives || []
       if (this.data?.profilePicture != null) {
         this.imagePreviewUrl = this.data.profilePicture
+      } else {
+        this.imagePreviewUrl = "./assets/images/user.jpeg"
       }
       console.log(this.data)
       this.commonService.stopLoader()

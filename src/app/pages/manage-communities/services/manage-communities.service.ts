@@ -52,7 +52,7 @@ export class ManageCommunitiesService {
   getCommunityMembers(communityId: string, from: number, to: number, isAccountManager: boolean) {
     let data = {
       filter: {
-        isAccountManager: isAccountManager
+        isAccountManager: isAccountManager == true ? true : undefined
       },
       query: '',
       skip: from,
