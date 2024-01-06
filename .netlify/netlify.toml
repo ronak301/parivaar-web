@@ -1,6 +1,6 @@
-functionsDirectory = "/Users/apple/Documents/projects/work/parivaar-web/netlify/functions"
-functionsDirectoryOrigin = "ui"
 plugins = []
+functionsDirectory = "/Users/apple/Documents/projects/work/parivaar-web/netlify/functions"
+functionsDirectoryOrigin = "config-v1"
 headers = []
 redirects = []
 
@@ -10,9 +10,9 @@ redirects = []
 
 [build]
 publish = "/Users/apple/Documents/projects/work/parivaar-web/dist"
-publishOrigin = "ui"
+publishOrigin = "config"
 command = "npm run build"
-commandOrigin = "ui"
+commandOrigin = "config"
 functions = "/Users/apple/Documents/projects/work/parivaar-web/netlify/functions"
 
 [build.environment]
