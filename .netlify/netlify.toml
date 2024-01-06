@@ -1,0 +1,30 @@
+functionsDirectory = "/Users/apple/Documents/projects/work/parivaar-web/netlify/functions"
+functionsDirectoryOrigin = "ui"
+plugins = []
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/Users/apple/Documents/projects/work/parivaar-web/dist"
+publishOrigin = "ui"
+command = "npm run build"
+commandOrigin = "ui"
+functions = "/Users/apple/Documents/projects/work/parivaar-web/netlify/functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
