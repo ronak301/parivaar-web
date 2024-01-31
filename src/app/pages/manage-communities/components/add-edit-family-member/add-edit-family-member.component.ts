@@ -59,7 +59,7 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
       console.log(this.formData.value)
     }
     if (this.id) {
-      this.step = "second";
+      // this.step = "second";
       this.patchValue()
     }
     if (this.relationship) {
