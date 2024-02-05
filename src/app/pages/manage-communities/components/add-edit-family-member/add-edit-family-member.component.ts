@@ -201,6 +201,9 @@ export class AddEditFamilyMemberComponent implements OnInit, OnChanges {
       if (nonNullFields?.relative) {
         delete nonNullFields.relative
       }
+      if (!nonNullFields?.hasBusiness) {
+        delete nonNullFields.business
+      }
       try {
         console.log(nonNullFields)
         const res = await this.communitiesService.updateMember(this.id, nonNullFields, this.imageFile, this.data?.imagePath)
